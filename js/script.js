@@ -1,4 +1,5 @@
 const background = document.querySelector('body')
+const image = document.querySelector('.image')
 
 const lazyElements = [...document.querySelectorAll('.lazy')]
 
@@ -15,25 +16,6 @@ for(const lazy of lazyElements)
     
 }
 
-/**
- * Parallax scroll
- */
-
-
-const scrollParallaxes = document.querySelectorAll('.parallax-scroll')
-
-window.addEventListener('scroll', () =>
-{
-    const scrollY = window.scrollY
-
-    for(const scrollParallax of scrollParallaxes) // 
-    {
-        const depth = scrollParallax.dataset.parallaxScrollDepth
-        const translateY = depth * scrollY
-
-        scrollParallax.style.transform = `translateY(${translateY}px)`
-    }
-})
 
 /**
  * Sizes
@@ -52,21 +34,3 @@ window.addEventListener('resize', () =>
 })
 
 
-/**
- * Parallax cursor
- */
-const cursorParallaxes = document.querySelectorAll('.parallax-cursor')
-
-window.addEventListener('mousemove', (_event) =>
-{
-    const ratioX = _event.clientX / windowWidth - 0.5
-    const ratioY = _event.clientY / windowHeight - 0.5
-    for(const cursorParallax of cursorParallaxes)
-    {
-        const depth = cursorParallax.dataset.parallaxCursorDepth
-        const translateX = depth * ratioX * 100
-        const translateY = depth * ratioY * 100
-
-        cursorParallax.style.transform = `translate(${translateX}%, ${translateY}%)`
-    }
-})

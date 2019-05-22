@@ -8,13 +8,26 @@ body
 {
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(360deg, #0561E5 0%, #131784 100%);
+    background: linear-gradient(-45deg, #0561E5 0%, #131784 100%);
+    background-size: 400% 400%;
+    animation: gradient 10s ease-in-out infinite;
     margin:0;
+}
+/**
+* Animation
+**/
+
+@keyframes  
+{
+    0%      {background-position: 0% 50%}
+    50%     {background-position: 100% 50%}
+    100%    {background-position: 0% 50%}
 }
 
 /**
  * Lazy
  */
+
 .lazy
 {
     opacity: 0;
@@ -27,44 +40,23 @@ body
     opacity: 1;
 }
 
-/**
-  * Scroll parallax
-*/
-.parallax-scroll
-{
-    will-change: transform;
-}
-
-.parallaxe
+.image
 {
     position: relative;
     width: 100%;
     height: 100vh;
     overflow: hidden;
 }
-.parallaxe .image
+
+.image .inner
 {
-    border: 1px white solid;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-}
-.parallaxe .image .inner
- {
      position: absolute;
-     top: -12%;
-     right: -12%;
-     bottom: -12%;
-     left: -12%;
-     background-position: center center;
+     top: 0%;
+     right: 0%;
+     bottom: 0%;
+     left: 0%;
+     background-position: center bottom;
      background-size: 50vh;
      background-repeat: no-repeat;
- }
-.image
-{   
-    height: 90vh;
 }
+
