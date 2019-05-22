@@ -6,27 +6,51 @@ html
 
 body
 {
+    font-size: 62.5%;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(-45deg, #0561E5 0%, #131784 100%);
-    background-size: 400% 400%;
-    animation: gradient 10s ease-in-out infinite;
+    background: linear-gradient(360deg, #0561E5 0%, #131784 100%);
+    /* background-size: 400% 400%; */
+    /* animation: gradient 10s ease-in-out infinite; */
     margin:0;
 }
 /**
-* Animation
+*   Main
 **/
 
-@keyframes  
+.main
 {
-    0%      {background-position: 0% 50%}
-    50%     {background-position: 100% 50%}
-    100%    {background-position: 0% 50%}
+    display: flex;
 }
 
+.description
+{
+    width: 50vw;
+    height: 100vh;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1em;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-sizing: border-box;
+}
+.description .text 
+{
+    width: auto;
+}
+.description .text p
+{
+    font-size: 1.6rem;
+}
+.description .text h1
+{
+    font-size: 3.2rem;
+    font-weight: 700;
+}
 /**
- * Lazy
- */
+ *   Lazy
+ **/
 
 .lazy
 {
@@ -43,9 +67,13 @@ body
 .image
 {
     position: relative;
-    width: 100%;
+    width: 50vw;
     height: 100vh;
     overflow: hidden;
+    box-sizing: border-box;
+    float: left;
+    border: solid 2px red;
+    justify-content: flex-start;
 }
 
 .image .inner
@@ -60,3 +88,13 @@ body
      background-repeat: no-repeat;
 }
 
+/**
+*   Animation
+**/
+
+/* @keyframes  gradient
+{
+    0%      {background-position: 0% 50%}
+    50%     {background-position: 100% 50%}
+    100%    {background-position: 0% 50%}
+} */
