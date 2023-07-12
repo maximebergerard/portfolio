@@ -3,6 +3,70 @@ import { useCursor, Text3D } from "@react-three/drei"
 import { useRef, useState } from "react"
 import * as THREE from "three"
 
+interface LetterProps {
+  letter: string
+  position: THREE.Vector3
+  rotationX: number
+}
+
+const Letter = ({ letter, position, rotationX }: LetterProps) => {
+  const fontSize = 2
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const ref = useRef<THREE.Mesh>(null!)
+
+  const [hovered, set] = useState(false)
+  useCursor(hovered /*'pointer', 'auto'*/)
+
+  const { rotation } = useSpring({
+    rotation: hovered ? [-Math.PI / 2, 0, 0] : [0, 0, 0],
+    config: {
+      tension: 80,
+    },
+  })
+
+  return (
+    <animated.group
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      rotation={rotation}
+      onPointerOver={() => set(true)}
+      onPointerOut={() => setTimeout(() => set(false), 4000)}
+    >
+      <Text3D
+        ref={ref}
+        font={"./fonts/Bree Serif_Regular.json"}
+        position={position}
+        rotation={[rotationX, 0, 0]}
+        size={fontSize}
+        bevelEnabled
+        bevelSize={0.05}
+        castShadow
+      >
+        {letter}
+        {/* <meshNormalMaterial /> */}
+        <meshStandardMaterial color={"#ffffff"} />
+      </Text3D>
+    </animated.group>
+  )
+}
+
+const Name = () => {
+  return (
+    <group position={[0.5, 0, -10]}>
+      {Letters.map((letter, i) => (
+        <Letter
+          key={i}
+          letter={letter.letter}
+          position={letter.position}
+          rotationX={letter.rotationX}
+        />
+      ))}
+    </group>
+  )
+}
+
+export default Name
+
 const Letters = [
   {
     letter: "M",
@@ -80,67 +144,3 @@ const Letters = [
     rotationX: 0,
   },
 ]
-
-interface LetterProps {
-  letter: string
-  position: THREE.Vector3
-  rotationX: number
-}
-
-const Letter = ({ letter, position, rotationX }: LetterProps) => {
-  const fontSize = 2
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const ref = useRef<THREE.Mesh>(null!)
-
-  const [hovered, set] = useState(false)
-  useCursor(hovered /*'pointer', 'auto'*/)
-
-  const { rotation } = useSpring({
-    rotation: hovered ? [-Math.PI / 2, 0, 0] : [0, 0, 0],
-    config: {
-      tension: 80,
-    },
-  })
-
-  return (
-    <animated.group
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      rotation={rotation}
-      onPointerOver={() => set(true)}
-      onPointerOut={() => setTimeout(() => set(false), 4000)}
-    >
-      <Text3D
-        ref={ref}
-        font={"./fonts/Bree Serif_Regular.json"}
-        position={position}
-        rotation={[rotationX, 0, 0]}
-        size={fontSize}
-        bevelEnabled
-        bevelSize={0.05}
-        castShadow
-      >
-        {letter}
-        {/* <meshNormalMaterial /> */}
-        <meshStandardMaterial color={"#ffffff"} />
-      </Text3D>
-    </animated.group>
-  )
-}
-
-const Name = () => {
-  return (
-    <group position={[0.5, 0, -10]}>
-      {Letters.map((letter, i) => (
-        <Letter
-          key={i}
-          letter={letter.letter}
-          position={letter.position}
-          rotationX={letter.rotationX}
-        />
-      ))}
-    </group>
-  )
-}
-
-export default Name

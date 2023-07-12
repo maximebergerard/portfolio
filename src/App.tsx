@@ -15,7 +15,7 @@ import {
   PresentationControls,
 } from "@react-three/drei"
 
-import Man from "./Components/Man"
+import Man from "./Components/Mannequin"
 import Name from "./Components/Name"
 
 const Light = () => {
