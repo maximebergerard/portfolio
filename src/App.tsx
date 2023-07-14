@@ -15,7 +15,8 @@ import {
   PresentationControls,
 } from "@react-three/drei"
 
-import Man from "./Components/Mannequin"
+import Mannequin from "./Components/Mannequin"
+import Test from "./Components/Mannequin2"
 import Name from "./Components/Name"
 
 const Light = () => {
@@ -102,8 +103,11 @@ export default function App() {
             <meshStandardMaterial color={"#a88cf5"}></meshStandardMaterial>
           </RoundedBox>
           <Suspense fallback={null}>
-            <Man />
+            <Mannequin />
           </Suspense>
+          {/* <Suspense fallback={null}>
+          <Test />
+        </Suspense> */}
         </PresentationControls>
         {/* <PCamera /> */}
         <Light />
