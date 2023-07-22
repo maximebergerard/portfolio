@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as THREE from "three"
-import { useRef, useState, Suspense } from "react"
+import { useRef, Suspense } from "react"
+
 import "./App.css"
 
 import { Canvas } from "@react-three/fiber"
 import {
-  useHelper,
   OrbitControls,
   GradientTexture,
   RoundedBox,
@@ -16,32 +16,9 @@ import {
 } from "@react-three/drei"
 
 import Mannequin from "./Components/Mannequin"
-import Test from "./Components/Mannequin2"
 import Name from "./Components/Name"
-
-const Light = () => {
-  const directionalLight = useRef(new THREE.DirectionalLight())
-  // useHelper(directionalLight, THREE.DirectionalLightHelper, 1, "cyan")
-  return (
-    <>
-      <ambientLight intensity={0.1} />
-      <directionalLight
-        ref={directionalLight}
-        position={[0, 12, 16]}
-        color={"white"}
-        castShadow={true}
-        intensity={1}
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-        shadow-camera-far={50}
-        shadow-camera-left={-20}
-        shadow-camera-right={20}
-        shadow-camera-top={20}
-        shadow-camera-bottom={-20}
-      />
-    </>
-  )
-}
+import Light from "./Components/Light"
+import Plane from "./Components/Airplane"
 
 const OCamera = () => {
   const camera = useRef<THREE.OrthographicCamera>(null!)
@@ -79,10 +56,10 @@ export default function App() {
           colors={["#d0bdde", "#eaafc8", "#a88cf5", "#d0bdde"]}
         />
         <OCamera />
-
-        <PresentationControls
+        {/* <PresentationControls
           snap
           global
+          cursor={false}
           rotation={[0, Math.PI / 4, 0]}
           polar={[Math.PI / 20, Math.PI / 4]}
           azimuth={[-Math.PI / 4, Math.PI / 4]}
@@ -91,27 +68,110 @@ export default function App() {
             tension: 60,
             friction: 20,
           }}
+        > */}
+        <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
+        <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
+        <RoundedBox
+          args={[32, 30, 1]}
+          radius={0.4}
+          rotation={[-Math.PI / 2, 0, 0]}
+          position={[0, -0.5, 0]}
+          receiveShadow={true}
         >
-          <Name />
-          <RoundedBox
-            args={[32, 30, 1]}
-            radius={0.4}
-            rotation={[-Math.PI / 2, 0, 0]}
-            position={[0, -0.5, 0]}
-            receiveShadow={true}
-          >
-            <meshStandardMaterial color={"#a88cf5"}></meshStandardMaterial>
-          </RoundedBox>
-          <Suspense fallback={null}>
-            <Mannequin />
-          </Suspense>
-          {/* <Suspense fallback={null}>
+          <meshStandardMaterial color={"#a88cf5"}></meshStandardMaterial>
+        </RoundedBox>
+        <Suspense fallback={null}>
+          <Mannequin />
+        </Suspense>
+        <Plane />
+        {/* <Suspense fallback={null}>
           <Test />
         </Suspense> */}
-        </PresentationControls>
-        {/* <PCamera /> */}
         <Light />
+        {/* </PresentationControls> */}
+        <PCamera />
       </Canvas>
     </div>
   )
 }
+
+const firstName = [
+  {
+    letter: "M",
+    position: new THREE.Vector3(-15, 0, 0),
+    rotationX: 0,
+  },
+  {
+    letter: "A",
+    position: new THREE.Vector3(-12.5, 0, 0),
+    rotationX: 0,
+  },
+  {
+    letter: "X",
+    position: new THREE.Vector3(-10.45, 0, 0),
+    rotationX: 0,
+  },
+  {
+    letter: "I",
+    position: new THREE.Vector3(-8.6, 0, 0),
+    rotationX: 0,
+  },
+  {
+    letter: "M",
+    position: new THREE.Vector3(-7.65, 0, 0),
+    rotationX: 0,
+  },
+  {
+    letter: "E",
+    position: new THREE.Vector3(-5.2, 0, 0),
+    rotationX: 0,
+  },
+]
+
+const lastName = [
+  {
+    letter: "B",
+    position: new THREE.Vector3(-2, 0, 0),
+    rotationX: 0,
+  },
+  {
+    letter: "E",
+    position: new THREE.Vector3(-0.3, 0, 0),
+    rotationX: 0,
+  },
+  {
+    letter: "R",
+    position: new THREE.Vector3(1.4, 0, 0),
+    rotationX: 0,
+  },
+  {
+    letter: "G",
+    position: new THREE.Vector3(3.1, 0, 0),
+    rotationX: 0,
+  },
+  {
+    letter: "E",
+    position: new THREE.Vector3(4.9, 0, 0),
+    rotationX: 0,
+  },
+  {
+    letter: "R",
+    position: new THREE.Vector3(6.5, 0, 0),
+    rotationX: 0,
+  },
+  {
+    letter: "A",
+    position: new THREE.Vector3(8.4, 0, 0),
+    rotationX: 0,
+  },
+  {
+    letter: "R",
+    position: new THREE.Vector3(10.35, 0, 0),
+    rotationX: 0,
+  },
+  {
+    letter: "D",
+    position: new THREE.Vector3(12.2, 0, 0),
+    rotationX: 0,
+  },
+]
