@@ -6,27 +6,23 @@ Command: npx gltfjsx@6.2.7 man.glb
 
 import { useEffect, useRef, useState } from "react"
 import { useGLTF, useAnimations } from "@react-three/drei"
-import {
-  animated,
-  useChain,
-  useSpring,
-  useSpringRef,
-} from "@react-spring/three"
+import { animated, useSpring } from "@react-spring/three"
 import * as THREE from "three"
 import { useFrame } from "@react-three/fiber"
 
 export default function Model() {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const group = useRef<THREE.Group>(null!)
-  const [action, setAction] = useState("IdlePose")
-  const previousAction = usePrevious(action)
+
   const mathRandom = Math.floor(Math.random() * 2)
 
+  const [action, setAction] = useState("IdlePose")
+  const [clicked, setClicked] = useState(false)
+
+  const previousAction = usePrevious(action)
   // @ts-ignore
   const { nodes, materials, animations } = useGLTF("./3dmodels/mannequin.glb")
-
   const { actions } = useAnimations(animations, group)
-  const [clicked, setClicked] = useState(false)
 
   useEffect(() => {
     if (previousAction) {
@@ -49,9 +45,7 @@ export default function Model() {
     return () => clearInterval(interval)
   }, [action, actions, previousAction])
 
-  // const fallRotationRef = useSpringRef()
   const { rotation } = useSpring({
-    // ref: fallRotationRef,
     rotation:
       action === "FallingPose"
         ? [Math.PI / 2, -Math.PI, Math.PI / 2]
@@ -114,7 +108,6 @@ export default function Model() {
           // @ts-ignore
           rotation={rotation}
           scale={0.03}
-          //cursor="pointer"
           onClick={() => {
             if (action === "IdlePose") {
               setAction("FallingPose")
@@ -128,6 +121,7 @@ export default function Model() {
             geometry={nodes.Ch36.geometry}
             material={materials.Ch36_Body}
             skeleton={nodes.Ch36.skeleton}
+            castShadow
           />
         </animated.group>
       </group>
