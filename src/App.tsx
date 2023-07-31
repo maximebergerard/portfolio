@@ -26,7 +26,7 @@ const OCamera = () => {
   return (
     <OrthographicCamera
       makeDefault
-      position={[0, 1, 40]}
+      position={[0, 2, 40]}
       rotation={[0, 0, 0]}
       ref={camera}
       near={0.1}
@@ -56,40 +56,40 @@ export default function App() {
           colors={["#d0bdde", "#eaafc8", "#a88cf5", "#d0bdde"]}
         />
         <OCamera />
-        {/* <PresentationControls
+        <PresentationControls
           snap
           global
           cursor={false}
           rotation={[0, Math.PI / 4, 0]}
-          polar={[Math.PI / 20, Math.PI / 4]}
+          polar={[0.1, Math.PI / 4]}
           azimuth={[-Math.PI / 4, Math.PI / 4]}
           config={{
             mass: 1,
             tension: 60,
             friction: 20,
           }}
-        > */}
-        <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
-        <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
-        <RoundedBox
-          args={[32, 30, 1]}
-          radius={0.4}
-          rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, -0.5, 0]}
-          receiveShadow={true}
         >
-          <meshStandardMaterial color={"#a88cf5"}></meshStandardMaterial>
-        </RoundedBox>
-        <Suspense fallback={null}>
-          <Mannequin />
-        </Suspense>
-        <Plane />
-        {/* <Suspense fallback={null}>
+          <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
+          <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
+          <RoundedBox
+            args={[32, 32, 1]}
+            radius={0.4}
+            rotation={[-Math.PI / 2, 0, 0]}
+            position={[0, -0.5, 0]}
+            receiveShadow={true}
+          >
+            <meshStandardMaterial color={"#a88cf5"}></meshStandardMaterial>
+          </RoundedBox>
+          <Suspense fallback={null}>
+            <Mannequin />
+          </Suspense>
+          <Plane />
+          {/* <Suspense fallback={null}>
           <Test />
         </Suspense> */}
-        <Light />
-        {/* </PresentationControls> */}
-        <PCamera />
+          <Light />
+        </PresentationControls>
+        {/* <PCamera /> */}
       </Canvas>
     </div>
   )
