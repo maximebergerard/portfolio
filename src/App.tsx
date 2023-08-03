@@ -32,9 +32,9 @@ const OCamera = () => {
       ref={camera}
       near={0.1}
       far={100}
-      zoom={40}
+      zoom={35}
     >
-      <OrbitControls />
+      {/* <OrbitControls /> */}
     </OrthographicCamera>
   )
 }
@@ -87,12 +87,9 @@ export default function App() {
           <Mannequin />
         </Suspense>
         <Plane />
-        {/* <Suspense fallback={null}>
-          <Test />
-        </Suspense> */}
         <Light />
         {/* </PresentationControls> */}
-        {/* <PCamera /> */}
+        <PCamera />
       </Canvas>
     </div>
   )

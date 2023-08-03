@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as THREE from "three"
 import { Plane, QuadraticBezierLine, useFBX } from "@react-three/drei"
@@ -92,51 +93,33 @@ export default function Airplane() {
     start: React.MutableRefObject<THREE.Group>
     end: React.MutableRefObject<THREE.Mesh>
     v1?: THREE.Vector3
-    v2?: THREE.Vector3
   }
 
-  const Cable = ({
-    start,
-    end,
-    v1 = new THREE.Vector3(),
-    v2 = new THREE.Vector3(),
-  }: CableProps) => {
+  const Cable = ({ start, end }: CableProps) => {
     const lineRef = useRef<any>(null!)
 
     useFrame(() => {
-      const flagSize = new THREE.Vector3(5, 15, 10) // Width, Height, Depth of the flag
-      const flagPosition = flagRef.current?.position || new THREE.Vector3()
-      const flagRotation = flagRef.current?.rotation || new THREE.Euler()
+      const airplaneSize = new THREE.Vector3(0, 2, 7)
+      const airplanePosition = start.current?.position || new THREE.Vector3()
+      const airplaneRotation = start.current?.rotation || new THREE.Euler()
+
+      const airPlaneTail = new THREE.Vector3()
+        .copy(airplaneSize)
+        .multiplyScalar(0.5)
+      airPlaneTail.applyEuler(airplaneRotation).add(airplanePosition)
+
+      const flagSize = new THREE.Vector3(0, 15, 0) // Width, Height, Depth of the flag
+      const flagPosition = end.current?.position || new THREE.Vector3()
+      const flagRotation = end.current?.rotation || new THREE.Euler()
 
       // Calculate the position of the flag's top-right corner in world space
-      const flagTopRight = new THREE.Vector3()
+      const flagMidRight = new THREE.Vector3()
         .copy(flagSize)
-        .multiplyScalar(0.05)
-      flagTopRight.applyEuler(flagRotation).add(flagPosition)
+        .multiplyScalar(0.5)
+      flagMidRight.applyEuler(flagRotation).add(flagPosition)
 
       // Update the points of the quadratic bezier curve
-      lineRef.current.setPoints(
-        new THREE.Vector3(
-          start.current.getWorldPosition(v1).x,
-          start.current.getWorldPosition(v1).y + 0.5,
-          start.current.getWorldPosition(v1).z,
-        ),
-        flagTopRight,
-        end.current.getWorldPosition(v2),
-      )
-      // console.log(end.current.getWorldPosition(v2))
-      // lineRef.current.setPoints(
-      //   new THREE.Vector3(
-      //     start.current.getWorldPosition(v1).x,
-      //     start.current.getWorldPosition(v1).y + 0.5,
-      //     start.current.getWorldPosition(v1).z,
-      //   ),
-      //   new THREE.Vector3(
-      //     end.current.getWorldPosition(v2).x,
-      //     end.current.getWorldPosition(v2).y,
-      //     end.current.getWorldPosition(v2).z,
-      //   ),
-      // )
+      lineRef.current.setPoints(airPlaneTail, flagMidRight)
     })
 
     return (
@@ -144,8 +127,8 @@ export default function Airplane() {
         start={[0, 0, 0]}
         end={[0, 0, 0]}
         ref={lineRef}
-        lineWidth={3}
-        color="#964B00"
+        lineWidth={1}
+        color="#000000"
       />
     )
   }
@@ -156,10 +139,10 @@ export default function Airplane() {
         <Plane
           ref={flagRef}
           position={[0, 3, 0]}
-          args={[5, 15, 20, 60]}
+          args={[4, 15, 16, 60]}
           rotation={[0, 0, 0]}
         >
-          <meshBasicMaterial side={THREE.DoubleSide} wireframe color={"blue"} />
+          <meshStandardMaterial side={THREE.DoubleSide} color={"white"} />
         </Plane>
       </group>
       <group dispose={null} ref={airplaneRef}>
