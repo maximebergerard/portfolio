@@ -5,7 +5,7 @@ import { useRef, Suspense } from "react"
 
 import "./App.css"
 
-import { Canvas } from "@react-three/fiber"
+import { Canvas, useThree } from "@react-three/fiber"
 import {
   OrbitControls,
   GradientTexture,
@@ -23,6 +23,9 @@ import Plane from "./Components/Airplane"
 
 const OCamera = () => {
   const camera = useRef<THREE.OrthographicCamera>(null!)
+  const three = useThree()
+  const zoom = three.size.width * 0.02
+
   // useHelper(camera, THREE.CameraHelper)
   return (
     <OrthographicCamera
@@ -32,7 +35,7 @@ const OCamera = () => {
       ref={camera}
       near={0.1}
       far={100}
-      zoom={35}
+      zoom={zoom}
     >
       {/* <OrbitControls /> */}
     </OrthographicCamera>
