@@ -19,7 +19,7 @@ import {
 import Mannequin from "./Components/Mannequin"
 import Name from "./Components/Name"
 import Light from "./Components/Light"
-import Plane from "./Components/Airplane"
+import Plane from "./Components/Airplane/Airplane"
 
 const OCamera = () => {
   const camera = useRef<THREE.OrthographicCamera>(null!)

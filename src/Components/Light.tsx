@@ -14,7 +14,7 @@ const Light = () => {
         position={[0, 14, 16]}
         color={"white"}
         castShadow={true}
-        intensity={1}
+        intensity={0.7}
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
         shadow-camera-far={50}

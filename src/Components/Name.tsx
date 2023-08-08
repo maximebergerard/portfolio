@@ -22,7 +22,7 @@ const Letter = ({
   const ref = useRef<THREE.Mesh>(null!)
 
   const [hovered, set] = useState(false)
-  useCursor(hovered /*'pointer', 'auto'*/)
+  useCursor(hovered, "crosshair", "auto")
 
   const { rotation } = useSpring({
     rotation: hovered ? [-Math.PI / 2, 0, 0] : [0, 0, 0],
