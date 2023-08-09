@@ -64,7 +64,7 @@ export default function Model() {
       }
 
       if (group.current.position.y < -20) {
-        group.current.position.y = 30
+        group.current.position.y = 60
         group.current.position.x = 10
         if (mathRandom === 0) {
           setAction("FallingPose2")

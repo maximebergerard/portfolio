@@ -19,12 +19,16 @@ import {
 import Mannequin from "./Components/Mannequin"
 import Name from "./Components/Name"
 import Light from "./Components/Light"
-import Plane from "./Components/Airplane/Airplane"
+import Airplane from "./Components/Airplane/Airplane"
+import House from "./Components/House"
 
 const OCamera = () => {
   const camera = useRef<THREE.OrthographicCamera>(null!)
   const three = useThree()
   const zoom = three.size.width * 0.02
+  if (camera.current) {
+    camera.current.zoom = zoom
+  }
 
   // useHelper(camera, THREE.CameraHelper)
   return (
@@ -35,9 +39,9 @@ const OCamera = () => {
       ref={camera}
       near={0.1}
       far={100}
-      zoom={zoom}
+      // zoom={30}
     >
-      {/* <OrbitControls /> */}
+      {/* <OrbitControls rotation={[0, Math.PI / 4, 0]} /> */}
     </OrthographicCamera>
   )
 }
@@ -62,37 +66,36 @@ export default function App() {
           colors={["#d0bdde", "#eaafc8", "#a88cf5", "#d0bdde"]}
         />
         <OCamera />
-        {/* <PresentationControls
-          snap
+        <PresentationControls
           global
           cursor={false}
           rotation={[0, Math.PI / 4, 0]}
-          polar={[0.1, Math.PI / 4]}
-          azimuth={[-Math.PI / 4, Math.PI / 4]}
+          polar={[0.1, Math.PI / 3]}
           config={{
             mass: 1,
             tension: 60,
             friction: 20,
           }}
-        > */}
-        <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
-        <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
-        <RoundedBox
-          args={[32, 32, 1]}
-          radius={0.4}
-          rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, -0.5, 0]}
-          receiveShadow={true}
         >
-          <meshStandardMaterial color={"#a88cf5"}></meshStandardMaterial>
-        </RoundedBox>
-        <Suspense fallback={null}>
-          <Mannequin />
-        </Suspense>
-        <Plane />
-        <Light />
-        {/* </PresentationControls> */}
-        <PCamera />
+          <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
+          <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
+          <RoundedBox
+            args={[32, 32, 1]}
+            radius={0.4}
+            rotation={[-Math.PI / 2, 0, 0]}
+            position={[0, -0.5, 0]}
+            receiveShadow={true}
+          >
+            <meshStandardMaterial color={"#a88cf5"} />
+          </RoundedBox>
+          <Suspense fallback={null}>
+            <Mannequin />
+          </Suspense>
+          <Airplane />
+          {/* <House /> */}
+          <Light />
+        </PresentationControls>
+        {/* <PCamera /> */}
       </Canvas>
     </div>
   )
