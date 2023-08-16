@@ -21,7 +21,7 @@ const Letter = ({
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const ref = useRef<THREE.Mesh>(null!)
 
-  const [hovered, set] = useState(false)
+  const [hovered, setHovered] = useState(false)
   useCursor(hovered, "crosshair", "auto")
 
   const { rotation } = useSpring({
@@ -36,8 +36,8 @@ const Letter = ({
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       rotation={rotation}
-      onPointerOver={() => set(true)}
-      onPointerOut={() => setTimeout(() => set(false), 4000)}
+      onPointerOver={() => setHovered(true)}
+      onPointerOut={() => setTimeout(() => setHovered(false), 4000)}
     >
       <Text3D
         ref={ref}

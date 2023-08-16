@@ -12,13 +12,11 @@ import { useFrame } from "@react-three/fiber"
 
 export default function Model() {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const group = useRef<THREE.Group>(null!)
-
   const mathRandom = Math.floor(Math.random() * 2)
 
+  const group = useRef<THREE.Group>(null!)
   const [action, setAction] = useState("IdlePose")
   const [clicked, setClicked] = useState(false)
-
   const previousAction = usePrevious(action)
   // @ts-ignore
   const { nodes, materials, animations } = useGLTF("./3dmodels/mannequin.glb")

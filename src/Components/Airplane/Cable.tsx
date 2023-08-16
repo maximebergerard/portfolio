@@ -43,7 +43,7 @@ const Cable = ({ start, end, flagHeight, speed }: CableProps) => {
       (airPlaneTail.y + flagMidRight.y) / 2,
       (airPlaneTail.z + flagMidRight.z) / 2 - 2,
     )
-    lineRef.current.setPoints(airPlaneTail, flagMidRight, cableMid)
+    lineRef.current.setPoints(airPlaneTail, flagMidRight)
   })
 
   return (

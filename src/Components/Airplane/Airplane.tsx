@@ -3,7 +3,7 @@
 import * as THREE from "three"
 import { useEffect, useRef, useState } from "react"
 
-import { useFBX } from "@react-three/drei"
+import { useCursor, useFBX } from "@react-three/drei"
 import { TextureLoader } from "three/src/loaders/TextureLoader"
 import { useFrame, useLoader } from "@react-three/fiber"
 
@@ -19,11 +19,16 @@ const Airplane = () => {
   const airplaneRef = useRef<THREE.Group>(null!)
   const flagRef = useRef<THREE.Mesh>(null!)
   const flagGroupRef = useRef<THREE.Group>(null!)
+  const clockRef = useRef<THREE.Clock>(new THREE.Clock())
 
   const [hasIncremented, setHasIncremented] = useState(false)
   const [angle, setAngle] = useState(0)
   const [circle, setCircle] = useState(2)
-  const [isClicked, setIsClicked] = useState(false)
+  const [rotationStart, setRotationStart] = useState(0)
+  const [isRotating, setIsRotating] = useState(false)
+  const [hovered, setHovered] = useState(false)
+
+  useCursor(hovered, "pointer", "auto")
 
   const fbx = useFBX("/3dmodels/airplane/airplane.fbx")
   const [colorMap, normalMap] = useLoader(TextureLoader, [
@@ -45,32 +50,43 @@ const Airplane = () => {
     })
   }
 
-  useFrame((state) => {
-    const elapsedTime = state.clock.getElapsedTime() * speed
-    setAngle(elapsedTime % (2 * Math.PI))
+  useFrame(() => {
+    const elapsedTime = clockRef.current.getElapsedTime()
+
+    setAngle((elapsedTime * speed) % (2 * Math.PI))
 
     // Calculate the object's new position based on a semi-circle path
-    const airplaneX = radius * Math.cos(elapsedTime)
-    const airplaneZ = radius * Math.sin(elapsedTime)
-
+    const airplaneX = radius * Math.cos(elapsedTime * speed)
+    const airplaneZ = radius * Math.sin(elapsedTime * speed)
     airplaneRef.current.position.set(airplaneX, 7, airplaneZ)
-    // airplaneRef.current.position.set(0, 7, 0)
 
-    // TODO - Fix the rotation of the airplane when it clicked is false
-    if (isClicked) {
-      airplaneRef.current.rotation.set(
-        0,
-        (6 * Math.PI) / 7 - elapsedTime,
-        airplaneRef.current.rotation.z - 0.05,
-      )
+    if (isRotating) {
+      const rotationDelta = elapsedTime - rotationStart
+      if (rotationDelta < 5) {
+        const t = rotationDelta / 5
+        const easeT = 1 - (1 - t) ** 4 // easing function
+        airplaneRef.current.rotation.set(
+          0,
+          (7 * Math.PI) / 7 - elapsedTime * speed,
+          easeT * Math.PI * 10 + Math.sin(elapsedTime) - Math.PI / 6,
+        )
+      } else {
+        setIsRotating(false)
+        airplaneRef.current.rotation.z = Math.sin(elapsedTime) - Math.PI / 6
+      }
     } else {
       airplaneRef.current.rotation.set(
         0,
-        (6 * Math.PI) / 7 - elapsedTime,
+        (7 * Math.PI) / 7 - elapsedTime * speed,
         Math.sin(elapsedTime) - Math.PI / 6,
       )
     }
   })
+
+  const handleClick = () => {
+    setIsRotating(true)
+    setRotationStart(clockRef.current.getElapsedTime())
+  }
 
   useEffect(() => {
     if (angle < 0.1 && !hasIncremented) {
@@ -95,13 +111,9 @@ const Airplane = () => {
       <group
         dispose={null}
         ref={airplaneRef}
-        onClick={() => {
-          if (isClicked) return
-          setIsClicked(true)
-          setTimeout(() => {
-            setIsClicked(false)
-          }, 4000)
-        }}
+        onClick={handleClick}
+        onPointerOver={() => setHovered(true)}
+        onPointerOut={() => setHovered(false)}
       >
         <mesh scale={0.03} rotation={[Math.PI, -Math.PI, 0]}>
           <primitive object={fbx} />
