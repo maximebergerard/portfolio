@@ -1,6 +1,6 @@
 import * as THREE from "three"
 
-import { Box, useHelper } from "@react-three/drei"
+import { useHelper } from "@react-three/drei"
 import { useRef } from "react"
 
 const Light = () => {
@@ -15,12 +15,12 @@ const Light = () => {
       <ambientLight intensity={0.05} />
       <directionalLight
         ref={directionalLight}
-        position={[0, 20, 26]}
+        position={[6, 20, 26]}
         color={"white"}
         castShadow={true}
         intensity={0.4}
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
         shadow-camera-far={50}
         shadow-camera-left={-20}
         shadow-camera-right={20}

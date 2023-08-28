@@ -68,7 +68,7 @@ const Banner = ({
     const flagX = radius * Math.cos(flagAngle)
     const flagZ = radius * Math.sin(flagAngle)
 
-    flagRef.current.position.set(flagX, 8, flagZ)
+    flagRef.current.position.set(flagX, 7, flagZ)
     flagRef.current.rotation.set(
       0,
       (8.2 * Math.PI) / 5 - elapsedTime,
