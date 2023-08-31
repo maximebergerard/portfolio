@@ -62,13 +62,13 @@ const Banner = ({
 
   useFrame((state) => {
     const elapsedTime = state.clock.getElapsedTime() * speed
-    const flagAngle = elapsedTime - 0.6
+    const flagAngle = elapsedTime - 0.65
 
     // Calculate the flag's new position based on a semi-circle path
     const flagX = radius * Math.cos(flagAngle)
     const flagZ = radius * Math.sin(flagAngle)
 
-    flagRef.current.position.set(flagX, 7, flagZ)
+    flagRef.current.position.set(flagX, 5, flagZ)
     flagRef.current.rotation.set(
       0,
       (8.2 * Math.PI) / 5 - elapsedTime,
@@ -80,9 +80,9 @@ const Banner = ({
       const vertices = flagRef.current.geometry.attributes.position.array
 
       for (let i = 0; i < vertices.length; i += 3) {
+        const waveX1 = 0.4 * Math.sin(vertices[i] * 2 + elapsedTime * 8)
         const waveY1 = 0.8 * Math.sin(vertices[i + 1] + elapsedTime * 16)
         const waveY2 = -0.6 * Math.sin(vertices[i + 1] + elapsedTime * 8)
-        const waveX1 = 0.4 * Math.sin(vertices[i] * 2 + elapsedTime * 8)
         const multi = (vertices[i + 1] - 13) / flagHeight
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

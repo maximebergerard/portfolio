@@ -38,11 +38,11 @@ const Cable = ({ start, end, flagHeight, speed }: CableProps) => {
     flagMidRight.applyEuler(flagRotation).add(flagPosition)
 
     // Update the points of the quadratic bezier curve
-    const cableMid = new THREE.Vector3(
-      (airPlaneTail.x + flagMidRight.x) / 2 + 2,
-      (airPlaneTail.y + flagMidRight.y) / 2,
-      (airPlaneTail.z + flagMidRight.z) / 2 - 2,
-    )
+    // const cableMid = new THREE.Vector3(
+    //   (airPlaneTail.x + flagMidRight.x) / 2 + 2,
+    //   (airPlaneTail.y + flagMidRight.y) / 2,
+    //   (airPlaneTail.z + flagMidRight.z) / 2 - 2,
+    // )
     lineRef.current.setPoints(airPlaneTail, flagMidRight)
   })
 

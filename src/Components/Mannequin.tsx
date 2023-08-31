@@ -99,7 +99,7 @@ export default function Model() {
   })
 
   return (
-    <group ref={group} dispose={null} position={[15.5, -0.05, 0]}>
+    <group ref={group} dispose={null} position={[15.5, -0.05, -4]}>
       <group name="Scene">
         <animated.group
           name="Armature"

@@ -11,10 +11,10 @@ import Cable from "./Cable"
 import Banner from "./Banner"
 
 const Airplane = () => {
-  const flagWidth = 4 // Width of the plane
+  const flagWidth = 3 // Width of the plane
   const flagHeight = 20 // Height of the plane
-  const radius = 56 // Radius of the airplane's circular path
-  const speed = 0.2 // Speed of the airplane
+  const radius = 70 // Radius of the airplane's circular path
+  const speed = 0.15 // Speed of the airplane
 
   const airplaneRef = useRef<THREE.Group>(null!)
   const flagRef = useRef<THREE.Mesh>(null!)
@@ -58,7 +58,7 @@ const Airplane = () => {
     // Calculate the object's new position based on a semi-circle path
     const airplaneX = radius * Math.cos(elapsedTime * speed)
     const airplaneZ = radius * Math.sin(elapsedTime * speed)
-    airplaneRef.current.position.set(airplaneX, 6, airplaneZ)
+    airplaneRef.current.position.set(airplaneX, 4, airplaneZ)
 
     if (isRotating) {
       const rotationDelta = elapsedTime - rotationStart
@@ -136,7 +136,7 @@ const setBannerText = (circle: number) => {
     case 0:
       return "DÉVELOPPEUR FRONT-END | OPEN TO WORK :)"
     case 1:
-      return "MAXIME.BERGERARD@GMAIL.COM"
+      return "DÉVELOPPEUR FRONT-END | OPEN TO WORK :)"
     default:
       return "DÉVELOPPEUR FRONT-END | OPEN TO WORK :)"
   }

@@ -5,7 +5,7 @@ const House = () => {
   const wallsColor = "#d9eff0"
   const roofColor = "#bbceb8"
   return (
-    <group position={[10, 0, 10]}>
+    <group position={[-10, 0, 10]}>
       {/* Floor */}
       <RoundedBox
         args={[5, 0.5, 5]}

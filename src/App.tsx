@@ -39,7 +39,7 @@ const OCamera = () => {
       rotation={[0, 0, 0]}
       ref={camera}
       near={0.1}
-      far={100}
+      far={120}
       // zoom={30}
     >
       {/* <OrbitControls rotation={[0, Math.PI / 4, 0]} /> */}
@@ -93,7 +93,7 @@ export default function App() {
           <Mannequin />
         </Suspense>
         <Airplane />
-        <House />
+        {/* <House /> */}
         <Construction />
         <Light />
         {/* </PresentationControls> */}
