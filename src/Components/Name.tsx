@@ -23,7 +23,7 @@ const Letter = ({
 
   const [hoveredRotation, setHoveredRotation] = useState(false)
   const [hoverCrosshair, setHoverCrosshair] = useState(false)
-  useCursor(hoverCrosshair, "crosshair", "auto")
+  // useCursor(hoverCrosshair, "crosshair", "auto")
 
   const { rotation } = useSpring({
     rotation: hoveredRotation ? [-Math.PI / 2, 0, 0] : [0, 0, 0],

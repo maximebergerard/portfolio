@@ -22,6 +22,7 @@ import Light from "./Components/Light"
 import Airplane from "./Components/Airplane/Airplane"
 import House from "./Components/House"
 import Construction from "./Components/Constructions/Construction"
+import AdsPanel from "./Components/AdsPanel/AdsPanel"
 
 const OCamera = () => {
   const camera = useRef<THREE.OrthographicCamera>(null!)
@@ -67,7 +68,7 @@ export default function App() {
           colors={["#d0bdde", "#eaafc8", "#a88cf5", "#d0bdde"]}
         />
         <OCamera />
-        {/* <PresentationControls
+        <PresentationControls
           global
           cursor={false}
           rotation={[0, Math.PI / 4, 0]}
@@ -77,27 +78,28 @@ export default function App() {
             tension: 60,
             friction: 20,
           }}
-        > */}
-        <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
-        <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
-        <RoundedBox
-          args={[32, 32, 1]}
-          radius={0.4}
-          rotation={[-Math.PI / 2, 0, 0]}
-          position={[0, -0.5, 0]}
-          receiveShadow={true}
         >
-          <meshStandardMaterial color={"#a88cf5"} />
-        </RoundedBox>
-        <Suspense fallback={null}>
-          <Mannequin />
-        </Suspense>
-        <Airplane />
-        {/* <House /> */}
-        <Construction />
-        <Light />
-        {/* </PresentationControls> */}
-        <PCamera />
+          <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
+          <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
+          <RoundedBox
+            args={[32, 32, 1]}
+            radius={0.4}
+            rotation={[-Math.PI / 2, 0, 0]}
+            position={[0, -0.5, 0]}
+            receiveShadow={true}
+          >
+            <meshStandardMaterial color={"#a88cf5"} />
+          </RoundedBox>
+          <Suspense fallback={null}>
+            <Mannequin />
+          </Suspense>
+          <Airplane />
+          {/* <House /> */}
+          <Construction />
+          <AdsPanel />
+          <Light />
+        </PresentationControls>
+        {/* <PCamera /> */}
       </Canvas>
     </div>
   )
