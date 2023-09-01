@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@react-spring/three": "^9.6.1",
+    "@react-three/csg": "^3.0.0",
     "@react-three/drei": "^9.77.10",
     "@react-three/fiber": "^8.13.4",
     "leva": "^0.9.35",
