@@ -70,7 +70,9 @@ const Cabin = ({ craneBaseLength }: CabinProps) => {
           side={THREE.DoubleSide}
           metalness={0}
           roughness={0}
-          transmission={1}
+          envMapIntensity={0.9}
+          transparent={true}
+          opacity={0.5}
         />
       </Plane>
       {/** Back */}
@@ -114,7 +116,9 @@ const Cabin = ({ craneBaseLength }: CabinProps) => {
           side={THREE.DoubleSide}
           metalness={0}
           roughness={0}
-          transmission={1}
+          envMapIntensity={0.9}
+          transparent={true}
+          opacity={0.5}
         />
       </Plane>
       <Triangle
@@ -150,7 +154,9 @@ const Cabin = ({ craneBaseLength }: CabinProps) => {
           side={THREE.DoubleSide}
           metalness={0}
           roughness={0}
-          transmission={1}
+          envMapIntensity={0.9}
+          transparent={true}
+          opacity={0.5}
         />
       </Plane>
       <Triangle
