@@ -1,5 +1,4 @@
 import { Geometry, Base, Subtraction } from "@react-three/csg"
-import { PivotControls } from "@react-three/drei"
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry"
 import * as THREE from "three"
 

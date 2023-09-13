@@ -9,11 +9,10 @@ import { Canvas, useThree } from "@react-three/fiber"
 import {
   OrbitControls,
   GradientTexture,
-  RoundedBox,
   OrthographicCamera,
   PerspectiveCamera,
 } from "@react-three/drei"
-import { Physics } from "@react-three/cannon"
+// import { Physics } from "@react-three/cannon"
 
 import Mannequin from "./Components/Mannequin"
 import Name from "./Components/Name"
@@ -89,7 +88,7 @@ export default function App() {
         {/* <House /> */}
         <Construction />
         <AdsPanel />
-        <Physics
+        {/* <Physics
           gravity={[0, -30, 0]}
           defaultContactMaterial={{
             friction: 0.3,
@@ -109,7 +108,7 @@ export default function App() {
           >
             <meshStandardMaterial color={"#a88cf5"} />
           </RoundedBox>
-        </Physics>
+        </Physics> */}
         <Light />
         {/* </PresentationControls> */}
         <PCamera />

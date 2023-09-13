@@ -11,13 +11,10 @@ interface CableProps {
   speed: number
 }
 
-const Cable = ({ start, end, flagHeight, speed }: CableProps) => {
+const Cable = ({ start, end, flagHeight }: CableProps) => {
   const lineRef = useRef<any>(null!)
 
-  useFrame((state) => {
-    const elapsedTime = state.clock.getElapsedTime() * speed
-    const angle = elapsedTime % Math.PI
-
+  useFrame(() => {
     const airplaneSize = new THREE.Vector3(0, 2, 7)
     const airplanePosition = start.current?.position || new THREE.Vector3()
 
