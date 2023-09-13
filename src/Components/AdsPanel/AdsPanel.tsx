@@ -1,9 +1,11 @@
 import * as THREE from "three"
 import { Cylinder, Box } from "@react-three/drei"
 import { Base, Geometry, Subtraction } from "@react-three/csg"
+import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry"
 
 const AdsPanel = () => {
   const panelHeight = 10
+
   return (
     <>
       {/** Base */}

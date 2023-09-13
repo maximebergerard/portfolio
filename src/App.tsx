@@ -15,14 +15,16 @@ import {
   PresentationControls,
   useHelper,
 } from "@react-three/drei"
+import { Physics, useBox } from "@react-three/cannon"
 
 import Mannequin from "./Components/Mannequin"
 import Name from "./Components/Name"
 import Light from "./Components/Light"
 import Airplane from "./Components/Airplane/Airplane"
-import House from "./Components/House"
+// import House from "./Components/House"
 import Construction from "./Components/Constructions/Construction"
 import AdsPanel from "./Components/AdsPanel/AdsPanel"
+import BasePlane from "./Components/BasePlane"
 
 const OCamera = () => {
   const camera = useRef<THREE.OrthographicCamera>(null!)
@@ -68,7 +70,7 @@ export default function App() {
           colors={["#d0bdde", "#eaafc8", "#a88cf5", "#d0bdde"]}
         />
         <OCamera />
-        <PresentationControls
+        {/* <PresentationControls
           global
           cursor={false}
           rotation={[0, Math.PI / 4, 0]}
@@ -78,28 +80,41 @@ export default function App() {
             tension: 60,
             friction: 20,
           }}
+        > */}
+        <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
+        <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
+        <BasePlane />
+        <Suspense fallback={null}>
+          <Mannequin />
+        </Suspense>
+        <Airplane />
+        {/* <House /> */}
+        <Construction />
+        <AdsPanel />
+        <Physics
+          gravity={[0, -30, 0]}
+          defaultContactMaterial={{
+            friction: 0.3,
+            restitution: 0.7,
+            contactEquationStiffness: 1e7,
+            contactEquationRelaxation: 10,
+            frictionEquationStiffness: 1e7,
+            frictionEquationRelaxation: 10,
+          }}
         >
-          <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
-          <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
           <RoundedBox
-            args={[32, 32, 1]}
-            radius={0.4}
-            rotation={[-Math.PI / 2, 0, 0]}
-            position={[0, -0.5, 0]}
-            receiveShadow={true}
+            args={[10, 10, 10]}
+            radius={1}
+            smoothness={4}
+            position={[0, 20, 0]}
+            castShadow
           >
             <meshStandardMaterial color={"#a88cf5"} />
           </RoundedBox>
-          <Suspense fallback={null}>
-            <Mannequin />
-          </Suspense>
-          <Airplane />
-          {/* <House /> */}
-          <Construction />
-          <AdsPanel />
-          <Light />
-        </PresentationControls>
-        {/* <PCamera /> */}
+        </Physics>
+        <Light />
+        {/* </PresentationControls> */}
+        <PCamera />
       </Canvas>
     </div>
   )
