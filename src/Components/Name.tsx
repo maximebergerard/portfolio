@@ -1,7 +1,7 @@
 import * as THREE from "three"
 
 import { useSpring, animated } from "@react-spring/three"
-import { useCursor, Text3D } from "@react-three/drei"
+import { Text3D } from "@react-three/drei"
 import { useRef, useState } from "react"
 
 interface LetterProps {
@@ -22,8 +22,6 @@ const Letter = ({
   const ref = useRef<THREE.Mesh>(null!)
 
   const [hoveredRotation, setHoveredRotation] = useState(false)
-  const [hoverCrosshair, setHoverCrosshair] = useState(false)
-  // useCursor(hoverCrosshair, "crosshair", "auto")
 
   const { rotation } = useSpring({
     rotation: hoveredRotation ? [-Math.PI / 2, 0, 0] : [0, 0, 0],
@@ -38,11 +36,9 @@ const Letter = ({
       // @ts-ignore
       rotation={rotation}
       onPointerEnter={() => {
-        setHoverCrosshair(true)
         setHoveredRotation(true)
       }}
       onPointerLeave={() => {
-        setTimeout(() => setHoverCrosshair(false), 2000)
         setTimeout(() => setHoveredRotation(false), 4000)
       }}
     >

@@ -12,10 +12,8 @@ import {
   RoundedBox,
   OrthographicCamera,
   PerspectiveCamera,
-  PresentationControls,
-  useHelper,
 } from "@react-three/drei"
-import { Physics, useBox } from "@react-three/cannon"
+import { Physics } from "@react-three/cannon"
 
 import Mannequin from "./Components/Mannequin"
 import Name from "./Components/Name"
