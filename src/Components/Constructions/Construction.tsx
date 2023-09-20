@@ -6,10 +6,10 @@ const Construction = () => {
     <>
       <group position={[6, 0, 3]}>
         <group scale={0.6}>
-          <Post position={[0, 2.2, 0]} />
-          <Post position={[10, 2.2, 0]} />
-          <Post position={[10, 2.2, 10]} />
-          <Post position={[0, 2.2, 10]} />
+          <Post position={[3, 1.2, 0]} />
+          <Post position={[11, 1.2, 0]} />
+          <Post position={[8, 1.2, 10]} />
+          <Post position={[0, 1.2, 8]} />
         </group>
         <Crane />
       </group>

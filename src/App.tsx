@@ -7,12 +7,12 @@ import "./App.css"
 
 import { Canvas, useThree } from "@react-three/fiber"
 import {
-  OrbitControls,
+  // OrbitControls,
   GradientTexture,
   OrthographicCamera,
-  PerspectiveCamera,
+  // PerspectiveCamera,
+  PresentationControls,
 } from "@react-three/drei"
-// import { Physics } from "@react-three/cannon"
 
 import Mannequin from "./Components/Mannequin"
 import Name from "./Components/Name"
@@ -47,15 +47,15 @@ const OCamera = () => {
   )
 }
 
-const PCamera = () => {
-  // const camera = useRef<THREE.PerspectiveCamera>(null!)
-  // useHelper(camera, THREE.CameraHelper)
-  return (
-    <PerspectiveCamera makeDefault position={[0, 0, 40]}>
-      <OrbitControls />
-    </PerspectiveCamera>
-  )
-}
+// const PCamera = () => {
+//   // const camera = useRef<THREE.PerspectiveCamera>(null!)
+//   // useHelper(camera, THREE.CameraHelper)
+//   return (
+//     <PerspectiveCamera makeDefault position={[0, 0, 40]}>
+//       <OrbitControls />
+//     </PerspectiveCamera>
+//   )
+// }
 
 export default function App() {
   return (
@@ -67,7 +67,7 @@ export default function App() {
           colors={["#d0bdde", "#eaafc8", "#a88cf5", "#d0bdde"]}
         />
         <OCamera />
-        {/* <PresentationControls
+        <PresentationControls
           global
           cursor={false}
           rotation={[0, Math.PI / 4, 0]}
@@ -77,41 +77,20 @@ export default function App() {
             tension: 60,
             friction: 20,
           }}
-        > */}
-        <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
-        <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
-        <BasePlane />
-        <Suspense fallback={null}>
-          <Mannequin />
-        </Suspense>
-        <Airplane />
-        {/* <House /> */}
-        <Construction />
-        <AdsPanel />
-        {/* <Physics
-          gravity={[0, -30, 0]}
-          defaultContactMaterial={{
-            friction: 0.3,
-            restitution: 0.7,
-            contactEquationStiffness: 1e7,
-            contactEquationRelaxation: 10,
-            frictionEquationStiffness: 1e7,
-            frictionEquationRelaxation: 10,
-          }}
         >
-          <RoundedBox
-            args={[10, 10, 10]}
-            radius={1}
-            smoothness={4}
-            position={[0, 20, 0]}
-            castShadow
-          >
-            <meshStandardMaterial color={"#a88cf5"} />
-          </RoundedBox>
-        </Physics> */}
-        <Light />
-        {/* </PresentationControls> */}
-        <PCamera />
+          <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
+          <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
+          <BasePlane />
+          <Suspense fallback={null}>
+            <Mannequin />
+          </Suspense>
+          <Airplane />
+          {/* <House /> */}
+          <Construction />
+          <AdsPanel />
+          <Light />
+        </PresentationControls>
+        {/* <PCamera /> */}
       </Canvas>
     </div>
   )

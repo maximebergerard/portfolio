@@ -6,7 +6,7 @@ interface PostProps {
 }
 
 const Post = ({ position }: PostProps) => {
-  const postHeight = 4
+  const postHeight = 2
 
   const vertexShader = `
     varying vec2 vUv;
@@ -66,7 +66,7 @@ const Post = ({ position }: PostProps) => {
       </RoundedBox>
       <Sphere
         args={[0.3, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2]}
-        position={[0, postHeight - 2.0, 0]}
+        position={[0, postHeight - postHeight / 2, 0]}
         rotation={[0, 0, 0]}
       >
         <meshStandardMaterial color={"#30302f"} />

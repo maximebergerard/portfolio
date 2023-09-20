@@ -4,7 +4,7 @@ import * as THREE from "three"
 
 const BasePlane = () => {
   const roundedBox = new RoundedBoxGeometry(32, 32, 1, 1, 0.4)
-  const cylinder = new THREE.CylinderGeometry(5, 5, 2, 32)
+  const cylinder = new THREE.CylinderGeometry(2, 2, 2, 32)
   return (
     <>
       <mesh position={[0, -0.5, 0]}>
