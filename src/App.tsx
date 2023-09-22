@@ -5,17 +5,15 @@ import { useRef, Suspense } from "react"
 
 import "./App.css"
 
-import { Canvas, useLoader, useThree } from "@react-three/fiber"
+import { Canvas, useThree } from "@react-three/fiber"
 import {
-  OrbitControls,
+  // OrbitControls,
   GradientTexture,
   OrthographicCamera,
-  PerspectiveCamera,
+  // PerspectiveCamera,
   PresentationControls,
   useFBX,
 } from "@react-three/drei"
-
-import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader"
 
 import Mannequin from "./Components/Mannequin"
 import Name from "./Components/Name"
@@ -50,15 +48,15 @@ const OCamera = () => {
   )
 }
 
-const PCamera = () => {
-  // const camera = useRef<THREE.PerspectiveCamera>(null!)
-  // useHelper(camera, THREE.CameraHelper)
-  return (
-    <PerspectiveCamera makeDefault position={[0, 0, 40]}>
-      <OrbitControls />
-    </PerspectiveCamera>
-  )
-}
+// const PCamera = () => {
+//   // const camera = useRef<THREE.PerspectiveCamera>(null!)
+//   // useHelper(camera, THREE.CameraHelper)
+//   return (
+//     <PerspectiveCamera makeDefault position={[0, 0, 40]}>
+//       <OrbitControls />
+//     </PerspectiveCamera>
+//   )
+// }
 
 export default function App() {
   const fbx = useFBX("./3dmodels/airplanePanel/planePanel.fbx")
