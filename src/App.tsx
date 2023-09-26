@@ -19,10 +19,10 @@ import Mannequin from "./Components/Mannequin"
 import Name from "./Components/Name"
 import Light from "./Components/Light"
 import Airplane from "./Components/Airplane/Airplane"
-// import House from "./Components/House"
 import Construction from "./Components/Constructions/Construction"
 import AdsPanel from "./Components/AdsPanel/AdsPanel"
 import BasePlane from "./Components/BasePlane"
+import Projects from "./Components/Projects/Projects"
 
 const OCamera = () => {
   const camera = useRef<THREE.OrthographicCamera>(null!)
@@ -59,7 +59,7 @@ const OCamera = () => {
 // }
 
 export default function App() {
-  const fbx = useFBX("./3dmodels/airplanePanel/planePanel.fbx")
+  const fbx = useFBX("./3dmodels/AirplanePanel/planePanel.fbx")
   return (
     <div className="App">
       <Canvas shadows>
@@ -71,7 +71,6 @@ export default function App() {
         <OCamera />
         <PresentationControls
           global
-          cursor={false}
           rotation={[0, Math.PI / 4, 0]}
           polar={[0.1, Math.PI / 3]}
           config={{
@@ -93,7 +92,7 @@ export default function App() {
             scale={0.02}
             rotation={[-Math.PI / 2, 0, -Math.PI / 4]}
           />
-          {/* <House /> */}
+          <Projects />
           <Construction />
           <AdsPanel />
           <Light />

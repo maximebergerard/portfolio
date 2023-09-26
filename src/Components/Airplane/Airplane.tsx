@@ -9,6 +9,7 @@ import { useFrame, useLoader } from "@react-three/fiber"
 
 import Cable from "./Cable"
 import Banner from "./Banner"
+import { drawTextOnCanvasProps } from "./Banner"
 
 const Airplane = () => {
   const flagWidth = 3 // Width of the plane
@@ -30,10 +31,10 @@ const Airplane = () => {
 
   useCursor(hovered, "pointer", "auto")
 
-  const fbx = useFBX("/3dmodels/airplane/airplane.fbx")
+  const fbx = useFBX("/3dmodels/Airplane/airplane.fbx")
   const [colorMap, normalMap] = useLoader(TextureLoader, [
-    "/3dmodels/airplane/color.png",
-    "/3dmodels/airplane/normal.png",
+    "/3dmodels/Airplane/color.png",
+    "/3dmodels/Airplane/normal.png",
   ])
 
   if (fbx) {
@@ -100,7 +101,7 @@ const Airplane = () => {
   return (
     <>
       <Banner
-        text={setBannerText(circle)}
+        textParams={setBannerText(circle).textParams}
         flagGroupRef={flagGroupRef}
         flagRef={flagRef}
         flagWidth={flagWidth}
@@ -131,13 +132,37 @@ const Airplane = () => {
 
 export default Airplane
 
-const setBannerText = (circle: number) => {
+const setBannerText = (circle: number): drawTextOnCanvasProps => {
   switch (circle) {
     case 0:
-      return "DÉVELOPPEUR FRONT-END | OPEN TO WORK :)"
+      return {
+        textParams: {
+          text: "DÉVELOPPEUR FRONT-END POUR WINO",
+          underlineStart: 190,
+          underlineEnd: 155,
+          underlineColor: "#8A0262",
+          link: "https://wino.fr/",
+        },
+      }
     case 1:
-      return "DÉVELOPPEUR FRONT-END | OPEN TO WORK :)"
+      return {
+        textParams: {
+          text: "DÉVELOPPEUR FRONT-END SUR SMART-GARANT.COM",
+          underlineStart: 70,
+          underlineEnd: 50,
+          underlineColor: "#FE595E",
+          link: "https://smart-garant.com/",
+        },
+      }
     default:
-      return "DÉVELOPPEUR FRONT-END | OPEN TO WORK :)"
+      return {
+        textParams: {
+          text: "DÉVELOPPEUR FRONT-END SUR SMART-GARANT.COM",
+          underlineStart: 70,
+          underlineEnd: 50,
+          underlineColor: "#FE595E",
+          link: "https://smart-garant.com/",
+        },
+      }
   }
 }

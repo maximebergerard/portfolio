@@ -1,11 +1,22 @@
-import { Plane } from "@react-three/drei"
+import { Plane, useCursor } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
+import { useState } from "react"
 import * as THREE from "three"
 
-const drawTextOnCanvas = (text: string) => {
+export interface drawTextOnCanvasProps {
+  textParams: {
+    text: string
+    underlineStart: number
+    underlineEnd: number
+    underlineColor?: string
+    link: string
+  }
+}
+
+const drawTextOnCanvas = ({ textParams }: drawTextOnCanvasProps) => {
   const canvas = document.createElement("canvas")
   const ctx = canvas.getContext("2d")
-  canvas.width = 760
+  canvas.width = 850
   canvas.height = 100
 
   if (!ctx) return canvas
@@ -21,15 +32,27 @@ const drawTextOnCanvas = (text: string) => {
   ctx.textBaseline = "middle"
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  ctx.letterSpacing = "2px"
+  // ctx.letterSpacing = "2px"
 
-  ctx.fillText(text, canvas.width / 2, canvas.height / 2)
+  ctx.fillText(textParams.text, canvas.width / 2, canvas.height / 2)
+
+  // Draw the underline
+  ctx.beginPath() // +70 et -50
+  ctx.moveTo(
+    canvas.width / 2 + textParams.underlineStart,
+    canvas.height / 2 + 20,
+  ) // Adjust the position and thickness of the underline
+  ctx.lineTo(canvas.width - textParams.underlineEnd, canvas.height / 2 + 20) // Adjust the position and thickness of the underline
+  ctx.strokeStyle = textParams.underlineColor
+    ? textParams.underlineColor
+    : "blue" // Set the color of the underline
+  ctx.lineWidth = 2 // Set the thickness of the underline
+  ctx.stroke()
 
   return canvas
 }
 
-interface BannerProps {
-  text: string
+interface BannerProps extends drawTextOnCanvasProps {
   flagGroupRef: React.Ref<THREE.Group>
   flagRef: React.MutableRefObject<
     THREE.Mesh<
@@ -44,7 +67,7 @@ interface BannerProps {
 }
 
 const Banner = ({
-  text,
+  textParams,
   flagGroupRef,
   flagRef,
   flagWidth,
@@ -53,12 +76,15 @@ const Banner = ({
   speed,
 }: BannerProps) => {
   // Create the texture using the canvas with the text
-  const texture = new THREE.CanvasTexture(drawTextOnCanvas(text))
+  const texture = new THREE.CanvasTexture(drawTextOnCanvas({ textParams }))
+  const [hovered, setHovered] = useState(false)
 
   // Adjust texture properties to fit the rotated texture on the plane
   texture.rotation = Math.PI / 2
   texture.center.set(0.5, 0.5)
   texture.offset.set(0, 0)
+
+  useCursor(hovered, "pointer", "auto")
 
   useFrame((state) => {
     const elapsedTime = state.clock.getElapsedTime() * speed
@@ -94,7 +120,14 @@ const Banner = ({
     }
   })
   return (
-    <group ref={flagGroupRef}>
+    <group
+      ref={flagGroupRef}
+      onPointerOver={() => setHovered(true)}
+      onPointerOut={() => setHovered(false)}
+      onClick={() =>
+        window.open(textParams.link, "_blank", "noopener,noreferrer")
+      }
+    >
       <Plane
         ref={flagRef}
         position={[0, 3, 0]}
