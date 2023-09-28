@@ -148,20 +148,19 @@ function PointerHandle({
 
   const [t, setT] = useState(0)
 
-  const increment = 0.01
   const radius = 21.8
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     if (clockWiseRotation) {
-      setT((prevT) => prevT - increment)
+      setT((prevT) => prevT - delta)
     } else {
-      setT((prevT) => prevT + increment)
+      setT((prevT) => prevT + delta)
     }
 
     const x = Math.sin(t) * radius
     const z = Math.cos(t) * radius
 
-    api.position.set(x + 0.5, 0, z)
+    api.position.set(x, 0, z)
   })
 
   return (
@@ -182,12 +181,12 @@ const CraneArm = ({
 }) => {
   const ref = useRef<THREE.Group>(null)
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     if (ref.current) {
       if (clockWiseRotation) {
-        ref.current.rotation.y -= 0.01
+        ref.current.rotation.y -= delta
       } else {
-        ref.current.rotation.y += 0.01
+        ref.current.rotation.y += delta
       }
     }
   })
@@ -212,7 +211,7 @@ const CraneArm = ({
         ))}
       </group>
       <group position={[0, 22, 0]} scale={1}>
-        <PointerHandle size={1} clockWiseRotation={clockWiseRotation}>
+        <PointerHandle size={0.01} clockWiseRotation={clockWiseRotation}>
           <Chain length={7} />
         </PointerHandle>
       </group>

@@ -53,12 +53,14 @@ export default function Model() {
     },
   })
 
-  useFrame(() => {
+  useFrame((_, delta) => {
+    // console.log(delta)
+
     if (clicked) {
-      group.current.position.y -= 0.25
+      group.current.position.y -= 25 * delta
 
       if (group.current.position.x <= 20 && group.current.position.y < 0) {
-        group.current.position.x += 0.1
+        group.current.position.x += 1 * delta
       }
 
       if (group.current.position.y < -20) {
@@ -71,7 +73,8 @@ export default function Model() {
         }
       }
 
-      if (group.current.position.y === 0) {
+      if (group.current.position.y > 0 && group.current.position.y < 0.5) {
+        group.current.position.y = 0
         if (action === "FallingPose2") {
           setAction("FallingFlatImpact")
           setTimeout(() => setAction("StandingUp"), 800)
@@ -94,7 +97,7 @@ export default function Model() {
         }
       }
     } else if (action === "BackwardWalk") {
-      group.current.position.x += 0.05
+      group.current.position.x += 3 * delta
     }
   })
 
