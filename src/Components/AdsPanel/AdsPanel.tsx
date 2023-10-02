@@ -55,7 +55,7 @@ const Panel = ({ texture }: { texture: THREE.Texture }) => {
   texture.repeat.set(1, 1)
 
   return (
-    <>
+    <group>
       <mesh rotation={[0, 0, -Math.PI / 2]}>
         <Geometry useGroups>
           <Base name="base" scale={[panelWidth, panelHeight, 1]}>
@@ -73,7 +73,7 @@ const Panel = ({ texture }: { texture: THREE.Texture }) => {
           </Subtraction>
         </Geometry>
       </mesh>
-    </>
+    </group>
   )
 }
 

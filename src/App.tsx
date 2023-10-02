@@ -7,10 +7,10 @@ import "./App.css"
 
 import { Canvas, useThree } from "@react-three/fiber"
 import {
-  // OrbitControls,
+  OrbitControls,
   GradientTexture,
   OrthographicCamera,
-  // PerspectiveCamera,
+  PerspectiveCamera,
   PresentationControls,
   useFBX,
 } from "@react-three/drei"
@@ -26,6 +26,7 @@ import Projects from "./Components/Projects/Projects"
 
 const OCamera = () => {
   const camera = useRef<THREE.OrthographicCamera>(null!)
+
   const three = useThree()
   const zoom = three.size.width * 0.02
   if (camera.current) {
@@ -48,58 +49,60 @@ const OCamera = () => {
   )
 }
 
-// const PCamera = () => {
-//   // const camera = useRef<THREE.PerspectiveCamera>(null!)
-//   // useHelper(camera, THREE.CameraHelper)
-//   return (
-//     <PerspectiveCamera makeDefault position={[0, 0, 40]}>
-//       <OrbitControls />
-//     </PerspectiveCamera>
-//   )
-// }
+const PCamera = () => {
+  // const camera = useRef<THREE.PerspectiveCamera>(null!)
+  // useHelper(camera, THREE.CameraHelper)
+  return (
+    <PerspectiveCamera makeDefault position={[0, 0, 40]}>
+      <OrbitControls />
+    </PerspectiveCamera>
+  )
+}
 
 export default function App() {
   const fbx = useFBX("./3dmodels/AirplanePanel/planePanel.fbx")
   return (
-    <div className="App">
-      <Canvas shadows>
-        <GradientTexture
-          attach={"background"}
-          stops={[0, 0.25, 0.75, 1]}
-          colors={["#d0bdde", "#eaafc8", "#a88cf5", "#d0bdde"]}
-        />
-        <OCamera />
-        <PresentationControls
-          global
-          rotation={[0, Math.PI / 4, 0]}
-          polar={[0.1, Math.PI / 3]}
-          config={{
-            mass: 1,
-            tension: 60,
-            friction: 20,
-          }}
-        >
-          <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
-          <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
-          <BasePlane />
-          <Suspense fallback={null}>
-            <Mannequin />
-          </Suspense>
-          <Airplane />
-          <primitive
-            object={fbx}
-            position={[15, 0, -15]}
-            scale={0.02}
-            rotation={[-Math.PI / 2, 0, -Math.PI / 4]}
+    <Suspense fallback={null}>
+      <div className="App">
+        <Canvas shadows>
+          <GradientTexture
+            attach={"background"}
+            stops={[0, 0.25, 0.75, 1]}
+            colors={["#d0bdde", "#eaafc8", "#a88cf5", "#d0bdde"]}
           />
-          <Projects />
-          <Construction />
-          <AdsPanel />
-          <Light />
-        </PresentationControls>
-        {/* <PCamera /> */}
-      </Canvas>
-    </div>
+          <OCamera />
+          <PresentationControls
+            global
+            rotation={[0, Math.PI / 4, 0]}
+            polar={[0.1, Math.PI / 3]}
+            config={{
+              mass: 1,
+              tension: 60,
+              friction: 20,
+            }}
+          >
+            <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
+            <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
+            <BasePlane />
+            <Suspense fallback={null}>
+              <Mannequin />
+            </Suspense>
+            <Airplane />
+            <primitive
+              object={fbx}
+              position={[15, 0, -15]}
+              scale={0.02}
+              rotation={[-Math.PI / 2, 0, -Math.PI / 4]}
+            />
+            <Projects />
+            <Construction />
+            <AdsPanel />
+            <Light />
+          </PresentationControls>
+          {/* <PCamera /> */}
+        </Canvas>
+      </div>
+    </Suspense>
   )
 }
 

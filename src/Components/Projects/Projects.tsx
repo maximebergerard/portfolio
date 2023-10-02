@@ -1,4 +1,5 @@
-import { useFBX } from "@react-three/drei"
+import { Html, useFBX } from "@react-three/drei"
+import Wino from "./Wino"
 
 const Podium = () => {
   return (
@@ -7,8 +8,8 @@ const Podium = () => {
         <boxBufferGeometry args={[3, 2.5, 3]} />
         <meshStandardMaterial color="#ffcffd" />
       </mesh>
-      <mesh position={[0, 0, 0]}>
-        <boxBufferGeometry args={[3, 4, 3]} />
+      <mesh position={[0, 0.5, 0]}>
+        <boxBufferGeometry args={[3, 3, 3]} />
         <meshStandardMaterial color="#ffcffd" />
       </mesh>
       <mesh position={[3, 0, 0]}>
@@ -19,26 +20,28 @@ const Podium = () => {
   )
 }
 
+const ProjectText = () => {
+  return <div>Wino est un projet gngngn</div>
+}
+
 const Project = () => {
-  const logoWino = useFBX("./3dmodels/Logo/winoLogo.fbx")
   const logoSmartgarant = useFBX("./3dmodels/Logo/smartgarantLogo.fbx")
   return (
     <>
-      <primitive
-        object={logoWino}
-        position={[-5, 4.2, 3]}
-        scale={0.02}
-        rotation={[0, Math.PI / 6, Math.PI / 5]}
-      />
+      <Wino text="Oui alors wino stylé" />
+      {/* <ProjectText /> */}
       <primitive
         object={logoSmartgarant}
-        position={[-9, 1, 9.5]}
+        position={[-9.4, -0.36, 9.6]}
         scale={0.015}
-        rotation={[Math.PI / 6, -Math.PI / 8, 0]}
+        rotation={[Math.PI / 5.2, Math.PI / -8, Math.PI / 10]}
       />
       <group position={[-5, 0.5, 5]} rotation={[0, -Math.PI / 4, 0]}>
         <Podium />
       </group>
+      {/* <Html>
+        <p>zerfghytrezdsfghytt</p>
+      </Html> */}
     </>
   )
 }

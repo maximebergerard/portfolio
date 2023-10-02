@@ -57,7 +57,7 @@ function ChainLink({
   )
 
   useConeTwistConstraint(parentRef, chainLinkRef, {
-    angle: Math.PI / 10,
+    angle: Math.PI / 6,
     axisA: [0, 1, 0],
     axisB: [0, 1, 0],
     pivotA: [0, -height / 2, 0],
@@ -147,18 +147,19 @@ function PointerHandle({
   )
 
   const [t, setT] = useState(0)
+  // console.log(t)
 
   const radius = 21.8
 
   useFrame((_, delta) => {
     if (clockWiseRotation) {
-      setT((prevT) => prevT - delta)
+      setT((prevT) => prevT - delta * 0.8)
     } else {
-      setT((prevT) => prevT + delta)
+      setT((prevT) => prevT + delta * 0.8)
     }
 
-    const x = Math.sin(t) * radius
-    const z = Math.cos(t) * radius
+    const x = Math.sin(clockWiseRotation ? t - 0.1 : t + 0.1) * radius
+    const z = Math.cos(clockWiseRotation ? t - 0.1 : t + 0.1) * radius
 
     api.position.set(x, 0, z)
   })
@@ -184,9 +185,9 @@ const CraneArm = ({
   useFrame((_, delta) => {
     if (ref.current) {
       if (clockWiseRotation) {
-        ref.current.rotation.y -= delta
+        ref.current.rotation.y -= delta * 0.8
       } else {
-        ref.current.rotation.y += delta
+        ref.current.rotation.y += delta * 0.8
       }
     }
   })
@@ -211,7 +212,7 @@ const CraneArm = ({
         ))}
       </group>
       <group position={[0, 22, 0]} scale={1}>
-        <PointerHandle size={0.01} clockWiseRotation={clockWiseRotation}>
+        <PointerHandle size={4} clockWiseRotation={clockWiseRotation}>
           <Chain length={7} />
         </PointerHandle>
       </group>
