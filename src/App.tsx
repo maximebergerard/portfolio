@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as THREE from "three"
-import { useRef, Suspense } from "react"
+import { useRef, Suspense, useLayoutEffect } from "react"
 
 import "./App.css"
 
@@ -13,6 +13,7 @@ import {
   PerspectiveCamera,
   PresentationControls,
   useFBX,
+  useGLTF,
 } from "@react-three/drei"
 
 import Mannequin from "./Components/Mannequin"
@@ -71,7 +72,7 @@ export default function App() {
             colors={["#d0bdde", "#eaafc8", "#a88cf5", "#d0bdde"]}
           />
           <OCamera />
-          <PresentationControls
+          {/* <PresentationControls
             global
             rotation={[0, Math.PI / 4, 0]}
             polar={[0.1, Math.PI / 3]}
@@ -80,29 +81,45 @@ export default function App() {
               tension: 60,
               friction: 20,
             }}
-          >
-            <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
-            <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
-            <BasePlane />
-            <Suspense fallback={null}>
-              <Mannequin />
-            </Suspense>
-            <Airplane />
-            <primitive
-              object={fbx}
-              position={[15, 0, -15]}
-              scale={0.02}
-              rotation={[-Math.PI / 2, 0, -Math.PI / 4]}
-            />
-            <Projects />
-            <Construction />
-            <AdsPanel />
-            <Light />
-          </PresentationControls>
-          {/* <PCamera /> */}
+          > */}
+          <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
+          <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
+          <BasePlane />
+          <Suspense fallback={null}>
+            <Mannequin />
+          </Suspense>
+          <Airplane />
+          <PlanePanel />
+          <Projects />
+          <Construction />
+          <AdsPanel />
+          <Light />
+          {/* </PresentationControls> */}
+          <PCamera />
         </Canvas>
       </div>
     </Suspense>
+  )
+}
+
+const PlanePanel = () => {
+  const obj = useFBX("./3dmodels/AirplanePanel/planePanel.fbx")
+
+  useLayoutEffect(
+    () =>
+      obj.traverse(
+        (o) =>
+          o instanceof THREE.Mesh && (o.castShadow = o.receiveShadow = true),
+      ),
+    [obj],
+  )
+  return (
+    <primitive
+      object={obj}
+      position={[15, 0, -15]}
+      scale={0.02}
+      rotation={[-Math.PI / 2, 0, -Math.PI / 4]}
+    />
   )
 }
 

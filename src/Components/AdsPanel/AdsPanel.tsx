@@ -18,6 +18,7 @@ const AdsPanel = () => {
           args={[0.4, 0.4, panelHeight, 16]}
           rotation={[0, 0, 0]}
           receiveShadow={true}
+          castShadow
         >
           <meshStandardMaterial color={"#d3d3d3"} />
         </Cylinder>

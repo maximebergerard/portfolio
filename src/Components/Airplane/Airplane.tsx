@@ -27,9 +27,6 @@ const Airplane = () => {
   const [circle, setCircle] = useState(2)
   const [rotationStart, setRotationStart] = useState(0)
   const [isRotating, setIsRotating] = useState(false)
-  const [hovered, setHovered] = useState(false)
-
-  useCursor(hovered, "pointer", "auto")
 
   const fbx = useFBX("/3dmodels/Airplane/airplane.fbx")
   const [colorMap, normalMap] = useLoader(TextureLoader, [
@@ -109,13 +106,7 @@ const Airplane = () => {
         radius={radius}
         speed={speed}
       />
-      <group
-        dispose={null}
-        ref={airplaneRef}
-        onClick={handleClick}
-        onPointerOver={() => setHovered(true)}
-        onPointerOut={() => setHovered(false)}
-      >
+      <group dispose={null} ref={airplaneRef} onClick={handleClick}>
         <mesh scale={0.03} rotation={[Math.PI, -Math.PI, 0]}>
           <primitive object={fbx} />
         </mesh>

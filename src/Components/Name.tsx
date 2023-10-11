@@ -51,6 +51,7 @@ const Letter = ({
         bevelEnabled
         bevelSize={0.05}
         castShadow
+        receiveShadow
       >
         {letter}
         {/* <meshNormalMaterial /> */}

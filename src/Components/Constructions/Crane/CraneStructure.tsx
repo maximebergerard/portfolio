@@ -19,6 +19,7 @@ const CraneStructure = ({
         args={[craneBaseLength, craneBaseThickness, craneBaseThickness]}
         radius={0.05}
         position={[0, 0, 0]}
+        castShadow
       >
         <meshStandardMaterial color="grey" />
       </RoundedBox>
@@ -35,6 +36,7 @@ const CraneStructure = ({
           -craneBaseLength / 2,
         ]}
         rotation={[0, Math.PI / 2, 0]}
+        castShadow
       >
         <meshStandardMaterial color="grey" />
       </RoundedBox>
@@ -51,6 +53,7 @@ const CraneStructure = ({
           -craneBaseLength / 2,
         ]}
         rotation={[0, Math.PI / 2, 0]}
+        castShadow
       >
         <meshStandardMaterial color="grey" />
       </RoundedBox>
@@ -58,6 +61,7 @@ const CraneStructure = ({
         args={[craneBaseLength, craneBaseThickness, craneBaseThickness]}
         radius={0.05}
         position={[0, 0, -craneBaseLength]}
+        castShadow
       >
         <meshStandardMaterial color="grey" />
       </RoundedBox>
@@ -71,6 +75,7 @@ const CraneStructure = ({
         radius={0.05}
         position={[0, craneBaseLength / 2, 0]}
         rotation={[0, 0, -Math.PI / 4]}
+        castShadow
       >
         <meshStandardMaterial color="grey" />
       </RoundedBox>
@@ -83,6 +88,7 @@ const CraneStructure = ({
         radius={0.05}
         position={[0, craneBaseLength / 2, -craneBaseLength]}
         rotation={[0, 0, Math.PI / 4]}
+        castShadow
       >
         <meshStandardMaterial color="grey" />
       </RoundedBox>
@@ -99,6 +105,7 @@ const CraneStructure = ({
           -craneBaseLength / 2 + 0.1,
         ]}
         rotation={[0, -Math.PI / 2, Math.PI / 4.1]}
+        castShadow
       >
         <meshStandardMaterial color="grey" />
       </RoundedBox>
@@ -115,6 +122,7 @@ const CraneStructure = ({
           -craneBaseLength / 2 - 0.1,
         ]}
         rotation={[0, Math.PI / 2, Math.PI / 4.1]}
+        castShadow
       >
         <meshStandardMaterial color="grey" />
       </RoundedBox>
@@ -132,6 +140,7 @@ const CraneStructure = ({
           0,
         ]}
         rotation={[0, 0, Math.PI / 2]}
+        castShadow
       >
         <meshStandardMaterial color="grey" />
       </RoundedBox>
@@ -148,6 +157,7 @@ const CraneStructure = ({
           0,
         ]}
         rotation={[0, 0, Math.PI / 2]}
+        castShadow
       >
         <meshStandardMaterial color="grey" />
       </RoundedBox>
@@ -164,6 +174,7 @@ const CraneStructure = ({
           -craneBaseLength,
         ]}
         rotation={[0, 0, Math.PI / 2]}
+        castShadow
       >
         <meshStandardMaterial color="grey" />
       </RoundedBox>
@@ -180,6 +191,7 @@ const CraneStructure = ({
           -craneBaseLength,
         ]}
         rotation={[0, 0, Math.PI / 2]}
+        castShadow
       >
         <meshStandardMaterial color="grey" />
       </RoundedBox>
@@ -190,6 +202,7 @@ const CraneStructure = ({
             args={[craneBaseLength, craneBaseThickness, craneBaseThickness]}
             radius={0.05}
             position={[0, 0, 0]}
+            castShadow
           >
             <meshStandardMaterial color="grey" />
           </RoundedBox>
@@ -206,6 +219,7 @@ const CraneStructure = ({
               -craneBaseLength / 2,
             ]}
             rotation={[0, Math.PI / 2, 0]}
+            castShadow
           >
             <meshStandardMaterial color="grey" />
           </RoundedBox>
@@ -222,12 +236,14 @@ const CraneStructure = ({
               -craneBaseLength / 2,
             ]}
             rotation={[0, Math.PI / 2, 0]}
+            castShadow
           >
             <meshStandardMaterial color="grey" />
           </RoundedBox>
           <RoundedBox
             args={[craneBaseLength, craneBaseThickness, craneBaseThickness]}
             radius={0.05}
+            castShadow
             position={[0, 0, -craneBaseLength]}
           >
             <meshStandardMaterial color="grey" />

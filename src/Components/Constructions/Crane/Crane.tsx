@@ -67,7 +67,7 @@ function ChainLink({
 
   return (
     <>
-      <mesh ref={chainLinkRef as React.Ref<THREE.Mesh>}>
+      <mesh ref={chainLinkRef as React.Ref<THREE.Mesh>} castShadow>
         <cylinderGeometry args={args} />
         <meshStandardMaterial color={color} />
       </mesh>
@@ -90,7 +90,7 @@ function Rock() {
   )
 
   useConeTwistConstraint(parentRef, rockRef, {
-    angle: Math.PI / 2,
+    angle: Math.PI / 10,
     axisA: [0, 1, 0],
     axisB: [0, 1, 0],
     pivotA: [0, -1.5, 0], // Pivot on the bottom of the rock
@@ -99,7 +99,7 @@ function Rock() {
   })
 
   return (
-    <mesh ref={rockRef} scale={4}>
+    <mesh ref={rockRef} scale={4} castShadow>
       {/* Define the geometry and material for the rock */}
       <sphereGeometry args={[0.5, 16, 16]} />
       <meshStandardMaterial color="#211f1f" />
@@ -153,9 +153,9 @@ function PointerHandle({
 
   useFrame((_, delta) => {
     if (clockWiseRotation) {
-      setT((prevT) => prevT - delta * 0.8)
+      setT((prevT) => prevT - delta * 0.6)
     } else {
-      setT((prevT) => prevT + delta * 0.8)
+      setT((prevT) => prevT + delta * 0.6)
     }
 
     const x = Math.sin(clockWiseRotation ? t - 0.1 : t + 0.1) * radius
@@ -185,9 +185,9 @@ const CraneArm = ({
   useFrame((_, delta) => {
     if (ref.current) {
       if (clockWiseRotation) {
-        ref.current.rotation.y -= delta * 0.8
+        ref.current.rotation.y -= delta * 0.6
       } else {
-        ref.current.rotation.y += delta * 0.8
+        ref.current.rotation.y += delta * 0.6
       }
     }
   })
@@ -239,6 +239,7 @@ const Crane = () => {
           args={[6, 1, 6]}
           radius={0.2}
           position={[0, 0.3, -craneBaseLength / 2]}
+          castShadow
         >
           <meshStandardMaterial color="#bababa" />
         </RoundedBox>

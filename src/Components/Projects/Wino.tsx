@@ -1,15 +1,20 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import * as THREE from "three"
 
-import { Box, Text, useFBX } from "@react-three/drei"
+import { Box, Plane, RoundedBox, Text, useFBX } from "@react-three/drei"
 import { useFrame, useThree } from "@react-three/fiber"
 
-function TypingText() {
-  const text = "Hello, world!"
+const TypingText = ({ isVisible }: { isVisible: boolean }) => {
+  const text =
+    "J'ai travaillé 1 an et demi chez Wino en tant que développeur web Front-End sur la plateforme de caisse enregistreuse en ReScript."
   const [visibleText, setVisibleText] = useState("")
   const textRef = useRef<THREE.Mesh>(null!)
-  const cursorRef = useRef<any>(null!)
-  const typingSpeed = 50 // Characters per second
+  const groupRef = useRef<THREE.Group>(null!)
+  const scaleRef = useRef([0, 0, 0])
+
+  const typingSpeed = 40 // Characters per second
+  const targetScale = [1, 1, 1]
+  const scaleSpeed = 0.02 // Vitesse de l'animation de transition
 
   // Function to simulate typing effect
   const typeText = () => {
@@ -30,62 +35,78 @@ function TypingText() {
     typeText()
   }, [])
 
-  // Make the cursor blink
+  const { camera } = useThree()
   useFrame(() => {
-    if (cursorRef.current) {
-      cursorRef.current.visible = !cursorRef.current.visible
+    if (groupRef.current) {
+      groupRef.current.lookAt(camera.position)
     }
   })
 
   return (
-    <>
-      <Text ref={textRef}>
+    <group ref={groupRef} position={[0, 10, 0]}>
+      <RoundedBox
+        args={[10, 8, 1]}
+        position={[0, 0, -0.6]}
+        radius={0.1}
+        castShadow
+      >
+        <meshStandardMaterial color="#6cdef1" side={THREE.DoubleSide} />
+      </RoundedBox>
+      <Text ref={textRef} maxWidth={8} fontSize={0.8} anchorX={"center"}>
         <meshBasicMaterial color="black" side={THREE.DoubleSide} />
         {visibleText}
       </Text>
-    </>
+    </group>
   )
 }
 
 interface Props {
   text: string
+  position: [number, number, number]
 }
-const Wino = ({ text }: Props) => {
+const Wino = ({ text, position }: Props) => {
   const logoWino = useFBX("./3dmodels/Logo/winoLogo.fbx")
-  const [hovered, setHovered] = useState(false)
-
+  const raycaster = new THREE.Raycaster()
   const ref = useRef<THREE.Mesh>(null!)
+
+  const { camera, scene } = useThree()
+  const [isVisible, setIsVisible] = useState(true)
 
   if (ref.current) {
     ref.current.name = "wino"
   }
 
-  const raycaster = new THREE.Raycaster()
-
-  const { camera, scene } = useThree()
+  useLayoutEffect(
+    () =>
+      logoWino.traverse(
+        (o) =>
+          o instanceof THREE.Mesh && (o.castShadow = o.receiveShadow = true),
+      ),
+    [logoWino],
+  )
 
   useFrame((state) => {
     raycaster.setFromCamera(state.mouse, camera)
     const intersects = raycaster.intersectObjects([scene])
-    if (intersects.length > 0 && intersects[0].object.name === "wino") {
-      setHovered(true)
-    } else setHovered(false)
+    // if (intersects.length > 0 && intersects[0].object.name === "wino") {
+    //   setIsVisible(true)
+
+    //   // if (isVisible) {
+    //   //   setTimeout(() => setIsVisible(false), 5000)
+    //   // }
+    // } else setIsVisible(false)
   })
 
   return (
     <>
-      {hovered && <TypingText />}
-      <group
-        position={[-4.3, 4.2, 5.2]}
-        rotation={[0, Math.PI / 12, Math.PI / 5]}
-      >
+      {isVisible && <TypingText isVisible={isVisible} />}
+      <group position={position} rotation={[0, Math.PI / 12, Math.PI / 5]}>
         <Box
           args={[7.1, 2, 2]}
           position={[-3.9, 0, -1]}
           ref={ref}
-          // onPointerOver={() => setHovered(true)}
-          // onPointerLeave={() => setTimeout(() => setHovered(false), 1000)}
-          // visible={false}
+          visible={false}
+          scale={1.1}
         >
           <meshStandardMaterial color="blue" />
         </Box>

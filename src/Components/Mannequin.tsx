@@ -5,7 +5,7 @@ Command: npx gltfjsx@6.2.7 man.glb
 */
 
 import { useEffect, useRef, useState } from "react"
-import { useGLTF, useAnimations } from "@react-three/drei"
+import { useGLTF, useAnimations, Sphere, Box } from "@react-three/drei"
 import { animated, useSpring } from "@react-spring/three"
 import * as THREE from "three"
 import { useFrame } from "@react-three/fiber"
@@ -53,9 +53,14 @@ export default function Model() {
     },
   })
 
-  useFrame((_, delta) => {
-    // console.log(delta)
+  const handleClick = () => {
+    if (action === "IdlePose") {
+      setAction("FallingPose")
+      setClicked(true)
+    }
+  }
 
+  useFrame((_, delta) => {
     if (clicked) {
       group.current.position.y -= 25 * delta
 
@@ -109,12 +114,6 @@ export default function Model() {
           // @ts-ignore
           rotation={rotation}
           scale={0.03}
-          onClick={() => {
-            if (action === "IdlePose") {
-              setAction("FallingPose")
-              setClicked(true)
-            }
-          }}
         >
           <primitive object={nodes.mixamorig1Hips} />
           <skinnedMesh
@@ -126,6 +125,12 @@ export default function Model() {
           />
         </animated.group>
       </group>
+      <Box
+        args={[2, 5.3, 2]}
+        position={[0, 2.7, 0]}
+        onClick={handleClick}
+        visible={false}
+      />
     </group>
   )
 }

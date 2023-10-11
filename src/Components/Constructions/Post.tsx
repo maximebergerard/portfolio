@@ -55,12 +55,14 @@ const Post = ({ position }: PostProps) => {
         position={[0, 0, 0]}
         rotation={[0, 0, 0]}
         material={material}
-      ></Cylinder>
+        castShadow
+      />
       <RoundedBox
         args={[1.2, 0.4, 1.2]}
         radius={0.1}
         position={[0, -postHeight / 2, 0]}
         rotation={[0, 0, 0]}
+        castShadow
       >
         <meshStandardMaterial color={"#5e5c5c"} />
       </RoundedBox>
@@ -68,6 +70,7 @@ const Post = ({ position }: PostProps) => {
         args={[0.3, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2]}
         position={[0, postHeight - postHeight / 2, 0]}
         rotation={[0, 0, 0]}
+        castShadow
       >
         <meshStandardMaterial color={"#30302f"} />
       </Sphere>

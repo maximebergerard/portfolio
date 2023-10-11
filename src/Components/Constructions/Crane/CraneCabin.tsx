@@ -49,6 +49,7 @@ const Cabin = ({ craneBaseLength }: CabinProps) => {
         args={[5, 7]}
         rotation={[Math.PI / 2, 0, 0]}
         position={[0, 15.82, -craneBaseLength / 2]}
+        castShadow
       >
         <meshBasicMaterial color="#ff8330" side={THREE.DoubleSide} />
       </Plane>
@@ -57,6 +58,7 @@ const Cabin = ({ craneBaseLength }: CabinProps) => {
         args={[5, 2]}
         rotation={[Math.PI / 4, 0, 0]}
         position={[0, 15.82 + 0.705, -craneBaseLength + 5.7]}
+        castShadow
       >
         <meshBasicMaterial color="#ff8330" side={THREE.DoubleSide} />
       </Plane>
@@ -80,6 +82,7 @@ const Cabin = ({ craneBaseLength }: CabinProps) => {
         args={[5, 5]}
         rotation={[0, 0, 0]}
         position={[0, 15.82 + 5 / 2, -craneBaseLength / 2 - 7 / 2]}
+        castShadow
       >
         <meshBasicMaterial color="#ff8330" side={THREE.DoubleSide} />
       </Plane>
@@ -88,6 +91,7 @@ const Cabin = ({ craneBaseLength }: CabinProps) => {
         args={[5, 7]}
         rotation={[Math.PI / 2, 0, 0]}
         position={[0, 15.82 + 5, -craneBaseLength / 2]}
+        castShadow
       >
         <meshBasicMaterial color="#ff8330" side={THREE.DoubleSide} />
       </Plane>
@@ -96,6 +100,7 @@ const Cabin = ({ craneBaseLength }: CabinProps) => {
         args={[4, 5]}
         rotation={[0, Math.PI / 2, 0]}
         position={[-2.5, 15.82 + 5 / 2, -craneBaseLength / 2 - 1.5]}
+        castShadow
       >
         <meshBasicMaterial color="#ff8330" side={THREE.DoubleSide} />
       </Plane>
@@ -103,6 +108,7 @@ const Cabin = ({ craneBaseLength }: CabinProps) => {
         args={[3, 1.5]}
         rotation={[0, Math.PI / 2, 0]}
         position={[-2.5, 15.82 + 0.75, 0.5]}
+        castShadow
       >
         <meshBasicMaterial color="#ff8330" side={THREE.DoubleSide} />
       </Plane>
@@ -110,6 +116,7 @@ const Cabin = ({ craneBaseLength }: CabinProps) => {
         args={[3, 3.5]}
         rotation={[0, Math.PI / 2, 0]}
         position={[-2.5, 15.82 + 3.25, 0.5]}
+        castShadow
       >
         <meshPhysicalMaterial
           color="white"
