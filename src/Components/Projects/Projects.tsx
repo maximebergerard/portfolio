@@ -20,10 +20,6 @@ const Podium = () => {
   )
 }
 
-const ProjectText = () => {
-  return <div>Wino est un projet gngngn</div>
-}
-
 const Project = () => {
   const logoSmartgarant = useFBX("./3dmodels/Logo/smartgarantLogo.fbx")
   return (

@@ -44,7 +44,7 @@ const Letter = ({
     >
       <Text3D
         ref={ref}
-        font={"./fonts/Bree Serif_Regular.json"}
+        font={"./fonts/Bree_Serif_Regular.json"}
         position={position}
         rotation={[rotationX, rotationY, 0]}
         size={fontSize}

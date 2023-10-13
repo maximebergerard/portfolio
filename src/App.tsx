@@ -71,6 +71,7 @@ export default function App() {
             stops={[0, 0.25, 0.75, 1]}
             colors={["#d0bdde", "#eaafc8", "#a88cf5", "#d0bdde"]}
           />
+          {/* <Texture color="blue" attach={"background"} /> */}
           <OCamera />
           {/* <PresentationControls
             global

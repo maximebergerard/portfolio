@@ -6,7 +6,7 @@ import { useFrame, useThree } from "@react-three/fiber"
 
 const TypingText = ({ isVisible }: { isVisible: boolean }) => {
   const text =
-    "J'ai travaillé 1 an et demi chez Wino en tant que développeur web Front-End sur la plateforme de caisse enregistreuse en ReScript."
+    "Développeur en atlernance sur l'application back-office pour Wino, une startup de caisse enregistreuse connectée. J'étais spécialisé dans le développement de l'interface en ReScript."
   const [visibleText, setVisibleText] = useState("")
   const textRef = useRef<THREE.Mesh>(null!)
   const groupRef = useRef<THREE.Group>(null!)
@@ -43,19 +43,28 @@ const TypingText = ({ isVisible }: { isVisible: boolean }) => {
   })
 
   return (
-    <group ref={groupRef} position={[0, 10, 0]}>
+    <group ref={groupRef} position={[0, 8, 0]}>
       <RoundedBox
         args={[10, 8, 1]}
         position={[0, 0, -0.6]}
         radius={0.1}
         castShadow
       >
-        <meshStandardMaterial color="#6cdef1" side={THREE.DoubleSide} />
+        <meshStandardMaterial color="#f5f5f5" side={THREE.DoubleSide} />
       </RoundedBox>
-      <Text ref={textRef} maxWidth={8} fontSize={0.8} anchorX={"center"}>
+      <Text
+        ref={textRef}
+        font={"./fonts/Quicksand-Regular.ttf"}
+        maxWidth={8}
+        fontSize={0.6}
+        anchorX={"center"}
+      >
         <meshBasicMaterial color="black" side={THREE.DoubleSide} />
         {visibleText}
       </Text>
+      <group>
+        <RoundedBox></RoundedBox>
+      </group>
     </group>
   )
 }
@@ -88,13 +97,9 @@ const Wino = ({ text, position }: Props) => {
   useFrame((state) => {
     raycaster.setFromCamera(state.mouse, camera)
     const intersects = raycaster.intersectObjects([scene])
-    // if (intersects.length > 0 && intersects[0].object.name === "wino") {
-    //   setIsVisible(true)
-
-    //   // if (isVisible) {
-    //   //   setTimeout(() => setIsVisible(false), 5000)
-    //   // }
-    // } else setIsVisible(false)
+    if (intersects.length > 0 && intersects[0].object.name === "wino") {
+      setIsVisible(true)
+    }
   })
 
   return (

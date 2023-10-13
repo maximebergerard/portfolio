@@ -5,7 +5,7 @@ Command: npx gltfjsx@6.2.7 man.glb
 */
 
 import { useEffect, useRef, useState } from "react"
-import { useGLTF, useAnimations, Sphere, Box } from "@react-three/drei"
+import { useGLTF, useAnimations, Box } from "@react-three/drei"
 import { animated, useSpring } from "@react-spring/three"
 import * as THREE from "three"
 import { useFrame } from "@react-three/fiber"
