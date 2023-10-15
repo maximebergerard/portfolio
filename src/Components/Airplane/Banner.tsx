@@ -6,10 +6,6 @@ import * as THREE from "three"
 export interface drawTextOnCanvasProps {
   textParams: {
     text: string
-    underlineStart: number
-    underlineEnd: number
-    underlineColor?: string
-    link: string
   }
 }
 
@@ -30,22 +26,10 @@ const drawTextOnCanvas = ({ textParams }: drawTextOnCanvasProps) => {
   ctx.fillStyle = "#000000"
   ctx.textAlign = "center"
   ctx.textBaseline = "middle"
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // ctx.letterSpacing = "2px"
-
   ctx.fillText(textParams.text, canvas.width / 2, canvas.height / 2)
 
   // Draw the underline
   ctx.beginPath() // +70 et -50
-  ctx.moveTo(
-    canvas.width / 2 + textParams.underlineStart,
-    canvas.height / 2 + 20,
-  ) // Adjust the position and thickness of the underline
-  ctx.lineTo(canvas.width - textParams.underlineEnd, canvas.height / 2 + 20) // Adjust the position and thickness of the underline
-  ctx.strokeStyle = textParams.underlineColor
-    ? textParams.underlineColor
-    : "blue" // Set the color of the underline
   ctx.lineWidth = 2 // Set the thickness of the underline
   ctx.stroke()
 
@@ -124,9 +108,6 @@ const Banner = ({
       ref={flagGroupRef}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
-      onClick={() =>
-        window.open(textParams.link, "_blank", "noopener,noreferrer")
-      }
     >
       <Plane
         ref={flagRef}

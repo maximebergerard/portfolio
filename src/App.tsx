@@ -7,13 +7,12 @@ import "./App.css"
 
 import { Canvas, useThree } from "@react-three/fiber"
 import {
-  OrbitControls,
+  // OrbitControls,
   GradientTexture,
   OrthographicCamera,
-  PerspectiveCamera,
+  // PerspectiveCamera,
   PresentationControls,
   useFBX,
-  useGLTF,
 } from "@react-three/drei"
 
 import Mannequin from "./Components/Mannequin"
@@ -50,18 +49,17 @@ const OCamera = () => {
   )
 }
 
-const PCamera = () => {
-  // const camera = useRef<THREE.PerspectiveCamera>(null!)
-  // useHelper(camera, THREE.CameraHelper)
-  return (
-    <PerspectiveCamera makeDefault position={[0, 0, 40]}>
-      <OrbitControls />
-    </PerspectiveCamera>
-  )
-}
+// const PCamera = () => {
+//   // const camera = useRef<THREE.PerspectiveCamera>(null!)
+//   // useHelper(camera, THREE.CameraHelper)
+//   return (
+//     <PerspectiveCamera makeDefault position={[0, 0, 40]}>
+//       <OrbitControls />
+//     </PerspectiveCamera>
+//   )
+// }
 
 export default function App() {
-  const fbx = useFBX("./3dmodels/AirplanePanel/planePanel.fbx")
   return (
     <Suspense fallback={null}>
       <div className="App">
@@ -73,7 +71,7 @@ export default function App() {
           />
           {/* <Texture color="blue" attach={"background"} /> */}
           <OCamera />
-          {/* <PresentationControls
+          <PresentationControls
             global
             rotation={[0, Math.PI / 4, 0]}
             polar={[0.1, Math.PI / 3]}
@@ -82,21 +80,21 @@ export default function App() {
               tension: 60,
               friction: 20,
             }}
-          > */}
-          <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
-          <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
-          <BasePlane />
-          <Suspense fallback={null}>
-            <Mannequin />
-          </Suspense>
-          <Airplane />
-          <PlanePanel />
-          <Projects />
-          <Construction />
-          <AdsPanel />
-          <Light />
-          {/* </PresentationControls> */}
-          <PCamera />
+          >
+            <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
+            <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
+            <BasePlane />
+            <Suspense fallback={null}>
+              <Mannequin />
+            </Suspense>
+            <Airplane />
+            <PlanePanel />
+            <Projects />
+            <Construction />
+            <AdsPanel />
+            <Light />
+          </PresentationControls>
+          {/* <PCamera /> */}
         </Canvas>
       </div>
     </Suspense>

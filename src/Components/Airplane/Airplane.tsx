@@ -3,7 +3,7 @@
 import * as THREE from "three"
 import { useEffect, useRef, useState } from "react"
 
-import { useCursor, useFBX } from "@react-three/drei"
+import { useFBX } from "@react-three/drei"
 import { TextureLoader } from "three/src/loaders/TextureLoader"
 import { useFrame, useLoader } from "@react-three/fiber"
 
@@ -125,34 +125,10 @@ export default Airplane
 
 const setBannerText = (circle: number): drawTextOnCanvasProps => {
   switch (circle) {
-    case 0:
-      return {
-        textParams: {
-          text: "DÉVELOPPEUR FRONT-END POUR WINO",
-          underlineStart: 190,
-          underlineEnd: 155,
-          underlineColor: "#8A0262",
-          link: "https://wino.fr/",
-        },
-      }
-    case 1:
-      return {
-        textParams: {
-          text: "DÉVELOPPEUR FRONT-END SUR SMART-GARANT.COM",
-          underlineStart: 70,
-          underlineEnd: 50,
-          underlineColor: "#FE595E",
-          link: "https://smart-garant.com/",
-        },
-      }
     default:
       return {
         textParams: {
-          text: "DÉVELOPPEUR FRONT-END SUR SMART-GARANT.COM",
-          underlineStart: 70,
-          underlineEnd: 50,
-          underlineColor: "#FE595E",
-          link: "https://smart-garant.com/",
+          text: "OUVERT AUX PROPOSITIONS FRONT-END & NOCODE",
         },
       }
   }

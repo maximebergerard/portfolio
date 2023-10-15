@@ -11,8 +11,8 @@ const TypingText = ({
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
   text: string
 }) => {
-  const title = "WINO"
-  const date = "2021-2022"
+  const title = "SMARTGARANT"
+  const date = "2021"
   const [visibleText, setVisibleText] = useState("")
   const textRef = useRef<THREE.Mesh>(null!)
   const groupRef = useRef<THREE.Group>(null!)
@@ -46,18 +46,18 @@ const TypingText = ({
   })
 
   return (
-    <group ref={groupRef} position={[0, 8, 0]}>
+    <group ref={groupRef} position={[-1, 8, 10]}>
       <RoundedBox
         args={[10, 9, 1]}
         position={[0, 0, -0.6]}
         radius={0.1}
         castShadow
       >
-        <meshStandardMaterial color="#fffdcc" />
+        <meshStandardMaterial color="#cfffcc" />
       </RoundedBox>
       <Text
         fontSize={1}
-        position={[-3, 3.5, 0]}
+        position={[-0.8, 3.5, 0]}
         font={"./fonts/Quicksand-Bold.ttf"}
       >
         <meshBasicMaterial color="black" />
@@ -65,7 +65,7 @@ const TypingText = ({
       </Text>
       <Text
         fontSize={0.6}
-        position={[-3, 2.5, 0]}
+        position={[-3.8, 2.5, 0]}
         font={"./fonts/Quicksand-Regular.ttf"}
       >
         <meshBasicMaterial color="#545454" />
@@ -74,22 +74,22 @@ const TypingText = ({
       <Text
         ref={textRef}
         font={"./fonts/Quicksand-Regular.ttf"}
-        maxWidth={8.5}
+        maxWidth={8}
         fontSize={0.6}
         anchorX={"center"}
         anchorY={"top"}
-        position={[0, 1.95, 0]}
+        position={[-0.4, 2, 0]}
       >
         <meshBasicMaterial color="black" />
         {visibleText}
       </Text>
       <Text
-        position={[4, -3.8, 0]}
+        position={[3, -3.8, 0]}
         fontSize={0.4}
         onClick={() => window.open("https://smart-garant.com", "_blank")}
       >
         <meshBasicMaterial color="#371ac9" />
-        wino.fr
+        smart-garant.com
       </Text>
       <group
         position={[4, 3.5, 0]}
@@ -115,18 +115,17 @@ interface Props {
   description: string
   position: [number, number, number]
 }
-const Wino = ({ description, position }: Props) => {
-  const logoWino = useFBX("./3dmodels/Logo/winoLogo.fbx")
-
+const SmartGarant = ({ description, position }: Props) => {
+  const logoSmartgarant = useFBX("./3dmodels/Logo/smartgarantLogo.fbx")
   const [isVisible, setIsVisible] = useState(false)
 
   useLayoutEffect(
     () =>
-      logoWino.traverse(
+      logoSmartgarant.traverse(
         (o) =>
           o instanceof THREE.Mesh && (o.castShadow = o.receiveShadow = true),
       ),
-    [logoWino],
+    [logoSmartgarant],
   )
 
   return (
@@ -134,20 +133,57 @@ const Wino = ({ description, position }: Props) => {
       {isVisible && (
         <TypingText setIsVisible={setIsVisible} text={description} />
       )}
-      <group position={position} rotation={[0, Math.PI / 12, Math.PI / 5]}>
-        <Box
-          args={[7.1, 2, 2]}
-          position={[-3.9, 0, -1]}
-          visible={false}
-          scale={1.1}
-          onClick={() => setIsVisible(true)}
-        >
-          <meshStandardMaterial color="blue" />
-        </Box>
-        <primitive object={logoWino} scale={0.02} />
+      <group
+        position={position}
+        rotation={[Math.PI / 5.2, Math.PI / -8, Math.PI / 10]}
+      >
+        <group onClick={() => setIsVisible(true)}>
+          <Box
+            args={[5, 1, 1]}
+            position={[2.7, 0.3, -0.7]}
+            visible={false}
+            scale={1.1}
+          />
+          <Box
+            args={[3, 1, 1]}
+            position={[0.4, 0.3, -2.8]}
+            rotation={[0, Math.PI / 2, 0]}
+            visible={false}
+            scale={1.1}
+          />
+          <Box
+            args={[3, 1, 1]}
+            position={[1.5, 0.3, -4.8]}
+            rotation={[0, Math.PI / 5, 0]}
+            visible={false}
+            scale={1.1}
+          />
+          <Box
+            args={[3, 1, 1]}
+            position={[3.8, 0.3, -4.8]}
+            rotation={[0, -Math.PI / 5, 0]}
+            visible={false}
+            scale={1.1}
+          />
+          <Box
+            args={[3, 1, 1]}
+            position={[5, 0.3, -2.8]}
+            rotation={[0, Math.PI / 2, 0]}
+            visible={false}
+            scale={1.1}
+          />
+          <Box
+            args={[2, 1, 0.8]}
+            position={[4, 0.3, -3.1]}
+            rotation={[0, Math.PI / 3, 0]}
+            visible={false}
+            scale={1.1}
+          />
+        </group>
+        <primitive object={logoSmartgarant} scale={0.015} />
       </group>
     </>
   )
 }
 
-export default Wino
+export default SmartGarant
