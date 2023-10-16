@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react"
+import { useLayoutEffect, useRef, useState } from "react"
 import * as THREE from "three"
 
 import { Box, RoundedBox, Text, useFBX } from "@react-three/drei"
