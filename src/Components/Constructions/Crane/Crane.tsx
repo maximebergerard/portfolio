@@ -230,9 +230,7 @@ const Crane = () => {
       <group
         scale={0.3}
         position={[3, 0.3, 3]}
-        onClick={() => {
-          setClockWiseRotation(!clockWiseRotation)
-        }}
+        onClick={() => setClockWiseRotation(!clockWiseRotation)}
       >
         {/** Base */}
         <RoundedBox

@@ -3,42 +3,32 @@ import * as THREE from "three"
 
 import { Box, RoundedBox, Text, useFBX } from "@react-three/drei"
 import { useFrame, useThree } from "@react-three/fiber"
+import { useSpring, animated } from "@react-spring/three"
 
 const TypingText = ({
+  isVisible,
   setIsVisible,
   text,
 }: {
+  isVisible: boolean
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
   text: string
 }) => {
   const title = "WINO"
   const date = "2021-2022"
-  const [visibleText, setVisibleText] = useState("")
   const textRef = useRef<THREE.Mesh>(null!)
   const groupRef = useRef<THREE.Group>(null!)
-
-  const typingSpeed = 30 // Characters per second
-
-  // Function to simulate typing effect
-  const typeText = () => {
-    let currentIndex = 0
-
-    const typingInterval = setInterval(() => {
-      if (currentIndex <= text.length) {
-        setVisibleText(text.slice(0, currentIndex))
-        currentIndex++
-      } else {
-        clearInterval(typingInterval)
-      }
-    }, 1000 / typingSpeed)
-  }
-
-  // Call the typing function when the component mounts
-  useEffect(() => {
-    typeText()
-  }, [])
-
   const { camera } = useThree()
+
+  // Define the animation spring
+  const animation = useSpring({
+    scale: isVisible ? 1 : 0,
+    config: {
+      tension: 200,
+      friction: 20,
+    },
+  })
+
   useFrame(() => {
     if (groupRef.current) {
       groupRef.current.lookAt(camera.position)
@@ -46,7 +36,7 @@ const TypingText = ({
   })
 
   return (
-    <group ref={groupRef} position={[0, 8, 0]}>
+    <animated.group ref={groupRef} position={[0, 8, 0]} scale={animation.scale}>
       <RoundedBox
         args={[10, 9, 1]}
         position={[0, 0, -0.6]}
@@ -81,12 +71,12 @@ const TypingText = ({
         position={[0, 1.95, 0]}
       >
         <meshBasicMaterial color="black" />
-        {visibleText}
+        {text}
       </Text>
       <Text
         position={[4, -3.8, 0]}
         fontSize={0.4}
-        onClick={() => window.open("https://smart-garant.com", "_blank")}
+        onClick={() => window.open("https://wino.fr", "_blank")}
       >
         <meshBasicMaterial color="#371ac9" />
         wino.fr
@@ -107,7 +97,7 @@ const TypingText = ({
           <meshStandardMaterial color="#f25050" />
         </RoundedBox>
       </group>
-    </group>
+    </animated.group>
   )
 }
 
@@ -131,9 +121,11 @@ const Wino = ({ description, position }: Props) => {
 
   return (
     <>
-      {isVisible && (
-        <TypingText setIsVisible={setIsVisible} text={description} />
-      )}
+      <TypingText
+        setIsVisible={setIsVisible}
+        isVisible={isVisible}
+        text={description}
+      />
       <group position={position} rotation={[0, Math.PI / 12, Math.PI / 5]}>
         <Box
           args={[7.1, 2, 2]}

@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react"
 import { useGLTF, useAnimations, Box } from "@react-three/drei"
 import { animated, useSpring } from "@react-spring/three"
 import * as THREE from "three"
-import { useFrame } from "@react-three/fiber"
+import { useFrame, useThree, ThreeEvent } from "@react-three/fiber"
 
 export default function Model() {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -21,6 +21,46 @@ export default function Model() {
   // @ts-ignore
   const { nodes, materials, animations } = useGLTF("./3dmodels/mannequin.glb")
   const { actions } = useAnimations(animations, group)
+
+  const ref = useRef<THREE.Mesh>(null!)
+  const { camera, scene } = useThree()
+
+  const { rotation } = useSpring({
+    rotation:
+      action === "FallingPose"
+        ? [Math.PI / 2, -Math.PI, Math.PI / 2]
+        : [Math.PI / 2, 0, Math.PI / 2],
+    config: {
+      duration: 1000,
+    },
+  })
+
+  if (ref.current) {
+    ref.current.name = "Mannequin"
+  }
+
+  const handleClick = (event: ThreeEvent<MouseEvent>) => {
+    const raycaster = new THREE.Raycaster()
+    const mouse = new THREE.Vector2()
+
+    // Calculate the mouse position in normalized device coordinates
+    // (-1 to +1) for both components
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
+
+    // Set the origin and direction of the ray based on the mouse position
+    raycaster.setFromCamera(mouse, camera)
+
+    // Check if the ray intersects with the mannequin mesh
+    const intersects = raycaster.intersectObjects(scene.children, true)
+
+    if (intersects.length > 0 && intersects[0].object.name === "Mannequin") {
+      if (action === "IdlePose") {
+        setAction("FallingPose")
+        setClicked(true)
+      }
+    }
+  }
 
   useEffect(() => {
     if (previousAction) {
@@ -42,23 +82,6 @@ export default function Model() {
 
     return () => clearInterval(interval)
   }, [action, actions, previousAction])
-
-  const { rotation } = useSpring({
-    rotation:
-      action === "FallingPose"
-        ? [Math.PI / 2, -Math.PI, Math.PI / 2]
-        : [Math.PI / 2, 0, Math.PI / 2],
-    config: {
-      duration: 1000,
-    },
-  })
-
-  const handleClick = () => {
-    if (action === "IdlePose") {
-      setAction("FallingPose")
-      setClicked(true)
-    }
-  }
 
   useFrame((_, delta) => {
     if (clicked) {
@@ -126,6 +149,7 @@ export default function Model() {
         </animated.group>
       </group>
       <Box
+        ref={ref}
         args={[2, 5.3, 2]}
         position={[0, 2.7, 0]}
         onClick={handleClick}

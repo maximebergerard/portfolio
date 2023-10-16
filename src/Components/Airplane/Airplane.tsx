@@ -28,10 +28,11 @@ const Airplane = () => {
   const [rotationStart, setRotationStart] = useState(0)
   const [isRotating, setIsRotating] = useState(false)
 
-  const fbx = useFBX("/3dmodels/Airplane/airplane.fbx")
+  const fbx = useFBX("./3dmodels/Airplane/airplane.fbx")
+
   const [colorMap, normalMap] = useLoader(TextureLoader, [
-    "/3dmodels/Airplane/color.png",
-    "/3dmodels/Airplane/normal.png",
+    "./3dmodels/Airplane/color.png",
+    "./3dmodels/Airplane/normal.png",
   ])
 
   if (fbx) {
