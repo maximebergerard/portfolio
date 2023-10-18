@@ -1,18 +1,22 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as THREE from "three"
-import { useRef, Suspense, useLayoutEffect } from "react"
+import { useRef, Suspense, useLayoutEffect, useState, useEffect } from "react"
 
 import "./App.css"
 
 import { Canvas, useThree } from "@react-three/fiber"
 import {
+  Circle,
   // OrbitControls,
   GradientTexture,
+  Html,
+  // Loader,
   OrthographicCamera,
   // PerspectiveCamera,
   PresentationControls,
   useFBX,
+  useProgress,
 } from "@react-three/drei"
 
 import Mannequin from "./Components/Mannequin"
@@ -37,7 +41,7 @@ const OCamera = () => {
   return (
     <OrthographicCamera
       makeDefault
-      position={[0, 2, 40]}
+      position={[0, 4, 40]}
       rotation={[0, 0, 0]}
       ref={camera}
       near={0.1}
@@ -59,17 +63,50 @@ const OCamera = () => {
 //   )
 // }
 
-export default function App() {
+function Loader() {
+  const { active, progress, errors, item, loaded, total } = useProgress()
   return (
-    <Suspense fallback={null}>
-      <div className="App">
-        <Canvas shadows>
+    <>
+      <Circle args={[1, 64]} position={[0, 0, -10]} rotation={[0, 0, 0]}>
+        <meshBasicMaterial color="blue" />
+      </Circle>
+      <Html
+        center
+        style={{
+          color: "blue",
+          width: "100vw",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        Chargement à {Math.round(progress)}%
+      </Html>
+    </>
+  )
+}
+
+export default function App() {
+  const heticLogo = useFBX("./3dmodels/hetic_cap.fbx")
+
+  useLayoutEffect(
+    () =>
+      heticLogo.traverse(
+        (o) =>
+          o instanceof THREE.Mesh && (o.castShadow = o.receiveShadow = true),
+      ),
+    [heticLogo],
+  )
+
+  return (
+    <div className="App">
+      <Canvas shadows>
+        <Suspense fallback={<Loader />}>
           <GradientTexture
             attach={"background"}
             stops={[0, 0.25, 0.75, 1]}
             colors={["#d0bdde", "#eaafc8", "#a88cf5", "#d0bdde"]}
           />
-          {/* <Texture color="blue" attach={"background"} /> */}
           <OCamera />
           <PresentationControls
             global
@@ -92,12 +129,18 @@ export default function App() {
             <Projects />
             <Construction />
             <AdsPanel />
+            <primitive
+              object={heticLogo}
+              position={[14, 0.42, -9]}
+              scale={0.015}
+              rotation={[0, -Math.PI / 3, 0]}
+            />
             <Light />
           </PresentationControls>
           {/* <PCamera /> */}
-        </Canvas>
-      </div>
-    </Suspense>
+        </Suspense>
+      </Canvas>
+    </div>
   )
 }
 

@@ -17,8 +17,8 @@ const TypingText = ({
   const title = "SMARTGARANT"
   const date = "2021"
 
-  const textRef = useRef<THREE.Mesh>(null!)
-  const groupRef = useRef<THREE.Group>(null!)
+  const textRef = useRef<THREE.Mesh>(null)
+  const groupRef = useRef<THREE.Group>(null)
   const { camera } = useThree()
 
   // Define the animation spring
@@ -86,11 +86,14 @@ const TypingText = ({
         <meshBasicMaterial color="#371ac9" />
         smart-garant.com
       </Text>
-      <group
+      <Box
+        args={[1, 1, 1]}
         position={[4, 3.5, 0]}
-        rotation={[0, 0, Math.PI / 4]}
+        visible={false}
         onClick={() => setIsVisible(false)}
-      >
+      />
+
+      <group position={[4, 3.5, 0]} rotation={[0, 0, Math.PI / 4]}>
         <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
           <meshStandardMaterial color="#f25050" />
         </RoundedBox>

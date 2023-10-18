@@ -3,8 +3,10 @@ import * as THREE from "three"
 import { useSpring, animated } from "@react-spring/three"
 import { Text3D } from "@react-three/drei"
 import { useRef, useState } from "react"
+import { useFrame, useThree } from "@react-three/fiber"
 
 interface LetterProps {
+  id?: number
   letter: string
   position: THREE.Vector3
   rotationX: number
@@ -12,6 +14,7 @@ interface LetterProps {
 }
 
 const Letter = ({
+  id: key,
   letter,
   position,
   rotationX,
@@ -22,7 +25,6 @@ const Letter = ({
   const ref = useRef<THREE.Mesh>(null!)
 
   const [hoveredRotation, setHoveredRotation] = useState(false)
-
   const { rotation } = useSpring({
     rotation: hoveredRotation ? [-Math.PI / 2, 0, 0] : [0, 0, 0],
     config: {
@@ -30,14 +32,24 @@ const Letter = ({
     },
   })
 
+  const raycaster = new THREE.Raycaster()
+  const { camera, scene } = useThree()
+
+  if (ref.current) ref.current.name = letter + key
+
+  useFrame((state) => {
+    raycaster.setFromCamera(state.mouse, camera)
+    const intersects = raycaster.intersectObjects([scene])
+    if (intersects.length > 0 && intersects[0].object.name === letter + key) {
+      setHoveredRotation(true)
+    }
+  })
+
   return (
     <animated.group
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       rotation={rotation}
-      onPointerEnter={() => {
-        setHoveredRotation(true)
-      }}
       onPointerLeave={() => {
         setTimeout(() => setHoveredRotation(false), 4000)
       }}
@@ -54,7 +66,6 @@ const Letter = ({
         receiveShadow
       >
         {letter}
-        {/* <meshNormalMaterial /> */}
         <meshStandardMaterial color={"#ffffff"} />
       </Text3D>
     </animated.group>
@@ -74,6 +85,7 @@ const Name = ({ position, rotationY, name }: NameProps) => {
         <Letter
           key={i}
           letter={letter.letter}
+          id={i}
           position={letter.position}
           rotationX={letter.rotationX}
           rotationY={rotationY}

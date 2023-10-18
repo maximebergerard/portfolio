@@ -91,7 +91,7 @@ export default function Model() {
         group.current.position.x += 1 * delta
       }
 
-      if (group.current.position.y < -20) {
+      if (group.current.position.y < -30) {
         group.current.position.y = 60
         group.current.position.x = 10
         if (mathRandom === 0) {
@@ -101,7 +101,7 @@ export default function Model() {
         }
       }
 
-      if (group.current.position.y > 0 && group.current.position.y < 0.5) {
+      if (group.current.position.y > 0 && group.current.position.y < 1) {
         group.current.position.y = 0
         if (action === "FallingPose2") {
           setAction("FallingFlatImpact")
