@@ -5,7 +5,7 @@ import { useRef, Suspense, useLayoutEffect, useState, useEffect } from "react"
 
 import "./App.css"
 
-import { Canvas, useThree } from "@react-three/fiber"
+import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import {
   Circle,
   // OrbitControls,
@@ -27,6 +27,7 @@ import Construction from "./Components/Constructions/Construction"
 import AdsPanel from "./Components/AdsPanel/AdsPanel"
 import BasePlane from "./Components/BasePlane"
 import Projects from "./Components/Projects/Projects"
+import Loader from "./Components/Loader"
 
 const OCamera = () => {
   const camera = useRef<THREE.OrthographicCamera>(null!)
@@ -63,25 +64,24 @@ const OCamera = () => {
 //   )
 // }
 
-function Loader() {
+const LoaderScreen = () => {
   const { active, progress, errors, item, loaded, total } = useProgress()
+  const [opacity, setOpacity] = useState(1)
+
+  useFrame(() => {
+    if (loaded && !active && opacity > 0) {
+      setOpacity((prev) => prev - 0.01)
+    }
+  })
+
   return (
     <>
-      <Circle args={[1, 64]} position={[0, 0, -10]} rotation={[0, 0, 0]}>
-        <meshBasicMaterial color="blue" />
-      </Circle>
-      <Html
-        center
-        style={{
-          color: "blue",
-          width: "100vw",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        Chargement à {Math.round(progress)}%
-      </Html>
+      {opacity < 0 ? null : (
+        <mesh position={[0, 4, 30]}>
+          <planeGeometry args={[50, 50, 1]} />
+          <meshBasicMaterial color="#a88cf5" transparent opacity={opacity} />
+        </mesh>
+      )}
     </>
   )
 }
@@ -102,11 +102,13 @@ export default function App() {
     <div className="App">
       <Canvas shadows>
         <Suspense fallback={<Loader />}>
+          <LoaderScreen />
           <GradientTexture
             attach={"background"}
             stops={[0, 0.25, 0.75, 1]}
             colors={["#d0bdde", "#eaafc8", "#a88cf5", "#d0bdde"]}
           />
+
           <OCamera />
           <PresentationControls
             global
