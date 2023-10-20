@@ -1,6 +1,6 @@
-import { Html, Plane, useProgress } from "@react-three/drei"
+import { Html, useProgress } from "@react-three/drei"
 import * as THREE from "three"
-import logo from "/images/mouse.svg"
+import mouse from "/images/mouse.svg"
 
 interface ProgressBarProps {
   progress: number
@@ -71,6 +71,7 @@ const Loader = () => {
           justifyContent: "center",
           alignItems: "center",
         }}
+        position={[0, 1.2, 0]}
       >
         <p
           style={{
@@ -80,12 +81,36 @@ const Loader = () => {
         >
           Chargement à {Math.round(progress)}%
         </p>
-        <img src={logo} alt="mouse click" />
       </Html>
-      <mesh position={[0, -0.5, 0]}>
-        <planeGeometry args={[4, 0.1]} />
+      <mesh position={[0, 0.5, 0]}>
+        <planeGeometry args={[4, 0.2, 10]} />
         <meshBasicMaterial map={texture} />
       </mesh>
+      <Html
+        center
+        style={{
+          color: "#1B1B5A",
+          width: "100vw",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          fontFamily: "Oswald, sans-serif",
+          fontSize: "2rem",
+        }}
+        position={[0, -0.7, 0]}
+      >
+        Intéragissez
+        <img
+          src={mouse}
+          alt="mouse click"
+          style={{
+            width: "4rem",
+            height: "4rem",
+            marginTop: "2rem",
+          }}
+        />
+      </Html>
     </>
   )
 }

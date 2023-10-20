@@ -1,16 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as THREE from "three"
-import { useRef, Suspense, useLayoutEffect, useState, useEffect } from "react"
+import { useRef, Suspense, useLayoutEffect, useState } from "react"
 
 import "./App.css"
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import {
-  Circle,
   // OrbitControls,
   GradientTexture,
-  Html,
   // Loader,
   OrthographicCamera,
   // PerspectiveCamera,
@@ -65,7 +63,7 @@ const OCamera = () => {
 // }
 
 const LoaderScreen = () => {
-  const { active, progress, errors, item, loaded, total } = useProgress()
+  const { active, loaded } = useProgress()
   const [opacity, setOpacity] = useState(1)
 
   useFrame(() => {
@@ -133,9 +131,9 @@ export default function App() {
             <AdsPanel />
             <primitive
               object={heticLogo}
-              position={[14, 0.42, -9]}
+              position={[0, 0.4, 8]}
               scale={0.015}
-              rotation={[0, -Math.PI / 3, 0]}
+              rotation={[0, 0, 0]}
             />
             <Light />
           </PresentationControls>
