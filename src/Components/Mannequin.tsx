@@ -9,8 +9,27 @@ import { useGLTF, useAnimations, Box } from "@react-three/drei"
 import { animated, useSpring } from "@react-spring/three"
 import * as THREE from "three"
 import { useFrame, useThree, ThreeEvent } from "@react-three/fiber"
+import { GLTF } from "three-stdlib"
 
-export default function Model() {
+type GLTFResult = GLTF & {
+  nodes: {
+    Ch17_Body: THREE.SkinnedMesh
+    Ch17_Boots: THREE.SkinnedMesh
+    Ch17_Eyelashes: THREE.SkinnedMesh
+    Ch17_Hair: THREE.SkinnedMesh
+    Ch17_Helmet: THREE.SkinnedMesh
+    Ch17_Pants: THREE.SkinnedMesh
+    Ch17_Shirt: THREE.SkinnedMesh
+    Ch17_Vest: THREE.SkinnedMesh
+    mixamorig1Hips: THREE.Bone
+  }
+  materials: {
+    ["Ch17_body.001"]: THREE.MeshStandardMaterial
+    ["Ch17_hair.001"]: THREE.MeshStandardMaterial
+  }
+}
+
+export default function Model(props: JSX.IntrinsicElements["group"]) {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const mathRandom = Math.floor(Math.random() * 2)
 
@@ -19,7 +38,9 @@ export default function Model() {
   const [clicked, setClicked] = useState(false)
   const previousAction = usePrevious(action)
   // @ts-ignore
-  const { nodes, materials, animations } = useGLTF("./3dmodels/mannequin.glb")
+  const { nodes, materials, animations } = useGLTF(
+    "./3dmodels/construction_worker.glb",
+  ) as GLTFResult
   const { actions } = useAnimations(animations, group)
 
   const ref = useRef<THREE.Mesh>(null!)
@@ -125,12 +146,14 @@ export default function Model() {
         }
       }
     } else if (action === "BackwardWalk") {
+      group.current.position.x += 3.2 * delta
+    } else if (action === "IdlePose" && group.current.position.x < 15.5) {
       group.current.position.x += 3 * delta
     }
   })
 
   return (
-    <group ref={group} dispose={null} position={[15.5, -0.05, -4]}>
+    <group {...props} ref={group} dispose={null} position={[15.5, -0.05, -4]}>
       <group name="Scene">
         <animated.group
           name="Armature"
@@ -139,18 +162,76 @@ export default function Model() {
           scale={0.03}
         >
           <primitive object={nodes.mixamorig1Hips} />
+
           <skinnedMesh
-            name="Ch36"
-            geometry={nodes.Ch36.geometry}
-            material={materials.Ch36_Body}
-            skeleton={nodes.Ch36.skeleton}
-            castShadow
+            name="Ch17_Body"
+            geometry={nodes.Ch17_Body.geometry}
+            material={materials["Ch17_body.001"]}
+            skeleton={nodes.Ch17_Body.skeleton}
+            rotation={[Math.PI / 2, 0, 0]}
+            scale={0.01}
+          />
+          <skinnedMesh
+            name="Ch17_Boots"
+            geometry={nodes.Ch17_Boots.geometry}
+            material={materials["Ch17_body.001"]}
+            skeleton={nodes.Ch17_Boots.skeleton}
+            rotation={[Math.PI / 2, 0, 0]}
+            scale={0.01}
+          />
+          <skinnedMesh
+            name="Ch17_Eyelashes"
+            geometry={nodes.Ch17_Eyelashes.geometry}
+            material={materials["Ch17_hair.001"]}
+            skeleton={nodes.Ch17_Eyelashes.skeleton}
+            rotation={[Math.PI / 2, 0, 0]}
+            scale={0.01}
+          />
+          <skinnedMesh
+            name="Ch17_Hair"
+            geometry={nodes.Ch17_Hair.geometry}
+            material={materials["Ch17_hair.001"]}
+            skeleton={nodes.Ch17_Hair.skeleton}
+            rotation={[Math.PI / 2, 0, 0]}
+            scale={0.01}
+          />
+          <skinnedMesh
+            name="Ch17_Helmet"
+            geometry={nodes.Ch17_Helmet.geometry}
+            material={materials["Ch17_body.001"]}
+            skeleton={nodes.Ch17_Helmet.skeleton}
+            rotation={[Math.PI / 2, 0, 0]}
+            scale={0.01}
+          />
+          <skinnedMesh
+            name="Ch17_Pants"
+            geometry={nodes.Ch17_Pants.geometry}
+            material={materials["Ch17_body.001"]}
+            skeleton={nodes.Ch17_Pants.skeleton}
+            rotation={[Math.PI / 2, 0, 0]}
+            scale={0.01}
+          />
+          <skinnedMesh
+            name="Ch17_Shirt"
+            geometry={nodes.Ch17_Shirt.geometry}
+            material={materials["Ch17_body.001"]}
+            skeleton={nodes.Ch17_Shirt.skeleton}
+            rotation={[Math.PI / 2, 0, 0]}
+            scale={0.01}
+          />
+          <skinnedMesh
+            name="Ch17_Vest"
+            geometry={nodes.Ch17_Vest.geometry}
+            material={materials["Ch17_body.001"]}
+            skeleton={nodes.Ch17_Vest.skeleton}
+            rotation={[Math.PI / 2, 0, 0]}
+            scale={0.01}
           />
         </animated.group>
       </group>
       <Box
         ref={ref}
-        args={[2, 5.3, 2]}
+        args={[2.5, 5.3, 2.5]}
         position={[0, 2.7, 0]}
         onClick={handleClick}
         visible={false}
@@ -159,7 +240,7 @@ export default function Model() {
   )
 }
 
-useGLTF.preload("./3dmodels/mannequin.glb")
+useGLTF.preload("./3dmodels/construction_worker.glb")
 
 function usePrevious(value: string) {
   // The ref object is a generic container whose current property is mutable ...
