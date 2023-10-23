@@ -49,8 +49,8 @@ const Airplane = () => {
     })
   }
 
-  useFrame(() => {
-    const elapsedTime = clockRef.current.getElapsedTime()
+  useFrame((state) => {
+    const elapsedTime = state.clock.getElapsedTime()
 
     setAngle((elapsedTime * speed) % (2 * Math.PI))
 

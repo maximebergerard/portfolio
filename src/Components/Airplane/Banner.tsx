@@ -72,7 +72,7 @@ const Banner = ({
 
   useFrame((state) => {
     const elapsedTime = state.clock.getElapsedTime() * speed
-    const flagAngle = elapsedTime - 0.65
+    const flagAngle = elapsedTime - 0.45
 
     // Calculate the flag's new position based on a semi-circle path
     const flagX = radius * Math.cos(flagAngle)
