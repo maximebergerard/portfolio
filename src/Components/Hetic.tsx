@@ -1,9 +1,8 @@
 import { useLayoutEffect, useRef, useState } from "react"
+import { RoundedBox, useFBX, Text, Box } from "@react-three/drei"
 import * as THREE from "three"
-
-import { Box, RoundedBox, Text, useFBX } from "@react-three/drei"
 import { ThreeEvent, useFrame, useThree } from "@react-three/fiber"
-import { useSpring, animated } from "@react-spring/three"
+import { animated, useSpring } from "@react-spring/three"
 
 const TextModal = ({
   isVisible,
@@ -14,8 +13,9 @@ const TextModal = ({
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
   text: string
 }) => {
-  const title = "WINO"
-  const date = "2021-2022"
+  const title = "HETIC"
+  const date = "2017-2022"
+
   const textRef = useRef<THREE.Mesh>(null)
   const groupRef = useRef<THREE.Group>(null)
   const { camera } = useThree()
@@ -38,20 +38,20 @@ const TextModal = ({
   return (
     <animated.group
       ref={groupRef}
-      position={[-1.8, 8, 0]}
+      position={[0, 12, 6]}
       scale={animation.scale}
     >
       <RoundedBox
-        args={[10, 9, 1]}
+        args={[8, 5, 1]}
         position={[0, 0, -0.6]}
         radius={0.1}
         castShadow
       >
-        <meshStandardMaterial color="#fffaa0" />
+        <meshStandardMaterial color="#cfffcc" />
       </RoundedBox>
       <Text
         fontSize={1}
-        position={[-3, 3.5, 0]}
+        position={[-2, 1.6, 0]}
         font={"./fonts/Quicksand-Bold.ttf"}
       >
         <meshBasicMaterial color="black" />
@@ -59,7 +59,7 @@ const TextModal = ({
       </Text>
       <Text
         fontSize={0.6}
-        position={[-3, 2.5, 0]}
+        position={[-2, 0.6, 0]}
         font={"./fonts/Quicksand-Regular.ttf"}
       >
         <meshBasicMaterial color="#545454" />
@@ -68,31 +68,32 @@ const TextModal = ({
       <Text
         ref={textRef}
         font={"./fonts/Quicksand-Regular.ttf"}
-        maxWidth={8.5}
+        maxWidth={7.4}
         fontSize={0.6}
         anchorX={"center"}
         anchorY={"top"}
-        position={[0, 1.95, 0]}
+        position={[0.4, 0, 0]}
       >
         <meshBasicMaterial color="black" />
         {text}
       </Text>
-      <Text
-        position={[4, -3.8, 0]}
+      {/* <Text
+        position={[3, -3.8, 0]}
         fontSize={0.4}
         font={"./fonts/Quicksand-Regular.ttf"}
-        onClick={() => window.open("https://wino.fr", "_blank")}
+        onClick={() => window.open("https://smart-garant.com", "_blank")}
       >
         <meshBasicMaterial color="#0c0cff" />
-        wino.fr
-      </Text>
+        smart-garant.com
+      </Text> */}
       <Box
         args={[1, 1, 1]}
-        position={[4, 3.5, 0]}
+        position={[3.2, 1.7, 0]}
         visible={false}
         onClick={() => setIsVisible(false)}
       />
-      <group position={[4, 3.5, 0]} rotation={[0, 0, Math.PI / 4]}>
+
+      <group position={[3.2, 1.7, 0]} rotation={[0, 0, Math.PI / 4]}>
         <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
           <meshStandardMaterial color="#f25050" />
         </RoundedBox>
@@ -108,28 +109,28 @@ const TextModal = ({
   )
 }
 
-interface Props {
-  description: string
-  position: [number, number, number]
-}
-const Wino = ({ description, position }: Props) => {
-  const logoWino = useFBX("./3dmodels/Logo/winoLogo.fbx")
-  const ref = useRef<THREE.Mesh>(null!)
+const Hetic = () => {
+  const heticLogo = useFBX("./3dmodels/hetic_cap.fbx")
 
   const { camera, scene } = useThree()
   const [isVisible, setIsVisible] = useState(false)
+  const ref1 = useRef<THREE.Mesh>(null!)
+  const ref2 = useRef<THREE.Mesh>(null!)
 
-  if (ref.current) {
-    ref.current.name = "Wino"
+  if (ref1.current) {
+    ref1.current.name = "Hetic"
+  }
+  if (ref2.current) {
+    ref2.current.name = "Hetic"
   }
 
   useLayoutEffect(
     () =>
-      logoWino.traverse(
+      heticLogo.traverse(
         (o) =>
           o instanceof THREE.Mesh && (o.castShadow = o.receiveShadow = true),
       ),
-    [logoWino],
+    [heticLogo],
   )
 
   const handleClick = (event: ThreeEvent<MouseEvent>) => {
@@ -147,7 +148,7 @@ const Wino = ({ description, position }: Props) => {
     // Check if the ray intersects with the mannequin mesh
     const intersects = raycaster.intersectObjects(scene.children, true)
 
-    if (intersects.length > 0 && intersects[0].object.name === "Wino") {
+    if (intersects.length > 0 && intersects[0].object.name === "Hetic") {
       setIsVisible(true)
     }
   }
@@ -157,23 +158,28 @@ const Wino = ({ description, position }: Props) => {
       <TextModal
         setIsVisible={setIsVisible}
         isVisible={isVisible}
-        text={description}
+        text={"Diplômé en 2023 du cursus Grande Ecole"}
       />
-      <group position={position} rotation={[0, Math.PI / 12, Math.PI / 5]}>
-        <Box
-          args={[7.1, 2, 2]}
-          position={[-3.9, 0, -1]}
-          visible={false}
-          scale={1.1}
-          onClick={handleClick}
-          ref={ref}
-        >
-          <meshStandardMaterial color="blue" />
-        </Box>
-        <primitive object={logoWino} scale={0.02} />
+      <group position={[0, 0.4, 8]}>
+        <group onClick={handleClick}>
+          <Box
+            args={[5.2, 1, 1.4]}
+            position={[0.1, 0.1, 0]}
+            visible={false}
+            ref={ref1}
+          />
+          <Box
+            args={[1.8, 0.4, 2]}
+            position={[2.2, 1, 0]}
+            rotation={[-Math.PI / 9, 0, 0]}
+            visible={false}
+            ref={ref2}
+          />
+        </group>
+        <primitive object={heticLogo} scale={0.015} />
       </group>
     </>
   )
 }
 
-export default Wino
+export default Hetic

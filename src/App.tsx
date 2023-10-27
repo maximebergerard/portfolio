@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import * as THREE from "three"
 import { useRef, Suspense, useLayoutEffect, useState } from "react"
+import * as THREE from "three"
 
 import "./App.css"
 
@@ -26,17 +26,27 @@ import AdsPanel from "./Components/AdsPanel/AdsPanel"
 import BasePlane from "./Components/BasePlane"
 import Projects from "./Components/Projects/Projects"
 import Loader from "./Components/Loader"
+import Hetic from "./Components/Hetic"
+
+const ClassicHtmlVersion = () => {
+  return (
+    <div className="App">
+      <h1>Hello World!</h1>
+      <p>This is the classic HTML version.</p>
+    </div>
+  )
+}
 
 const OCamera = () => {
   const camera = useRef<THREE.OrthographicCamera>(null!)
 
   const three = useThree()
+
   const zoom = three.size.width * 0.02
   if (camera.current) {
     camera.current.zoom = zoom
   }
 
-  // useHelper(camera, THREE.CameraHelper)
   return (
     <OrthographicCamera
       makeDefault
@@ -84,62 +94,53 @@ const LoaderScreen = () => {
   )
 }
 
-export default function App() {
-  const heticLogo = useFBX("./3dmodels/hetic_cap.fbx")
+const ThreeJsScene = () => {
+  return (
+    <Canvas shadows>
+      <Suspense fallback={<Loader />}>
+        <LoaderScreen />
+        <GradientTexture
+          attach={"background"}
+          stops={[0, 0.25, 0.75, 1]}
+          colors={["#d0bdde", "#eaafc8", "#a88cf5", "#d0bdde"]}
+        />
 
-  useLayoutEffect(
-    () =>
-      heticLogo.traverse(
-        (o) =>
-          o instanceof THREE.Mesh && (o.castShadow = o.receiveShadow = true),
-      ),
-    [heticLogo],
+        <OCamera />
+        <PresentationControls
+          global
+          rotation={[0, Math.PI / 4, 0]}
+          polar={[0.1, Math.PI / 3]}
+          config={{
+            mass: 1,
+            tension: 60,
+            friction: 20,
+          }}
+        >
+          <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
+          <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
+          <BasePlane />
+          <Suspense fallback={null}>
+            <Mannequin />
+          </Suspense>
+          <Airplane />
+          <PlanePanel />
+          <Projects />
+          <Construction />
+          <AdsPanel />
+          <Hetic />
+          <Light />
+        </PresentationControls>
+        {/* <PCamera /> */}
+      </Suspense>
+    </Canvas>
   )
+}
+export default function App() {
+  const isMobile = window.innerWidth <= 768
 
   return (
     <div className="App">
-      <Canvas shadows>
-        <Suspense fallback={<Loader />}>
-          <LoaderScreen />
-          <GradientTexture
-            attach={"background"}
-            stops={[0, 0.25, 0.75, 1]}
-            colors={["#d0bdde", "#eaafc8", "#a88cf5", "#d0bdde"]}
-          />
-
-          <OCamera />
-          <PresentationControls
-            global
-            rotation={[0, Math.PI / 4, 0]}
-            polar={[0.1, Math.PI / 3]}
-            config={{
-              mass: 1,
-              tension: 60,
-              friction: 20,
-            }}
-          >
-            <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
-            <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
-            <BasePlane />
-            <Suspense fallback={null}>
-              <Mannequin />
-            </Suspense>
-            <Airplane />
-            <PlanePanel />
-            <Projects />
-            <Construction />
-            <AdsPanel />
-            <primitive
-              object={heticLogo}
-              position={[0, 0.4, 8]}
-              scale={0.015}
-              rotation={[0, 0, 0]}
-            />
-            <Light />
-          </PresentationControls>
-          {/* <PCamera /> */}
-        </Suspense>
-      </Canvas>
+      {isMobile ? <ClassicHtmlVersion /> : <ThreeJsScene />}
     </div>
   )
 }

@@ -21,7 +21,7 @@ const drawTextOnCanvas = ({ textParams }: drawTextOnCanvasProps) => {
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 
   // Font
-  ctx.font = "36px 'Oswald', serif"
+  ctx.font = "36px 'Oswald', sans-serif"
 
   ctx.fillStyle = "#000000"
   ctx.textAlign = "center"
