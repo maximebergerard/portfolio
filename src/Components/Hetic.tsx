@@ -114,8 +114,8 @@ const Hetic = () => {
 
   const { camera, scene } = useThree()
   const [isVisible, setIsVisible] = useState(false)
-  const ref1 = useRef<THREE.Mesh>(null!)
-  const ref2 = useRef<THREE.Mesh>(null!)
+  const ref1 = useRef<THREE.Mesh | null>(null)
+  const ref2 = useRef<THREE.Mesh | null>(null)
 
   if (ref1.current) {
     ref1.current.name = "Hetic"

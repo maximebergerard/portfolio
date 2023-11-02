@@ -33,7 +33,7 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const mathRandom = Math.floor(Math.random() * 2)
 
-  const group = useRef<THREE.Group>(null!)
+  const group = useRef<THREE.Group | null>(null)
   const [action, setAction] = useState("IdlePose")
   const [clicked, setClicked] = useState(false)
   const previousAction = usePrevious(action)
@@ -43,7 +43,7 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
   ) as GLTFResult
   const { actions } = useAnimations(animations, group)
 
-  const ref = useRef<THREE.Mesh>(null!)
+  const ref = useRef<THREE.Mesh | null>(null)
   const { camera, scene } = useThree()
 
   const { rotation } = useSpring({
@@ -105,50 +105,52 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
   }, [action, actions, previousAction])
 
   useFrame((_, delta) => {
-    if (clicked) {
-      group.current.position.y -= 25 * delta
+    if (group.current) {
+      if (clicked) {
+        group.current.position.y -= 25 * delta
 
-      if (group.current.position.x <= 20 && group.current.position.y < 0) {
-        group.current.position.x += 1 * delta
-      }
-
-      if (group.current.position.y < -30) {
-        group.current.position.y = 60
-        group.current.position.x = 10
-        if (mathRandom === 0) {
-          setAction("FallingPose2")
-        } else if (mathRandom === 1) {
-          setAction("FallingIdle")
+        if (group.current.position.x <= 20 && group.current.position.y < 0) {
+          group.current.position.x += 1 * delta
         }
-      }
 
-      if (group.current.position.y > 0 && group.current.position.y < 1) {
-        group.current.position.y = 0
-        if (action === "FallingPose2") {
-          setAction("FallingFlatImpact")
-          setTimeout(() => setAction("StandingUp"), 800)
-          setTimeout(() => {
-            setAction("BackwardWalk")
-          }, 3000)
-          setTimeout(() => {
-            setAction("IdlePose")
-          }, 4800)
-          setClicked(false)
-        } else if (action === "FallingIdle") {
-          setAction("FallingToLanding")
-          setTimeout(() => {
-            setAction("BackwardWalk")
-          }, 600)
-          setTimeout(() => {
-            setAction("IdlePose")
-          }, 2450)
-          setClicked(false)
+        if (group.current.position.y < -30) {
+          group.current.position.y = 60
+          group.current.position.x = 10
+          if (mathRandom === 0) {
+            setAction("FallingPose2")
+          } else if (mathRandom === 1) {
+            setAction("FallingIdle")
+          }
         }
+
+        if (group.current.position.y > 0 && group.current.position.y < 1) {
+          group.current.position.y = 0
+          if (action === "FallingPose2") {
+            setAction("FallingFlatImpact")
+            setTimeout(() => setAction("StandingUp"), 800)
+            setTimeout(() => {
+              setAction("BackwardWalk")
+            }, 3000)
+            setTimeout(() => {
+              setAction("IdlePose")
+            }, 4800)
+            setClicked(false)
+          } else if (action === "FallingIdle") {
+            setAction("FallingToLanding")
+            setTimeout(() => {
+              setAction("BackwardWalk")
+            }, 600)
+            setTimeout(() => {
+              setAction("IdlePose")
+            }, 2450)
+            setClicked(false)
+          }
+        }
+      } else if (action === "BackwardWalk") {
+        group.current.position.x += 3.2 * delta
+      } else if (action === "IdlePose" && group.current.position.x < 15.5) {
+        group.current.position.x += 3 * delta
       }
-    } else if (action === "BackwardWalk") {
-      group.current.position.x += 3.2 * delta
-    } else if (action === "IdlePose" && group.current.position.x < 15.5) {
-      group.current.position.x += 3 * delta
     }
   })
 

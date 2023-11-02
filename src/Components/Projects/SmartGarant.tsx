@@ -119,12 +119,12 @@ const SmartGarant = ({ description, position }: Props) => {
 
   const { camera, scene } = useThree()
   const [isVisible, setIsVisible] = useState(false)
-  const ref1 = useRef<THREE.Mesh>(null!)
-  const ref2 = useRef<THREE.Mesh>(null!)
-  const ref3 = useRef<THREE.Mesh>(null!)
-  const ref4 = useRef<THREE.Mesh>(null!)
-  const ref5 = useRef<THREE.Mesh>(null!)
-  const ref6 = useRef<THREE.Mesh>(null!)
+  const ref1 = useRef<THREE.Mesh | null>(null)
+  const ref2 = useRef<THREE.Mesh | null>(null)
+  const ref3 = useRef<THREE.Mesh | null>(null)
+  const ref4 = useRef<THREE.Mesh | null>(null)
+  const ref5 = useRef<THREE.Mesh | null>(null)
+  const ref6 = useRef<THREE.Mesh | null>(null)
 
   if (ref1.current) {
     ref1.current.name = "Smartgarant"

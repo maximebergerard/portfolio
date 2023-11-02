@@ -4,17 +4,18 @@ import { useRef } from "react"
 import * as THREE from "three"
 
 interface CableProps {
-  start: React.MutableRefObject<THREE.Group>
-  end: React.MutableRefObject<THREE.Mesh>
+  start: React.MutableRefObject<THREE.Group> | null
+  end: React.MutableRefObject<THREE.Mesh> | null
   v1?: THREE.Vector3
   flagHeight: number
   speed: number
 }
 
 const Cable = ({ start, end, flagHeight }: CableProps) => {
-  const lineRef = useRef<any>(null!)
+  const lineRef = useRef<any | null>(null)
 
   useFrame(() => {
+    if (!start || !end) return
     const airplaneSize = new THREE.Vector3(0, 2, 7)
     const airplanePosition = start.current?.position || new THREE.Vector3()
 

@@ -114,7 +114,7 @@ interface Props {
 }
 const Wino = ({ description, position }: Props) => {
   const logoWino = useFBX("./3dmodels/Logo/winoLogo.fbx")
-  const ref = useRef<THREE.Mesh>(null!)
+  const ref = useRef<THREE.Mesh | null>(null)
 
   const { camera, scene } = useThree()
   const [isVisible, setIsVisible] = useState(false)

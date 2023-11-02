@@ -21,8 +21,7 @@ const Letter = ({
   rotationY = 0,
 }: LetterProps) => {
   const fontSize = 2
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const ref = useRef<THREE.Mesh>(null!)
+  const ref = useRef<THREE.Mesh | null>(null)
 
   const [hoveredRotation, setHoveredRotation] = useState(false)
   const { rotation } = useSpring({

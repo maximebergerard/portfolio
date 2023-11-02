@@ -43,7 +43,7 @@ interface BannerProps extends drawTextOnCanvasProps {
       THREE.BufferGeometry<THREE.NormalBufferAttributes>,
       THREE.Material | THREE.Material[]
     >
-  >
+  > | null
   flagWidth: number
   flagHeight: number
   radius: number
@@ -78,6 +78,8 @@ const Banner = ({
     const flagX = radius * Math.cos(flagAngle)
     const flagZ = radius * Math.sin(flagAngle)
 
+    if (!flagRef) return
+
     flagRef.current.position.set(flagX, 5, flagZ)
     flagRef.current.rotation.set(
       0,
@@ -103,6 +105,7 @@ const Banner = ({
       flagRef.current.geometry.attributes.position.needsUpdate = true
     }
   })
+
   return (
     <group
       ref={flagGroupRef}
