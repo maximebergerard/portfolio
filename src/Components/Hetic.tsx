@@ -47,7 +47,7 @@ const TextModal = ({
         radius={0.1}
         castShadow
       >
-        <meshStandardMaterial color="#cfffcc" />
+        <meshStandardMaterial color="#a6f7a0" />
       </RoundedBox>
       <Text
         fontSize={1}
@@ -77,15 +77,6 @@ const TextModal = ({
         <meshBasicMaterial color="black" />
         {text}
       </Text>
-      {/* <Text
-        position={[3, -3.8, 0]}
-        fontSize={0.4}
-        font={"./fonts/Quicksand-Regular.ttf"}
-        onClick={() => window.open("https://smart-garant.com", "_blank")}
-      >
-        <meshBasicMaterial color="#0c0cff" />
-        smart-garant.com
-      </Text> */}
       <Box
         args={[1, 1, 1]}
         position={[3.2, 1.7, 0]}

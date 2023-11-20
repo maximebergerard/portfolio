@@ -127,42 +127,41 @@ function Chain({ children, length }: PropsWithChildren<ChainProps>) {
   )
 }
 
-type PointerHandleProps = {
+type WreckingBallProps = {
   size: number
   craneRotation?: number
   clockWiseRotation?: boolean
 }
 
-function PointerHandle({
+function WreckingBall({
   children,
   size,
-  clockWiseRotation = false,
-}: PropsWithChildren<PointerHandleProps>) {
+}: // clockWiseRotation = false,
+PropsWithChildren<WreckingBallProps>) {
   const position: Triplet = [0, 0, 22]
   const args: Triplet = [size, size, size]
 
-  const [ref, api] = useBox(
+  const [ref] = useBox(
     () => ({ args, position, type: "Dynamic" }),
     useRef<THREE.Mesh>(null),
   )
 
-  const [t, setT] = useState(0)
-  // console.log(t)
+  // const [t, setT] = useState(0)
 
-  const radius = 21.8
+  // const radius = 21.8
 
-  useFrame((_, delta) => {
-    if (clockWiseRotation) {
-      setT((prevT) => prevT - delta * 0.6)
-    } else {
-      setT((prevT) => prevT + delta * 0.6)
-    }
+  // useFrame((_, delta) => {
+  //   if (clockWiseRotation) {
+  //     setT((prevT) => prevT - delta * 0.6)
+  //   } else {
+  //     setT((prevT) => prevT + delta * 0.6)
+  //   }
 
-    const x = Math.sin(clockWiseRotation ? t - 0.1 : t + 0.1) * radius
-    const z = Math.cos(clockWiseRotation ? t - 0.1 : t + 0.1) * radius
+  //   const x = Math.sin(clockWiseRotation ? t - 0.1 : t + 0.1) * radius
+  //   const z = Math.cos(clockWiseRotation ? t - 0.1 : t + 0.1) * radius
 
-    api.position.set(x, 0, z)
-  })
+  //   api.position.set(x, 0, z)
+  // })
 
   return (
     <group>
@@ -182,15 +181,15 @@ const CraneArm = ({
 }) => {
   const ref = useRef<THREE.Group>(null)
 
-  useFrame((_, delta) => {
-    if (ref.current) {
-      if (clockWiseRotation) {
-        ref.current.rotation.y -= delta * 0.6
-      } else {
-        ref.current.rotation.y += delta * 0.6
-      }
-    }
-  })
+  // useFrame((_, delta) => {
+  //   if (ref.current) {
+  //     if (clockWiseRotation) {
+  //       ref.current.rotation.y -= delta * 0.6
+  //     } else {
+  //       ref.current.rotation.y += delta * 0.6
+  //     }
+  //   }
+  // })
 
   return (
     <>
@@ -212,9 +211,9 @@ const CraneArm = ({
         ))}
       </group>
       <group position={[0, 22, 0]} scale={1}>
-        <PointerHandle size={4} clockWiseRotation={clockWiseRotation}>
+        <WreckingBall size={4} clockWiseRotation={clockWiseRotation}>
           <Chain length={7} />
-        </PointerHandle>
+        </WreckingBall>
       </group>
     </>
   )

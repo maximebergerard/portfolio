@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef, useState } from "react"
 import * as THREE from "three"
 
 import { Box, RoundedBox, Text, useFBX } from "@react-three/drei"
-import { ThreeEvent, useFrame, useThree } from "@react-three/fiber"
+import { Euler, ThreeEvent, useFrame, useThree } from "@react-three/fiber"
 import { useSpring, animated } from "@react-spring/three"
 
 const TextModal = ({
@@ -17,13 +17,25 @@ const TextModal = ({
   const title = "SMARTGARANT"
   const date = "2021"
 
+  const typescriptLogo = useFBX("./3dmodels/Logo/typescriptLogo.fbx")
+  const reactLogo2 = useFBX("./3dmodels/Logo/reactLogo2.fbx")
+  const strapiLogo = useFBX("./3dmodels/Logo/strapiLogo.fbx")
   const textRef = useRef<THREE.Mesh>(null)
   const groupRef = useRef<THREE.Group>(null)
+  const [flipped, setFlipped] = useState(false)
   const { camera } = useThree()
 
   // Define the animation spring
   const animation = useSpring({
     scale: isVisible ? 1 : 0,
+    config: {
+      tension: 200,
+      friction: 20,
+    },
+  })
+
+  const flippedAnimation = useSpring({
+    rotation: flipped ? ([0, Math.PI, 0] as Euler) : ([0, 0, 0] as Euler),
     config: {
       tension: 200,
       friction: 20,
@@ -42,70 +54,209 @@ const TextModal = ({
       position={[-4, 8, 10.3]}
       scale={animation.scale}
     >
-      <RoundedBox
-        args={[10, 9, 1]}
-        position={[0, 0, -0.6]}
-        radius={0.1}
-        castShadow
-      >
-        <meshStandardMaterial color="#a6f7a0" />
-      </RoundedBox>
-      <Text
-        fontSize={1}
-        position={[-0.8, 3.5, 0]}
-        font={"./fonts/Quicksand-Bold.ttf"}
-      >
-        <meshBasicMaterial color="black" />
-        {title}
-      </Text>
-      <Text
-        fontSize={0.6}
-        position={[-3.8, 2.5, 0]}
-        font={"./fonts/Quicksand-Regular.ttf"}
-      >
-        <meshBasicMaterial color="#545454" />
-        {date}
-      </Text>
-      <Text
-        ref={textRef}
-        font={"./fonts/Quicksand-Regular.ttf"}
-        maxWidth={8}
-        fontSize={0.6}
-        anchorX={"center"}
-        anchorY={"top"}
-        position={[-0.4, 2, 0]}
-      >
-        <meshBasicMaterial color="black" />
-        {text}
-      </Text>
-      <Text
-        position={[3, -3.8, 0]}
-        fontSize={0.4}
-        font={"./fonts/Quicksand-Regular.ttf"}
-        onClick={() => window.open("https://smart-garant.com", "_blank")}
-      >
-        <meshBasicMaterial color="#0c0cff" />
-        smart-garant.com
-      </Text>
-      <Box
-        args={[1, 1, 1]}
-        position={[4, 3.5, 0]}
-        visible={false}
-        onClick={() => setIsVisible(false)}
-      />
-
-      <group position={[4, 3.5, 0]} rotation={[0, 0, Math.PI / 4]}>
-        <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
-          <meshStandardMaterial color="#f25050" />
-        </RoundedBox>
+      <animated.group rotation={flippedAnimation.rotation as unknown as Euler}>
         <RoundedBox
-          args={[0.8, 0.2, 0.2]}
-          radius={0.05}
-          rotation={[0, 0, Math.PI / 2]}
+          args={[10, 9, 1]}
+          position={[0, 0, -0.6]}
+          radius={0.1}
+          castShadow
         >
-          <meshStandardMaterial color="#f25050" />
+          <meshStandardMaterial color="#ffbfcf" />
         </RoundedBox>
-      </group>
+        <Text
+          fontSize={1}
+          position={[-0.8, 3.5, 0]}
+          font={"./fonts/Quicksand-Bold.ttf"}
+        >
+          <meshBasicMaterial color="black" />
+          {title}
+        </Text>
+        <Text
+          fontSize={0.6}
+          position={[-3.8, 2.5, 0]}
+          font={"./fonts/Quicksand-Regular.ttf"}
+        >
+          <meshBasicMaterial color="#545454" />
+          {date}
+        </Text>
+        <Text
+          ref={textRef}
+          font={"./fonts/Quicksand-Regular.ttf"}
+          maxWidth={8}
+          fontSize={0.6}
+          anchorX={"center"}
+          anchorY={"top"}
+          position={[-0.4, 2, 0]}
+        >
+          <meshBasicMaterial color="black" />
+          {text}
+        </Text>
+        <Text
+          position={[3, -3.8, 0]}
+          fontSize={0.4}
+          font={"./fonts/Quicksand-Regular.ttf"}
+          onClick={() => window.open("https://smart-garant.com", "_blank")}
+        >
+          <meshBasicMaterial color="#0c0cff" />
+          smart-garant.com
+        </Text>
+        {/** Technos */}
+        <Text
+          fontSize={1}
+          position={[2.5, 3.5, -1.11]}
+          font={"./fonts/Quicksand-Bold.ttf"}
+          rotation-y={Math.PI}
+        >
+          <meshBasicMaterial color="black" />
+          {"Technos"}
+        </Text>
+        <primitive
+          object={typescriptLogo}
+          scale={0.01}
+          rotation={[Math.PI / 2, 0, Math.PI]}
+          position={[3.3, 1, -1.1]}
+        />
+        <Text
+          fontSize={0.6}
+          position={[2.6, 0.5, -1.11]}
+          font={"./fonts/Quicksand-Bold.ttf"}
+          rotation-y={Math.PI}
+        >
+          <meshBasicMaterial color="#545454" />
+          {"TypeScript"}
+        </Text>
+        <primitive
+          object={reactLogo2}
+          scale={0.015}
+          rotation={[Math.PI / 2, 0, 0]}
+          position={[-2, 0.6, -1.3]}
+        />
+        <Text
+          fontSize={0.6}
+          position={[-0.8, 0.5, -1.11]}
+          font={"./fonts/Quicksand-Bold.ttf"}
+          rotation-y={Math.PI}
+        >
+          <meshBasicMaterial color="#545454" />
+          {"ReactJS"}
+        </Text>
+        <primitive
+          object={strapiLogo}
+          scale={0.015}
+          rotation={[Math.PI / 2, 0, Math.PI]}
+          position={[3.3, -2.5, -1.1]}
+        />
+        <Text
+          fontSize={0.6}
+          position={[2.5, -3, -1.11]}
+          font={"./fonts/Quicksand-Bold.ttf"}
+          rotation-y={Math.PI}
+        >
+          <meshBasicMaterial color="#545454" />
+          {"Strapi"}
+        </Text>
+        {/** Close hitbox button front */}
+        <Box
+          args={[1, 1, 1]}
+          position={[4, 3.5, 0]}
+          visible={false}
+          onClick={() => setIsVisible(false)}
+        />
+        <group position={[4, 3.5, 0]} rotation={[0, 0, Math.PI / 4]}>
+          <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
+            <meshStandardMaterial color="#f25050" />
+          </RoundedBox>
+          <RoundedBox
+            args={[0.8, 0.2, 0.2]}
+            radius={0.05}
+            rotation={[0, 0, Math.PI / 2]}
+          >
+            <meshStandardMaterial color="#f25050" />
+          </RoundedBox>
+        </group>
+        {/** Close hitbox button back */}
+        <Box
+          args={[1, 1, 1]}
+          position={[-4, 3.5, -1.2]}
+          visible={false}
+          onClick={() => {
+            setIsVisible(false)
+            setFlipped(false)
+          }}
+        />
+        <group position={[-4, 3.5, -1.2]} rotation={[0, 0, Math.PI / 4]}>
+          <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
+            <meshStandardMaterial color="#f25050" />
+          </RoundedBox>
+          <RoundedBox
+            args={[0.8, 0.2, 0.2]}
+            radius={0.05}
+            rotation={[0, 0, Math.PI / 2]}
+          >
+            <meshStandardMaterial color="#f25050" />
+          </RoundedBox>
+        </group>
+        {/** Flip hitbox button front */}
+        <Box
+          args={[1, 1, 1]}
+          position={[4, 2.5, 0]}
+          visible={false}
+          onClick={() => {
+            setFlipped(!flipped)
+          }}
+        />
+        <group position={[4, 2.5, 0]}>
+          <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
+            <meshStandardMaterial color="#6365b7" />
+          </RoundedBox>
+          <RoundedBox
+            args={[0.5, 0.2, 0.2]}
+            radius={0.05}
+            rotation={[0, 0, Math.PI / 4]}
+            position={[0.17, -0.17, 0]}
+          >
+            <meshStandardMaterial color="#6365b7" />
+          </RoundedBox>
+          <RoundedBox
+            args={[0.5, 0.2, 0.2]}
+            radius={0.05}
+            rotation={[0, 0, -Math.PI / 4]}
+            position={[0.17, 0.17, 0]}
+          >
+            <meshStandardMaterial color="#6365b7" />
+          </RoundedBox>
+        </group>
+        {/** Flip hitbox button back */}
+        <Box
+          args={[1, 1, 1]}
+          position={[-4, 2.5, -1.2]}
+          visible={false}
+          onClick={() => {
+            setFlipped(!flipped)
+          }}
+        />
+        <group position={[-4, 2.5, -1.2]}>
+          <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
+            <meshStandardMaterial color="#6365b7" />
+          </RoundedBox>
+          <RoundedBox
+            args={[0.5, 0.2, 0.2]}
+            radius={0.05}
+            rotation={[0, 0, Math.PI / 4]}
+            position={[0.17, -0.17, 0]}
+          >
+            <meshStandardMaterial color="#6365b7" />
+          </RoundedBox>
+          <RoundedBox
+            args={[0.5, 0.2, 0.2]}
+            radius={0.05}
+            rotation={[0, 0, -Math.PI / 4]}
+            position={[0.17, 0.17, 0]}
+          >
+            <meshStandardMaterial color="#6365b7" />
+          </RoundedBox>
+        </group>
+      </animated.group>
     </animated.group>
   )
 }

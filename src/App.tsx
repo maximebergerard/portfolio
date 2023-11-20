@@ -28,17 +28,17 @@ import Projects from "./Components/Projects/Projects"
 import Loader from "./Components/Loader"
 import Hetic from "./Components/Hetic"
 
-const ClassicHtmlVersion = () => {
+const HtmlVersion = () => {
   return (
-    <div className="App">
-      <h1>Hello World!</h1>
-      <p>This is the classic HTML version.</p>
+    <div>
+      <h1>Maxime Bergerard</h1>
+      <p>Développeur Front-End</p>
     </div>
   )
 }
 
 const OCamera = () => {
-  const camera = useRef<THREE.OrthographicCamera>(null!)
+  const camera = useRef<THREE.OrthographicCamera | null>(null)
 
   const three = useThree()
 
@@ -63,7 +63,7 @@ const OCamera = () => {
 }
 
 // const PCamera = () => {
-//   // const camera = useRef<THREE.PerspectiveCamera>(null!)
+//   // const camera = useRef<THREE.PerspectiveCamera| null>(null)
 //   // useHelper(camera, THREE.CameraHelper)
 //   return (
 //     <PerspectiveCamera makeDefault position={[0, 0, 40]}>
@@ -119,13 +119,11 @@ const ThreeJsScene = () => {
           <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
           <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
           <BasePlane />
-          <Suspense fallback={null}>
-            <Mannequin />
-          </Suspense>
+          <Mannequin />
           <Airplane />
           <PlanePanel />
           <Projects />
-          <Construction />
+          {/* <Construction /> */}
           <AdsPanel />
           <Hetic />
           <Light />
@@ -135,13 +133,17 @@ const ThreeJsScene = () => {
     </Canvas>
   )
 }
+
 export default function App() {
-  const isMobile = window.innerWidth <= 768
+  // const isMobile = window.innerWidth <= 768
+  const [isMobile, setIsMobile] = useState(false)
+
+  // useFrame(() => {
+  //   setIsMobile(window.innerWidth <= 768)
+  // })
 
   return (
-    <div className="App">
-      {isMobile ? <ClassicHtmlVersion /> : <ThreeJsScene />}
-    </div>
+    <div className="App">{isMobile ? <HtmlVersion /> : <ThreeJsScene />}</div>
   )
 }
 
