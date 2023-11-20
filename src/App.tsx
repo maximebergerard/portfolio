@@ -21,7 +21,7 @@ import Mannequin from "./Components/Mannequin"
 import Name from "./Components/Name"
 import Light from "./Components/Light"
 import Airplane from "./Components/Airplane/Airplane"
-import Construction from "./Components/Constructions/Construction"
+// import Construction from "./Components/Constructions/Construction"
 import AdsPanel from "./Components/AdsPanel/AdsPanel"
 import BasePlane from "./Components/BasePlane"
 import Projects from "./Components/Projects/Projects"
@@ -136,7 +136,7 @@ const ThreeJsScene = () => {
 
 export default function App() {
   // const isMobile = window.innerWidth <= 768
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobile] = useState(false)
 
   // useFrame(() => {
   //   setIsMobile(window.innerWidth <= 768)

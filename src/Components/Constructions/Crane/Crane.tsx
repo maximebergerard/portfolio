@@ -1,7 +1,7 @@
 import * as THREE from "three"
 
 import { RoundedBox } from "@react-three/drei"
-import { useFrame } from "@react-three/fiber"
+// import { useFrame } from "@react-three/fiber"
 import {
   PropsWithChildren,
   createContext,
