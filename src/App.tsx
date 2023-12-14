@@ -17,7 +17,7 @@ import {
   useProgress,
 } from "@react-three/drei"
 
-import Mannequin from "./Components/Mannequin"
+// import Mannequin from "./Components/Mannequin"
 import Name from "./Components/Name"
 import Light from "./Components/Light"
 import Airplane from "./Components/Airplane/Airplane"
@@ -27,6 +27,9 @@ import BasePlane from "./Components/BasePlane"
 import Projects from "./Components/Projects/Projects"
 import Loader from "./Components/Loader"
 import Hetic from "./Components/Hetic"
+import MousePointerPanel from "./Components/MousePointerPanel"
+// import BucketHat from "./Components/BucketHat"
+import MailBoxScene from "./Components/MailBox/MailBoxScene"
 
 const HtmlVersion = () => {
   return (
@@ -119,11 +122,14 @@ const ThreeJsScene = () => {
           <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
           <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
           <BasePlane />
-          <Mannequin />
+          {/* <Mannequin /> */}
           <Airplane />
           <PlanePanel />
           <Projects />
+          <MousePointerPanel />
+          {/* <BucketHat /> */}
           {/* <Construction /> */}
+          <MailBoxScene />
           <AdsPanel />
           <Hetic />
           <Light />

@@ -41,6 +41,7 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials, animations } = useGLTF(
     "./3dmodels/construction_worker.glb",
   ) as GLTFResult
+
   const { actions } = useAnimations(animations, group)
 
   const ref = useRef<THREE.Mesh | null>(null)

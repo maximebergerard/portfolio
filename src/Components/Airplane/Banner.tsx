@@ -89,7 +89,8 @@ const Banner = ({
 
     // Update the vertices of the plane using a wave effect
     if (flagRef.current) {
-      const vertices = flagRef.current.geometry.attributes.position.array
+      const vertices = flagRef.current.geometry.attributes.position
+        .array as number[]
 
       for (let i = 0; i < vertices.length; i += 3) {
         const waveX1 = 0.4 * Math.sin(vertices[i] * 2 + elapsedTime * 8)
@@ -97,8 +98,6 @@ const Banner = ({
         const waveY2 = -0.6 * Math.sin(vertices[i + 1] + elapsedTime * 8)
         const multi = (vertices[i + 1] - 13) / flagHeight
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         vertices[i + 2] = (waveY1 + waveY2 + waveX1) * multi
       }
 

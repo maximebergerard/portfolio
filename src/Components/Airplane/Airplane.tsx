@@ -75,7 +75,7 @@ const Airplane = () => {
           airplaneRef.current.rotation.set(
             0,
             (7 * Math.PI) / 7 - elapsedTime * speed,
-            easeT * Math.PI * 400 + Math.sin(elapsedTime) - Math.PI / 6,
+            easeT * Math.PI * 200 + Math.sin(elapsedTime) - Math.PI / 6,
           )
         } else {
           setIsRotating(false)

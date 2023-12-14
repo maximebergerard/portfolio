@@ -20,7 +20,6 @@ const TextModal = ({
   const typescriptLogo = useFBX("./3dmodels/Logo/typescriptLogo.fbx")
   const reactLogo2 = useFBX("./3dmodels/Logo/reactLogo2.fbx")
   const strapiLogo = useFBX("./3dmodels/Logo/strapiLogo.fbx")
-  const textRef = useRef<THREE.Mesh>(null)
   const groupRef = useRef<THREE.Group>(null)
   const [flipped, setFlipped] = useState(false)
   const { camera } = useThree()
@@ -80,7 +79,6 @@ const TextModal = ({
           {date}
         </Text>
         <Text
-          ref={textRef}
           font={"./fonts/Quicksand-Regular.ttf"}
           maxWidth={8}
           fontSize={0.6}

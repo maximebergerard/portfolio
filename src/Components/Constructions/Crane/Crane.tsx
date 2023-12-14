@@ -1,7 +1,7 @@
 import * as THREE from "three"
 
 import { RoundedBox } from "@react-three/drei"
-// import { useFrame } from "@react-three/fiber"
+import { useFrame } from "@react-three/fiber"
 import {
   PropsWithChildren,
   createContext,
@@ -135,33 +135,33 @@ type WreckingBallProps = {
 
 function WreckingBall({
   children,
+  clockWiseRotation = false,
   size,
-}: // clockWiseRotation = false,
-PropsWithChildren<WreckingBallProps>) {
+}: PropsWithChildren<WreckingBallProps>) {
   const position: Triplet = [0, 0, 22]
   const args: Triplet = [size, size, size]
 
-  const [ref] = useBox(
+  const [ref, api] = useBox(
     () => ({ args, position, type: "Dynamic" }),
     useRef<THREE.Mesh>(null),
   )
 
-  // const [t, setT] = useState(0)
+  const [t, setT] = useState(0)
 
-  // const radius = 21.8
+  const radius = 21.8
 
-  // useFrame((_, delta) => {
-  //   if (clockWiseRotation) {
-  //     setT((prevT) => prevT - delta * 0.6)
-  //   } else {
-  //     setT((prevT) => prevT + delta * 0.6)
-  //   }
+  useFrame((_, delta) => {
+    if (clockWiseRotation) {
+      setT((prevT) => prevT - delta * 0.6)
+    } else {
+      setT((prevT) => prevT + delta * 0.6)
+    }
 
-  //   const x = Math.sin(clockWiseRotation ? t - 0.1 : t + 0.1) * radius
-  //   const z = Math.cos(clockWiseRotation ? t - 0.1 : t + 0.1) * radius
+    const x = Math.sin(clockWiseRotation ? t - 0.1 : t + 0.1) * radius
+    const z = Math.cos(clockWiseRotation ? t - 0.1 : t + 0.1) * radius
 
-  //   api.position.set(x, 0, z)
-  // })
+    api.position.set(x, 0, z)
+  })
 
   return (
     <group>
@@ -181,15 +181,15 @@ const CraneArm = ({
 }) => {
   const ref = useRef<THREE.Group>(null)
 
-  // useFrame((_, delta) => {
-  //   if (ref.current) {
-  //     if (clockWiseRotation) {
-  //       ref.current.rotation.y -= delta * 0.6
-  //     } else {
-  //       ref.current.rotation.y += delta * 0.6
-  //     }
-  //   }
-  // })
+  useFrame((_, delta) => {
+    if (ref.current) {
+      if (clockWiseRotation) {
+        ref.current.rotation.y -= delta * 0.6
+      } else {
+        ref.current.rotation.y += delta * 0.6
+      }
+    }
+  })
 
   return (
     <>
