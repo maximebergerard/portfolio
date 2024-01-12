@@ -1,5 +1,5 @@
 import { animated, useSpring } from "@react-spring/three"
-import { Box, RoundedBox, useFBX, Text } from "@react-three/drei"
+import { Box, RoundedBox, Text } from "@react-three/drei"
 import { Euler, useFrame, useThree } from "@react-three/fiber"
 import { useRef, useState } from "react"
 

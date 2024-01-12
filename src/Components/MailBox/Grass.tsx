@@ -2,7 +2,7 @@ import { useFrame } from "@react-three/fiber"
 import { useRef } from "react"
 import * as THREE from "three"
 
-import React, { memo } from "react"
+import { memo } from "react"
 
 interface GrassProps {
   grassCount?: number
