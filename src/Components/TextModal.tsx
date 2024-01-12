@@ -1,32 +1,31 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useLayoutEffect, useRef, useState } from "react"
-import * as THREE from "three"
+import { animated, useSpring } from "@react-spring/three"
+import { Box, RoundedBox, useFBX, Text } from "@react-three/drei"
+import { Euler, useFrame, useThree } from "@react-three/fiber"
+import { useRef, useState } from "react"
 
-import { Box, RoundedBox, Text, useFBX } from "@react-three/drei"
-import { Euler, ThreeEvent, useFrame, useThree } from "@react-three/fiber"
-import { useSpring, animated } from "@react-spring/three"
-
-const TextModal = ({
-  isVisible,
-  setIsVisible,
-  text,
-}: {
+interface TextModalProps {
+  modalSize: [number, number, number]
+  modalPosition: [number, number, number]
+  title: string
+  titlePosition?: [number, number, number]
+  date?: string
   isVisible: boolean
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
   text: string
-}) => {
-  const title = "WINO"
-  const date = "2021-2022"
+  textPosition?: [number, number, number]
+  linkName?: string
+  linkUrl?: string
+}
 
-  const reactLogo1 = useFBX("./3dmodels/Logo/reactLogo1.fbx")
-  const rescriptLogo = useFBX("./3dmodels/Logo/rescriptLogo.fbx")
+const TextModal = (props: TextModalProps) => {
   const groupRef = useRef<THREE.Group>(null)
   const [flipped, setFlipped] = useState(false)
   const { camera } = useThree()
 
-  // Define the closeAnimation spring
+  console.log(props)
+
   const closeAnimation = useSpring({
-    scale: isVisible ? 1 : 0,
+    scale: props.isVisible ? 1 : 0,
     config: {
       tension: 200,
       friction: 20,
@@ -50,25 +49,25 @@ const TextModal = ({
   return (
     <animated.group
       ref={groupRef}
-      position={[-1.8, 8, 0]}
+      position={props.modalPosition}
       scale={closeAnimation.scale}
     >
       <animated.group rotation={flippedAnimation.rotation as unknown as Euler}>
         <RoundedBox
-          args={[10, 9, 1]}
+          args={props.modalSize}
           position={[0, 0, -0.6]}
           radius={0.1}
           castShadow
         >
-          <meshStandardMaterial color="#bdb8fc" />
+          <meshStandardMaterial color="#fffaa0" />
         </RoundedBox>
         <Text
           fontSize={1}
-          position={[-3, 3.5, 0]}
+          position={props.titlePosition}
           font={"./fonts/Quicksand-Bold.ttf"}
         >
           <meshBasicMaterial color="black" />
-          {title}
+          {props.title}
         </Text>
         <Text
           fontSize={0.6}
@@ -76,7 +75,7 @@ const TextModal = ({
           font={"./fonts/Quicksand-Regular.ttf"}
         >
           <meshBasicMaterial color="#545454" />
-          {date}
+          {props.date}
         </Text>
         <Text
           font={"./fonts/Quicksand-Regular.ttf"}
@@ -84,23 +83,24 @@ const TextModal = ({
           fontSize={0.6}
           anchorX={"center"}
           anchorY={"top"}
-          position={[0, 1.95, 0]}
+          position={props.textPosition}
         >
           <meshBasicMaterial color="black" />
-          {text}
+          {props.text}
         </Text>
-
-        <Text
-          position={[4, -3.8, 0]}
-          fontSize={0.4}
-          font={"./fonts/Quicksand-Regular.ttf"}
-          onClick={() => window.open("https://wino.fr", "_blank")}
-        >
-          <meshBasicMaterial color="#0c0cff" />
-          wino.fr
-        </Text>
+        {props.linkName && props.linkUrl && (
+          <Text
+            position={[4, -3.8, 0]}
+            fontSize={0.4}
+            font={"./fonts/Quicksand-Regular.ttf"}
+            onClick={() => window.open(props.linkUrl, "_blank")}
+          >
+            <meshBasicMaterial color="#0c0cff" />
+            {props.linkName}
+          </Text>
+        )}
         {/** Technos */}
-        <Text
+        {/* <Text
           fontSize={1}
           position={[2.5, 3.5, -1.11]}
           font={"./fonts/Quicksand-Bold.ttf"}
@@ -138,18 +138,21 @@ const TextModal = ({
         >
           <meshBasicMaterial color="#545454" />
           {"ReactJS"}
-        </Text>
+        </Text> */}
         {/** Close hitbox button front */}
         <Box
           args={[1, 1, 1]}
-          position={[4, 3.5, 0]}
+          position={[props.modalSize[0] / 2.5, props.modalSize[1] / 3.2, 0]}
           visible={false}
           onClick={() => {
-            setIsVisible(false)
+            props.setIsVisible(false)
             setFlipped(false)
           }}
         />
-        <group position={[4, 3.5, 0]} rotation={[0, 0, Math.PI / 4]}>
+        <group
+          position={[props.modalSize[0] / 2.5, props.modalSize[1] / 3.2, 0]}
+          rotation={[0, 0, Math.PI / 4]}
+        >
           <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
             <meshStandardMaterial color="#f25050" />
           </RoundedBox>
@@ -162,7 +165,7 @@ const TextModal = ({
           </RoundedBox>
         </group>
         {/** Close hitbox button back */}
-        <Box
+        {/* <Box
           args={[1, 1, 1]}
           position={[-4, 3.5, -1.2]}
           visible={false}
@@ -182,9 +185,9 @@ const TextModal = ({
           >
             <meshStandardMaterial color="#f25050" />
           </RoundedBox>
-        </group>
+        </group> */}
         {/** Flip hitbox button front */}
-        <Box
+        {/* <Box
           args={[1, 1, 1]}
           position={[4, 2.5, 0]}
           visible={false}
@@ -212,108 +215,19 @@ const TextModal = ({
           >
             <meshStandardMaterial color="#6365b7" />
           </RoundedBox>
-        </group>
+        </group> */}
         {/** Flip hitbox button back */}
-        <Box
+        {/* <Box
           args={[1, 1, 1]}
           position={[-4, 2.5, -1.2]}
           visible={false}
           onClick={() => {
             setFlipped(!flipped)
           }}
-        />
-        <group position={[-4, 2.5, -1.2]}>
-          <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
-            <meshStandardMaterial color="#6365b7" />
-          </RoundedBox>
-          <RoundedBox
-            args={[0.5, 0.2, 0.2]}
-            radius={0.05}
-            rotation={[0, 0, Math.PI / 4]}
-            position={[0.17, -0.17, 0]}
-          >
-            <meshStandardMaterial color="#6365b7" />
-          </RoundedBox>
-          <RoundedBox
-            args={[0.5, 0.2, 0.2]}
-            radius={0.05}
-            rotation={[0, 0, -Math.PI / 4]}
-            position={[0.17, 0.17, 0]}
-          >
-            <meshStandardMaterial color="#6365b7" />
-          </RoundedBox>
-        </group>
+        /> */}
       </animated.group>
     </animated.group>
   )
 }
 
-interface Props {
-  description: string
-  position: [number, number, number]
-}
-const Wino = ({ description, position }: Props) => {
-  const logoWino = useFBX("./3dmodels/Logo/winoLogo.fbx")
-  const ref = useRef<THREE.Mesh | null>(null)
-
-  const { camera, scene } = useThree()
-  const [isVisible, setIsVisible] = useState(false)
-
-  if (ref.current) {
-    ref.current.name = "Wino"
-  }
-
-  useLayoutEffect(
-    () =>
-      logoWino.traverse(
-        (o) =>
-          o instanceof THREE.Mesh && (o.castShadow = o.receiveShadow = true),
-      ),
-    [logoWino],
-  )
-
-  const handleClick = (event: ThreeEvent<MouseEvent>) => {
-    const raycaster = new THREE.Raycaster()
-    const mouse = new THREE.Vector2()
-
-    // Calculate the mouse position in normalized device coordinates
-    // (-1 to +1) for both components
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
-
-    // Set the origin and direction of the ray based on the mouse position
-    raycaster.setFromCamera(mouse, camera)
-
-    // Check if the ray intersects with the mannequin mesh
-    const intersects = raycaster.intersectObjects(scene.children, true)
-
-    if (intersects.length > 0 && intersects[0].object.name === "Wino") {
-      setIsVisible(true)
-    }
-  }
-
-  return (
-    <>
-      <TextModal
-        setIsVisible={setIsVisible}
-        isVisible={isVisible}
-        text={description}
-      />
-      <group position={position} rotation={[0, Math.PI / 12, Math.PI / 5]}>
-        <Box
-          args={[7.1, 2, 2]}
-          position={[-3.9, 0, -1]}
-          visible={false}
-          scale={1.1}
-          onClick={handleClick}
-          ref={ref}
-        >
-          <meshStandardMaterial color="blue" />
-        </Box>
-        <primitive object={logoWino} scale={0.02} />
-      </group>
-    </>
-  )
-}
-
-export default Wino
+export default TextModal

@@ -60,7 +60,7 @@ const TextModal = ({
           radius={0.1}
           castShadow
         >
-          <meshStandardMaterial color="#ffbfcf" />
+          <meshStandardMaterial color="#cafcf5" />
         </RoundedBox>
         <Text
           fontSize={1}

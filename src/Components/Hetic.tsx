@@ -36,11 +36,7 @@ const TextModal = ({
   })
 
   return (
-    <animated.group
-      ref={groupRef}
-      position={[0, 12, 6]}
-      scale={animation.scale}
-    >
+    <animated.group ref={groupRef} position={[0, 8, 6]} scale={animation.scale}>
       <RoundedBox
         args={[8, 5, 1]}
         position={[0, 0, -0.6]}
