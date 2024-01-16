@@ -1,6 +1,8 @@
 import Wino from "./Wino"
 import SmartGarant from "./SmartGarant"
 import { useFBX } from "@react-three/drei"
+import { useLayoutEffect } from "react"
+import * as THREE from "three"
 
 const Podium = () => {
   return (
@@ -23,6 +25,15 @@ const Podium = () => {
 
 const Project = () => {
   const fbx = useFBX("./3dmodels/projects_panel.fbx")
+
+  useLayoutEffect(
+    () =>
+      fbx.traverse(
+        (o) =>
+          o instanceof THREE.Mesh && (o.castShadow = o.receiveShadow = true),
+      ),
+    [fbx],
+  )
 
   return (
     <group position={[-5, 0, -4]}>
