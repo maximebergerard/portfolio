@@ -175,7 +175,7 @@ const setBannerText = (circle: number): drawTextOnCanvasProps => {
     default:
       return {
         textParams: {
-          text: "OUVERT AUX PROPOSITIONS FRONT-END & NOCODE",
+          text: "OPEN TO FRONT-END & NOCODE PROJECTS",
         },
       }
   }

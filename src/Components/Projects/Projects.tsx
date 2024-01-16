@@ -1,5 +1,6 @@
 import Wino from "./Wino"
 import SmartGarant from "./SmartGarant"
+import { useFBX } from "@react-three/drei"
 
 const Podium = () => {
   return (
@@ -21,8 +22,16 @@ const Podium = () => {
 }
 
 const Project = () => {
+  const fbx = useFBX("./3dmodels/projects_panel.fbx")
+
   return (
     <group position={[-5, 0, -4]}>
+      <primitive
+        object={fbx}
+        scale={0.0013}
+        position={[-5, 6, 4.6]}
+        rotation={[0, -Math.PI / 4, 0]}
+      />
       <Wino
         description="Développeur en alternance sur le site vitrine et l'application back-office pour Wino, une startup de caisse enregistreuse connectée. J'étais spécialisé dans le développement de l'interface en ReScript."
         position={[-4.3, 4.2, 5.2]}

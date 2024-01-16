@@ -22,8 +22,6 @@ const TextModal = (props: TextModalProps) => {
   const [flipped, setFlipped] = useState(false)
   const { camera } = useThree()
 
-  console.log(props)
-
   const closeAnimation = useSpring({
     scale: props.isVisible ? 1 : 0,
     config: {
