@@ -60,7 +60,7 @@ const TextModal = ({
           radius={0.1}
           castShadow
         >
-          <meshStandardMaterial color="#bdb8fc" />
+          <meshStandardMaterial color="#d7a6ff" />
         </RoundedBox>
         <Text
           fontSize={1}
@@ -75,7 +75,7 @@ const TextModal = ({
           position={[-3, 2.5, 0]}
           font={"./fonts/Quicksand-Regular.ttf"}
         >
-          <meshBasicMaterial color="#545454" />
+          <meshBasicMaterial color="#000312" />
           {date}
         </Text>
         <Text
@@ -121,7 +121,7 @@ const TextModal = ({
           font={"./fonts/Quicksand-Bold.ttf"}
           rotation-y={Math.PI}
         >
-          <meshBasicMaterial color="#545454" />
+          <meshBasicMaterial color="#000312" />
           {"Rescript"}
         </Text>
         <primitive
@@ -136,7 +136,7 @@ const TextModal = ({
           font={"./fonts/Quicksand-Bold.ttf"}
           rotation-y={Math.PI}
         >
-          <meshBasicMaterial color="#545454" />
+          <meshBasicMaterial color="#000312" />
           {"ReactJS"}
         </Text>
         {/** Close hitbox button front */}

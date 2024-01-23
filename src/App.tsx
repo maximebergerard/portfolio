@@ -31,23 +31,29 @@ import MousePointerPanel from "./Components/MousePointerPanel"
 // import BucketHat from "./Components/BucketHat"
 import MailBoxScene from "./Components/MailBox/MailBoxScene"
 
-const HtmlVersion = () => {
-  return (
-    <div>
-      <h1>Maxime Bergerard</h1>
-      <p>Développeur Front-End</p>
-    </div>
-  )
-}
+// const HtmlVersion = () => {
+//   return (
+//     <div>
+//       <h1>Maxime Bergerard</h1>
+//       <p>Développeur Front-End</p>
+//     </div>
+//   )
+// }
 
 const OCamera = () => {
   const camera = useRef<THREE.OrthographicCamera | null>(null)
 
   const three = useThree()
 
+  console.log(three.size.width)
+
   const zoom = three.size.width * 0.02
   if (camera.current) {
     camera.current.zoom = zoom
+    if (three.size.width < 768) {
+      camera.current.zoom = 20
+      // camera.current.position.set(0, 4, 40)
+    }
   }
 
   return (
@@ -58,7 +64,7 @@ const OCamera = () => {
       ref={camera}
       near={0.1}
       far={120}
-      // zoom={30}
+      zoom={20}
     >
       {/* <OrbitControls rotation={[0, Math.PI / 4, 0]} /> */}
     </OrthographicCamera>
@@ -142,14 +148,16 @@ const ThreeJsScene = () => {
 
 export default function App() {
   // const isMobile = window.innerWidth <= 768
-  const [isMobile] = useState(false)
+  // const [isMobile] = useState(false)
 
   // useFrame(() => {
   //   setIsMobile(window.innerWidth <= 768)
   // })
 
   return (
-    <div className="App">{isMobile ? <HtmlVersion /> : <ThreeJsScene />}</div>
+    <div className="App">
+      <ThreeJsScene />
+    </div>
   )
 }
 
