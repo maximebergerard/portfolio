@@ -4,12 +4,10 @@ import { useState } from "react"
 import * as THREE from "three"
 
 export interface drawTextOnCanvasProps {
-  textParams: {
-    text: string
-  }
+  text: string
 }
 
-const drawTextOnCanvas = ({ textParams }: drawTextOnCanvasProps) => {
+const drawTextOnCanvas = ({ text }: drawTextOnCanvasProps) => {
   const canvas = document.createElement("canvas")
   const ctx = canvas.getContext("2d")
   canvas.width = 850
@@ -26,7 +24,7 @@ const drawTextOnCanvas = ({ textParams }: drawTextOnCanvasProps) => {
   ctx.fillStyle = "#000000"
   ctx.textAlign = "center"
   ctx.textBaseline = "middle"
-  ctx.fillText(textParams.text, canvas.width / 2, canvas.height / 2)
+  ctx.fillText(text, canvas.width / 2, canvas.height / 2)
 
   // Draw the underline
   ctx.beginPath() // +70 et -50
@@ -51,7 +49,7 @@ interface BannerProps extends drawTextOnCanvasProps {
 }
 
 const Banner = ({
-  textParams,
+  text,
   flagGroupRef,
   flagRef,
   flagWidth,
@@ -60,7 +58,7 @@ const Banner = ({
   speed,
 }: BannerProps) => {
   // Create the texture using the canvas with the text
-  const texture = new THREE.CanvasTexture(drawTextOnCanvas({ textParams }))
+  const texture = new THREE.CanvasTexture(drawTextOnCanvas({ text }))
   const [hovered, setHovered] = useState(false)
 
   // Adjust texture properties to fit the rotated texture on the plane

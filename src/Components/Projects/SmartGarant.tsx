@@ -4,6 +4,7 @@ import * as THREE from "three"
 import { Box, RoundedBox, Text, useFBX } from "@react-three/drei"
 import { Euler, ThreeEvent, useFrame, useThree } from "@react-three/fiber"
 import { useSpring, animated } from "@react-spring/three"
+import { useLanguage } from "../useLanguage"
 
 const TextModal = ({
   isVisible,
@@ -80,11 +81,11 @@ const TextModal = ({
         </Text>
         <Text
           font={"./fonts/Quicksand-Regular.ttf"}
-          maxWidth={8}
+          maxWidth={9}
           fontSize={0.6}
           anchorX={"center"}
           anchorY={"top"}
-          position={[-0.4, 2, 0]}
+          position={[0.2, 2, 0]}
         >
           <meshBasicMaterial color="black" />
           {text}
@@ -260,11 +261,13 @@ const TextModal = ({
 }
 
 interface Props {
-  description: string
+  descriptionEn: string
+  descriptionFr: string
   position: [number, number, number]
 }
-const SmartGarant = ({ description, position }: Props) => {
+const SmartGarant = ({ descriptionEn, descriptionFr, position }: Props) => {
   const logoSmartgarant = useFBX("./3dmodels/Logo/smartgarantLogo.fbx")
+  const { language } = useLanguage()
 
   const { camera, scene } = useThree()
   const [isVisible, setIsVisible] = useState(false)
@@ -328,10 +331,8 @@ const SmartGarant = ({ description, position }: Props) => {
       <TextModal
         setIsVisible={setIsVisible}
         isVisible={isVisible}
-        text={description}
+        text={language === "en" ? descriptionEn : descriptionFr}
       />
-      {/* )} */}
-
       <group
         position={position}
         rotation={[Math.PI / 5.2, Math.PI / -8, Math.PI / 10]}

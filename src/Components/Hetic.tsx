@@ -3,6 +3,7 @@ import { RoundedBox, useFBX, Text, Box } from "@react-three/drei"
 import * as THREE from "three"
 import { ThreeEvent, useFrame, useThree } from "@react-three/fiber"
 import { animated, useSpring } from "@react-spring/three"
+import { useLanguage } from "./useLanguage"
 
 const TextModal = ({
   isVisible,
@@ -13,12 +14,12 @@ const TextModal = ({
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
   text: string
 }) => {
-  const title = "HETIC"
-  const date = "2017-2022"
-
   const textRef = useRef<THREE.Mesh>(null)
   const groupRef = useRef<THREE.Group>(null)
   const { camera } = useThree()
+
+  const title = "HETIC"
+  const date = "2017-2022"
 
   // Define the animation spring
   const animation = useSpring({
@@ -38,8 +39,8 @@ const TextModal = ({
   return (
     <animated.group ref={groupRef} position={[0, 8, 6]} scale={animation.scale}>
       <RoundedBox
-        args={[8, 5, 1]}
-        position={[0, 0, -0.6]}
+        args={[8.5, 7, 1]}
+        position={[0.3, -1, -0.6]}
         radius={0.1}
         castShadow
       >
@@ -75,12 +76,11 @@ const TextModal = ({
       </Text>
       <Box
         args={[1, 1, 1]}
-        position={[3.2, 1.7, 0]}
+        position={[3.6, 1.7, 0]}
         visible={false}
         onClick={() => setIsVisible(false)}
       />
-
-      <group position={[3.2, 1.7, 0]} rotation={[0, 0, Math.PI / 4]}>
+      <group position={[3.6, 1.7, 0]} rotation={[0, 0, Math.PI / 4]}>
         <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
           <meshStandardMaterial color="#f25050" />
         </RoundedBox>
@@ -99,6 +99,7 @@ const TextModal = ({
 const Hetic = () => {
   const heticLogo = useFBX("./3dmodels/hetic_cap.fbx")
 
+  const { language } = useLanguage()
   const { camera, scene } = useThree()
   const [isVisible, setIsVisible] = useState(false)
   const ref1 = useRef<THREE.Mesh | null>(null)
@@ -145,7 +146,11 @@ const Hetic = () => {
       <TextModal
         setIsVisible={setIsVisible}
         isVisible={isVisible}
-        text={"Diplômé en 2023 du cursus Grande Ecole"}
+        text={
+          language === "en"
+            ? "Graduating in 2023 after 5 years of a Masters in Digital Communication Engineering and Management"
+            : "Diplômé en 2023 après 5 ans de Master en Ingénierie et Management de la communication numérique"
+        }
       />
       <group position={[0, 0.4, 8]}>
         <group onClick={handleClick}>

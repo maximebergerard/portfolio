@@ -7,13 +7,11 @@ import { ThreeEvent, useFrame, useLoader, useThree } from "@react-three/fiber"
 
 import Cable from "./Cable"
 import Banner from "./Banner"
-import { drawTextOnCanvasProps } from "./Banner"
+// import { drawTextOnCanvasProps } from "./Banner"
+import { useLanguage } from "../useLanguage"
 
 const Airplane = () => {
-  const flagWidth = 3 // Width of the plane
-  const flagHeight = 20 // Height of the plane
-  const radius = 70 // Radius of the airplane's circular path
-  const speed = 0.15 // Speed of the airplane
+  const fbx = useFBX("./3dmodels/Airplane/airplane.fbx")
 
   const { camera, scene } = useThree()
   const airplaneRef = useRef<THREE.Group | null>(null)
@@ -22,11 +20,16 @@ const Airplane = () => {
   const clockRef = useRef<THREE.Clock>(new THREE.Clock())
   const hitboxRef1 = useRef<THREE.Mesh | null>(null)
   const hitboxRef2 = useRef<THREE.Mesh | null>(null)
-  const fbx = useFBX("./3dmodels/Airplane/airplane.fbx")
+  const { language } = useLanguage()
 
-  const [hasIncremented, setHasIncremented] = useState(false)
-  const [angle, setAngle] = useState(0)
-  const [circle, setCircle] = useState(2)
+  const flagWidth = 3 // Width of the plane
+  const flagHeight = 20 // Height of the plane
+  const radius = 70 // Radius of the airplane's circular path
+  const speed = 0.15 // Speed of the airplane
+
+  // const [hasIncremented, setHasIncremented] = useState(false)
+  // const [angle, setAngle] = useState(0)
+  // const [circle, setCircle] = useState(2)
   const [rotationStart, setRotationStart] = useState(0)
   const [isRotating, setIsRotating] = useState(false)
 
@@ -59,7 +62,7 @@ const Airplane = () => {
   useFrame((state) => {
     const elapsedTime = state.clock.getElapsedTime()
 
-    setAngle((elapsedTime * speed) % (2 * Math.PI))
+    // setAngle((elapsedTime * speed) % (2 * Math.PI))
 
     if (airplaneRef.current) {
       // Calculate the object's new position based on a semi-circle path
@@ -91,14 +94,14 @@ const Airplane = () => {
     }
   })
 
-  useEffect(() => {
-    if (angle < 0.1 && !hasIncremented) {
-      setCircle((circle) => (circle + 1) % 2)
-      setHasIncremented(true)
-    } else if (angle > 0.1) {
-      setHasIncremented(false)
-    }
-  }, [angle, hasIncremented])
+  // useEffect(() => {
+  //   if (angle < 0.1 && !hasIncremented) {
+  //     setCircle((circle) => (circle + 1) % 2)
+  //     setHasIncremented(true)
+  //   } else if (angle > 0.1) {
+  //     setHasIncremented(false)
+  //   }
+  // }, [angle, hasIncremented])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -133,7 +136,11 @@ const Airplane = () => {
   return (
     <>
       <Banner
-        textParams={setBannerText(circle).textParams}
+        text={
+          language === "en"
+            ? "OPEN TO FRONT-END & NOCODE PROJECTS"
+            : "OUVERT AUX PROJETS FRONT-END & NOCODE"
+        }
         flagGroupRef={flagGroupRef}
         flagRef={flagRef as React.MutableRefObject<THREE.Mesh> | null}
         flagWidth={flagWidth}
@@ -170,13 +177,13 @@ const Airplane = () => {
 
 export default Airplane
 
-const setBannerText = (circle: number): drawTextOnCanvasProps => {
-  switch (circle) {
-    default:
-      return {
-        textParams: {
-          text: "OPEN TO FRONT-END & NOCODE PROJECTS",
-        },
-      }
-  }
-}
+// const setBannerText = (circle: number): drawTextOnCanvasProps => {
+//   switch (circle) {
+//     default:
+//       return {
+//         textParams: {
+//           text: "OPEN TO FRONT-END & NOCODE PROJECTS",
+//         },
+//       }
+//   }
+// }

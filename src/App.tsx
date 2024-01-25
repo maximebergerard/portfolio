@@ -7,6 +7,7 @@ import "./App.css"
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import {
+  Box,
   // OrbitControls,
   GradientTexture,
   // Loader,
@@ -30,6 +31,8 @@ import Hetic from "./Components/Hetic"
 import MousePointerPanel from "./Components/MousePointerPanel"
 // import BucketHat from "./Components/BucketHat"
 import MailBoxScene from "./Components/MailBox/MailBoxScene"
+import { useLanguage } from "./Components/useLanguage"
+import { animated, useSpring } from "@react-spring/three"
 
 const OCamera = () => {
   const camera = useRef<THREE.OrthographicCamera | null>(null)
@@ -92,6 +95,45 @@ const LoaderScreen = () => {
   )
 }
 
+const LanguageButton = () => {
+  const { language, toggleLanguage } = useLanguage()
+  const frenchFlag = useFBX("./3dmodels/Flags/french.fbx")
+  const englishFlag = useFBX("./3dmodels/Flags/english.fbx")
+
+  const animation = useSpring({
+    position: language === "fr" ? [12.45, 0.6, 15] : [9.95, 0.6, 15],
+    config: {
+      mass: 1,
+      tension: 60,
+      friction: 20,
+    },
+  })
+
+  return (
+    <>
+      <animated.group position={animation.position.to((x, y, z) => [x, y, z])}>
+        <Box args={[2, 1.2, 0.5]}>
+          <meshStandardMaterial color="green" opacity={0.3} transparent />
+        </Box>
+      </animated.group>
+      <primitive
+        object={frenchFlag}
+        position={[12.5, 0.6, 15]}
+        scale={0.04}
+        rotation={[0, -Math.PI / 2, 0]}
+        onClick={() => toggleLanguage("fr")}
+      />
+      <primitive
+        object={englishFlag}
+        position={[10, 0.6, 15]}
+        scale={0.04}
+        rotation={[0, -Math.PI / 2, 0]}
+        onClick={() => toggleLanguage("en")}
+      />
+    </>
+  )
+}
+
 const ThreeJsScene = () => {
   return (
     <Canvas shadows>
@@ -114,6 +156,7 @@ const ThreeJsScene = () => {
             friction: 20,
           }}
         >
+          <LanguageButton />
           <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />
           <Name position={new THREE.Vector3(0.5, 0, -12)} name={lastName} />
           <BasePlane />

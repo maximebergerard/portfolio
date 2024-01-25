@@ -5,6 +5,7 @@ import * as THREE from "three"
 import { Box, RoundedBox, Text, useFBX } from "@react-three/drei"
 import { Euler, ThreeEvent, useFrame, useThree } from "@react-three/fiber"
 import { useSpring, animated } from "@react-spring/three"
+import { useLanguage } from "../useLanguage"
 
 const TextModal = ({
   isVisible,
@@ -249,12 +250,14 @@ const TextModal = ({
 }
 
 interface Props {
-  description: string
+  descriptionEn: string
+  descriptionFr: string
   position: [number, number, number]
 }
-const Wino = ({ description, position }: Props) => {
+const Wino = ({ descriptionEn, descriptionFr, position }: Props) => {
   const logoWino = useFBX("./3dmodels/Logo/winoLogo.fbx")
   const ref = useRef<THREE.Mesh | null>(null)
+  const { language } = useLanguage()
 
   const { camera, scene } = useThree()
   const [isVisible, setIsVisible] = useState(false)
@@ -297,7 +300,7 @@ const Wino = ({ description, position }: Props) => {
       <TextModal
         setIsVisible={setIsVisible}
         isVisible={isVisible}
-        text={description}
+        text={language === "en" ? descriptionEn : descriptionFr}
       />
       <group position={position} rotation={[0, Math.PI / 12, Math.PI / 5]}>
         <Box
