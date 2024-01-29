@@ -66,48 +66,50 @@ const TextModal = ({
         <Text
           fontSize={1}
           position={[-3, 3.5, 0]}
-          font={"./fonts/Quicksand-Bold.ttf"}
+          font={"./fonts/Montserrat-Bold.ttf"}
+          color={"#242323"}
         >
-          <meshBasicMaterial color="black" />
           {title}
         </Text>
         <Text
-          fontSize={0.6}
-          position={[-3, 2.5, 0]}
-          font={"./fonts/Quicksand-Regular.ttf"}
+          fontSize={0.5}
+          position={[-3.2, 2.7, 0]}
+          font={"./fonts/Montserrat-SemiBold.ttf"}
+          color="#4a4a4a"
         >
-          <meshBasicMaterial color="#000312" />
           {date}
         </Text>
         <Text
-          font={"./fonts/Quicksand-Regular.ttf"}
-          maxWidth={8.5}
+          font={"./fonts/Montserrat-Regular.ttf"}
+          maxWidth={8.7}
           fontSize={0.6}
           anchorX={"center"}
           anchorY={"top"}
-          position={[0, 1.95, 0]}
+          position={[0, 2.1, 0]}
+          color="black"
         >
-          <meshBasicMaterial color="black" />
           {text}
         </Text>
 
         <Text
           position={[4, -3.8, 0]}
           fontSize={0.4}
-          font={"./fonts/Quicksand-Regular.ttf"}
+          font={"./fonts/Montserrat-Regular.ttf"}
           onClick={() => window.open("https://wino.fr", "_blank")}
+          color="#0c0cff"
+          onPointerOver={() => (document.body.style.cursor = "pointer")}
+          onPointerOut={() => (document.body.style.cursor = "grab")}
         >
-          <meshBasicMaterial color="#0c0cff" />
           wino.fr
         </Text>
         {/** Technos */}
         <Text
           fontSize={1}
-          position={[2.5, 3.5, -1.11]}
-          font={"./fonts/Quicksand-Bold.ttf"}
+          position={[2.3, 3.5, -1.11]}
+          font={"./fonts/Montserrat-Bold.ttf"}
           rotation-y={Math.PI}
+          color="#242323"
         >
-          <meshBasicMaterial color="black" />
           {"Technos"}
         </Text>
         <primitive
@@ -119,10 +121,10 @@ const TextModal = ({
         <Text
           fontSize={0.6}
           position={[2.65, 0.5, -1.11]}
-          font={"./fonts/Quicksand-Bold.ttf"}
+          font={"./fonts/Montserrat-Bold.ttf"}
           rotation-y={Math.PI}
+          color="#242323"
         >
-          <meshBasicMaterial color="#000312" />
           {"Rescript"}
         </Text>
         <primitive
@@ -134,10 +136,10 @@ const TextModal = ({
         <Text
           fontSize={0.6}
           position={[-0.8, 0.5, -1.11]}
-          font={"./fonts/Quicksand-Bold.ttf"}
+          font={"./fonts/Montserrat-Bold.ttf"}
           rotation-y={Math.PI}
+          color="#242323"
         >
-          <meshBasicMaterial color="#000312" />
           {"ReactJS"}
         </Text>
         {/** Close hitbox button front */}
@@ -149,6 +151,8 @@ const TextModal = ({
             setIsVisible(false)
             setFlipped(false)
           }}
+          onPointerOver={() => (document.body.style.cursor = "pointer")}
+          onPointerOut={() => (document.body.style.cursor = "grab")}
         />
         <group position={[4, 3.5, 0]} rotation={[0, 0, Math.PI / 4]}>
           <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
@@ -171,6 +175,8 @@ const TextModal = ({
             setIsVisible(false)
             setFlipped(false)
           }}
+          onPointerOver={() => (document.body.style.cursor = "pointer")}
+          onPointerOut={() => (document.body.style.cursor = "grab")}
         />
         <group position={[-4, 3.5, -1.2]} rotation={[0, 0, Math.PI / 4]}>
           <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
@@ -187,13 +193,15 @@ const TextModal = ({
         {/** Flip hitbox button front */}
         <Box
           args={[1, 1, 1]}
-          position={[4, 2.5, 0]}
+          position={[4, 2.45, 0]}
           visible={false}
           onClick={() => {
             setFlipped(!flipped)
           }}
+          onPointerOver={() => (document.body.style.cursor = "pointer")}
+          onPointerOut={() => (document.body.style.cursor = "grab")}
         />
-        <group position={[4, 2.5, 0]}>
+        <group position={[4, 2.45, 0]}>
           <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
             <meshStandardMaterial color="#6365b7" />
           </RoundedBox>
@@ -217,13 +225,15 @@ const TextModal = ({
         {/** Flip hitbox button back */}
         <Box
           args={[1, 1, 1]}
-          position={[-4, 2.5, -1.2]}
+          position={[-4, 2.45, -1.2]}
           visible={false}
           onClick={() => {
             setFlipped(!flipped)
           }}
+          onPointerOver={() => (document.body.style.cursor = "pointer")}
+          onPointerOut={() => (document.body.style.cursor = "grab")}
         />
-        <group position={[-4, 2.5, -1.2]}>
+        <group position={[-4, 2.45, -1.2]}>
           <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
             <meshStandardMaterial color="#6365b7" />
           </RoundedBox>
@@ -302,7 +312,12 @@ const Wino = ({ descriptionEn, descriptionFr, position }: Props) => {
         isVisible={isVisible}
         text={language === "en" ? descriptionEn : descriptionFr}
       />
-      <group position={position} rotation={[0, Math.PI / 12, Math.PI / 5]}>
+      <group
+        position={position}
+        rotation={[0, Math.PI / 12, Math.PI / 5]}
+        onPointerOver={() => (document.body.style.cursor = "pointer")}
+        onPointerOut={() => (document.body.style.cursor = "grab")}
+      >
         <Box
           args={[7.1, 2, 2]}
           position={[-3.9, 0, -1]}

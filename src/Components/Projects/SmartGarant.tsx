@@ -51,12 +51,12 @@ const TextModal = ({
   return (
     <animated.group
       ref={groupRef}
-      position={[-4, 8, 10.3]}
+      position={[-5, 9, 10.3]}
       scale={animation.scale}
     >
       <animated.group rotation={flippedAnimation.rotation as unknown as Euler}>
         <RoundedBox
-          args={[10, 9, 1]}
+          args={[10.5, 10, 1]}
           position={[0, 0, -0.6]}
           radius={0.1}
           castShadow
@@ -65,36 +65,38 @@ const TextModal = ({
         </RoundedBox>
         <Text
           fontSize={1}
-          position={[-0.8, 3.5, 0]}
-          font={"./fonts/Quicksand-Bold.ttf"}
+          position={[-0.8, 3.9, 0]}
+          font={"./fonts/Montserrat-Bold.ttf"}
+          color={"#242323"}
         >
-          <meshBasicMaterial color="black" />
           {title}
         </Text>
         <Text
-          fontSize={0.6}
-          position={[-3.8, 2.5, 0]}
-          font={"./fonts/Quicksand-Regular.ttf"}
+          fontSize={0.5}
+          position={[-4.2, 3, 0]}
+          font={"./fonts/Montserrat-SemiBold.ttf"}
         >
-          <meshBasicMaterial color="#000312" />
+          <meshBasicMaterial color="#4a4a4a" />
           {date}
         </Text>
         <Text
-          font={"./fonts/Quicksand-Regular.ttf"}
+          font={"./fonts/Montserrat-Regular.ttf"}
           maxWidth={9}
           fontSize={0.6}
           anchorX={"center"}
           anchorY={"top"}
-          position={[0.2, 2, 0]}
+          position={[-0.1, 2.4, 0]}
         >
           <meshBasicMaterial color="black" />
           {text}
         </Text>
         <Text
-          position={[3, -3.8, 0]}
+          position={[3, -4.2, 0]}
           fontSize={0.4}
-          font={"./fonts/Quicksand-Regular.ttf"}
+          font={"./fonts/Montserrat-Regular.ttf"}
           onClick={() => window.open("https://smart-garant.com", "_blank")}
+          onPointerOver={() => (document.body.style.cursor = "pointer")}
+          onPointerOut={() => (document.body.style.cursor = "grab")}
         >
           <meshBasicMaterial color="#0c0cff" />
           smart-garant.com
@@ -102,8 +104,8 @@ const TextModal = ({
         {/** Technos */}
         <Text
           fontSize={1}
-          position={[2.5, 3.5, -1.11]}
-          font={"./fonts/Quicksand-Bold.ttf"}
+          position={[2.5, 4, -1.11]}
+          font={"./fonts/Montserrat-Bold.ttf"}
           rotation-y={Math.PI}
         >
           <meshBasicMaterial color="black" />
@@ -113,12 +115,12 @@ const TextModal = ({
           object={typescriptLogo}
           scale={0.01}
           rotation={[Math.PI / 2, 0, Math.PI]}
-          position={[3.3, 1, -1.1]}
+          position={[3.3, 1.5, -1.1]}
         />
         <Text
           fontSize={0.6}
-          position={[2.6, 0.5, -1.11]}
-          font={"./fonts/Quicksand-Bold.ttf"}
+          position={[2.6, 1, -1.11]}
+          font={"./fonts/Montserrat-Bold.ttf"}
           rotation-y={Math.PI}
         >
           <meshBasicMaterial color="#000312" />
@@ -128,12 +130,12 @@ const TextModal = ({
           object={reactLogo2}
           scale={0.015}
           rotation={[Math.PI / 2, 0, 0]}
-          position={[-2, 0.6, -1.3]}
+          position={[-2, 1.1, -1.3]}
         />
         <Text
           fontSize={0.6}
-          position={[-0.8, 0.5, -1.11]}
-          font={"./fonts/Quicksand-Bold.ttf"}
+          position={[-0.8, 1, -1.11]}
+          font={"./fonts/Montserrat-Bold.ttf"}
           rotation-y={Math.PI}
         >
           <meshBasicMaterial color="#000312" />
@@ -143,12 +145,12 @@ const TextModal = ({
           object={strapiLogo}
           scale={0.015}
           rotation={[Math.PI / 2, 0, Math.PI]}
-          position={[3.3, -2.5, -1.1]}
+          position={[3.3, -2, -1.1]}
         />
         <Text
           fontSize={0.6}
-          position={[2.5, -3, -1.11]}
-          font={"./fonts/Quicksand-Bold.ttf"}
+          position={[2.5, -2.5, -1.11]}
+          font={"./fonts/Montserrat-Bold.ttf"}
           rotation-y={Math.PI}
         >
           <meshBasicMaterial color="#000312" />
@@ -157,11 +159,13 @@ const TextModal = ({
         {/** Close hitbox button front */}
         <Box
           args={[1, 1, 1]}
-          position={[4, 3.5, 0]}
+          position={[4.3, 4, 0]}
           visible={false}
           onClick={() => setIsVisible(false)}
+          onPointerOver={() => (document.body.style.cursor = "pointer")}
+          onPointerOut={() => (document.body.style.cursor = "grab")}
         />
-        <group position={[4, 3.5, 0]} rotation={[0, 0, Math.PI / 4]}>
+        <group position={[4.3, 4, 0]} rotation={[0, 0, Math.PI / 4]}>
           <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
             <meshStandardMaterial color="#f25050" />
           </RoundedBox>
@@ -176,14 +180,16 @@ const TextModal = ({
         {/** Close hitbox button back */}
         <Box
           args={[1, 1, 1]}
-          position={[-4, 3.5, -1.2]}
+          position={[-4.3, 4, -1.2]}
           visible={false}
           onClick={() => {
             setIsVisible(false)
             setFlipped(false)
           }}
+          onPointerOver={() => (document.body.style.cursor = "pointer")}
+          onPointerOut={() => (document.body.style.cursor = "grab")}
         />
-        <group position={[-4, 3.5, -1.2]} rotation={[0, 0, Math.PI / 4]}>
+        <group position={[-4.3, 4, -1.2]} rotation={[0, 0, Math.PI / 4]}>
           <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
             <meshStandardMaterial color="#f25050" />
           </RoundedBox>
@@ -198,13 +204,17 @@ const TextModal = ({
         {/** Flip hitbox button front */}
         <Box
           args={[1, 1, 1]}
-          position={[4, 2.5, 0]}
+          position={[4.3, 3, 0]}
           visible={false}
           onClick={() => {
             setFlipped(!flipped)
           }}
         />
-        <group position={[4, 2.5, 0]}>
+        <group
+          position={[4.3, 3, 0]}
+          onPointerOver={() => (document.body.style.cursor = "pointer")}
+          onPointerOut={() => (document.body.style.cursor = "grab")}
+        >
           <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
             <meshStandardMaterial color="#6365b7" />
           </RoundedBox>
@@ -228,13 +238,15 @@ const TextModal = ({
         {/** Flip hitbox button back */}
         <Box
           args={[1, 1, 1]}
-          position={[-4, 2.5, -1.2]}
+          position={[-4.3, 3, -1.2]}
           visible={false}
           onClick={() => {
             setFlipped(!flipped)
           }}
+          onPointerOver={() => (document.body.style.cursor = "pointer")}
+          onPointerOut={() => (document.body.style.cursor = "grab")}
         />
-        <group position={[-4, 2.5, -1.2]}>
+        <group position={[-4.3, 3, -1.2]}>
           <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
             <meshStandardMaterial color="#6365b7" />
           </RoundedBox>
@@ -336,6 +348,8 @@ const SmartGarant = ({ descriptionEn, descriptionFr, position }: Props) => {
       <group
         position={position}
         rotation={[Math.PI / 5.2, Math.PI / -8, Math.PI / 10]}
+        onPointerOver={() => (document.body.style.cursor = "pointer")}
+        onPointerOut={() => (document.body.style.cursor = "grab")}
       >
         <group onClick={handleClick}>
           <Box

@@ -49,27 +49,27 @@ const TextModal = ({
       <Text
         fontSize={1}
         position={[-2, 1.6, 0]}
-        font={"./fonts/Quicksand-Bold.ttf"}
+        font={"./fonts/Montserrat-Bold.ttf"}
+        color={"#242323"}
       >
-        <meshBasicMaterial color="black" />
         {title}
       </Text>
       <Text
-        fontSize={0.6}
-        position={[-2, 0.6, 0]}
-        font={"./fonts/Quicksand-Regular.ttf"}
+        fontSize={0.5}
+        position={[-2.2, 0.8, 0]}
+        font={"./fonts/Montserrat-SemiBold.ttf"}
+        color="#4a4a4a"
       >
-        <meshBasicMaterial color="#545454" />
         {date}
       </Text>
       <Text
         ref={textRef}
-        font={"./fonts/Quicksand-Regular.ttf"}
+        font={"./fonts/Montserrat-Regular.ttf"}
         maxWidth={7.4}
         fontSize={0.6}
         anchorX={"center"}
         anchorY={"top"}
-        position={[0.4, 0, 0]}
+        position={[0.4, 0.1, 0]}
       >
         <meshBasicMaterial color="black" />
         {text}
@@ -79,6 +79,8 @@ const TextModal = ({
         position={[3.6, 1.7, 0]}
         visible={false}
         onClick={() => setIsVisible(false)}
+        onPointerOver={() => (document.body.style.cursor = "pointer")}
+        onPointerOut={() => (document.body.style.cursor = "grab")}
       />
       <group position={[3.6, 1.7, 0]} rotation={[0, 0, Math.PI / 4]}>
         <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
@@ -152,7 +154,11 @@ const Hetic = () => {
             : "Diplômé en 2023 après 5 ans de Master en Ingénierie et Management de la communication numérique"
         }
       />
-      <group position={[0, 0.4, 8]}>
+      <group
+        position={[0, 0.4, 8]}
+        onPointerOver={() => (document.body.style.cursor = "pointer")}
+        onPointerOut={() => (document.body.style.cursor = "grab")}
+      >
         <group onClick={handleClick}>
           <Box
             args={[5.2, 1, 1.4]}

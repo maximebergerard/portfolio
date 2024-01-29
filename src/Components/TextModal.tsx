@@ -62,21 +62,21 @@ const TextModal = (props: TextModalProps) => {
         <Text
           fontSize={1}
           position={props.titlePosition}
-          font={"./fonts/Quicksand-Bold.ttf"}
+          font={"./fonts/Montserrat-Bold.ttf"}
+          color={"#242323"}
         >
-          <meshBasicMaterial color="black" />
           {props.title}
         </Text>
         <Text
           fontSize={0.6}
           position={[-3, 2.5, 0]}
-          font={"./fonts/Quicksand-Regular.ttf"}
+          font={"./fonts/Montserrat-Regular.ttf"}
+          color="#4a4a4a"
         >
-          <meshBasicMaterial color="#545454" />
           {props.date}
         </Text>
         <Text
-          font={"./fonts/Quicksand-Regular.ttf"}
+          font={"./fonts/Montserrat-Regular.ttf"}
           maxWidth={8.5}
           fontSize={0.6}
           anchorX={"center"}
@@ -90,7 +90,7 @@ const TextModal = (props: TextModalProps) => {
           <Text
             position={[4, -3.8, 0]}
             fontSize={0.4}
-            font={"./fonts/Quicksand-Regular.ttf"}
+            font={"./fonts/Montserrat-Regular.ttf"}
             onClick={() => window.open(props.linkUrl, "_blank")}
           >
             <meshBasicMaterial color="#0c0cff" />
@@ -101,7 +101,7 @@ const TextModal = (props: TextModalProps) => {
         {/* <Text
           fontSize={1}
           position={[2.5, 3.5, -1.11]}
-          font={"./fonts/Quicksand-Bold.ttf"}
+          font={"./fonts/Montserrat-Bold.ttf"}
           rotation-y={Math.PI}
         >
           <meshBasicMaterial color="black" />
@@ -116,7 +116,7 @@ const TextModal = (props: TextModalProps) => {
         <Text
           fontSize={0.6}
           position={[2.65, 0.5, -1.11]}
-          font={"./fonts/Quicksand-Bold.ttf"}
+          font={"./fonts/Montserrat-Bold.ttf"}
           rotation-y={Math.PI}
         >
           <meshBasicMaterial color="#545454" />
@@ -131,7 +131,7 @@ const TextModal = (props: TextModalProps) => {
         <Text
           fontSize={0.6}
           position={[-0.8, 0.5, -1.11]}
-          font={"./fonts/Quicksand-Bold.ttf"}
+          font={"./fonts/Montserrat-Bold.ttf"}
           rotation-y={Math.PI}
         >
           <meshBasicMaterial color="#545454" />
@@ -146,6 +146,8 @@ const TextModal = (props: TextModalProps) => {
             props.setIsVisible(false)
             setFlipped(false)
           }}
+          onPointerOver={() => (document.body.style.cursor = "pointer")}
+          onPointerOut={() => (document.body.style.cursor = "grab")}
         />
         <group
           position={[props.modalSize[0] / 2.5, props.modalSize[1] / 3.2, 0]}

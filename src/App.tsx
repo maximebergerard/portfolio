@@ -7,7 +7,6 @@ import "./App.css"
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import {
-  Box,
   // OrbitControls,
   GradientTexture,
   // Loader,
@@ -18,21 +17,22 @@ import {
   useProgress,
 } from "@react-three/drei"
 
-// import Mannequin from "./Components/Mannequin"
 import Name from "./Components/Name"
 import Light from "./Components/Light"
 import Airplane from "./Components/Airplane/Airplane"
-// import Construction from "./Components/Constructions/Construction"
 import AdsPanel from "./Components/AdsPanel/AdsPanel"
 import BasePlane from "./Components/BasePlane"
 import Projects from "./Components/Projects/Projects"
 import Loader from "./Components/Loader/Loader"
 import Hetic from "./Components/Hetic"
 import MousePointerPanel from "./Components/MousePointerPanel"
-// import BucketHat from "./Components/BucketHat"
 import MailBoxScene from "./Components/MailBox/MailBoxScene"
-import { useLanguage } from "./Components/useLanguage"
-import { animated, useSpring } from "@react-spring/three"
+import LanguageButton from "./Components/Languages"
+
+// WIP
+// import Mannequin from "./Components/Mannequin"
+// import Construction from "./Components/Constructions/Construction"
+// import BucketHat from "./Components/BucketHat"
 
 const OCamera = () => {
   const camera = useRef<THREE.OrthographicCamera | null>(null)
@@ -95,48 +95,13 @@ const LoaderScreen = () => {
   )
 }
 
-const LanguageButton = () => {
-  const { language, toggleLanguage } = useLanguage()
-  const frenchFlag = useFBX("./3dmodels/Flags/french.fbx")
-  const englishFlag = useFBX("./3dmodels/Flags/english.fbx")
-
-  const animation = useSpring({
-    position: language === "fr" ? [12.45, 0.6, 15] : [9.95, 0.6, 15],
-    config: {
-      mass: 1,
-      tension: 60,
-      friction: 20,
-    },
-  })
-
-  return (
-    <>
-      <animated.group position={animation.position.to((x, y, z) => [x, y, z])}>
-        <Box args={[2, 1.2, 0.5]}>
-          <meshStandardMaterial color="green" opacity={0.3} transparent />
-        </Box>
-      </animated.group>
-      <primitive
-        object={frenchFlag}
-        position={[12.5, 0.6, 15]}
-        scale={0.04}
-        rotation={[0, -Math.PI / 2, 0]}
-        onClick={() => toggleLanguage("fr")}
-      />
-      <primitive
-        object={englishFlag}
-        position={[10, 0.6, 15]}
-        scale={0.04}
-        rotation={[0, -Math.PI / 2, 0]}
-        onClick={() => toggleLanguage("en")}
-      />
-    </>
-  )
-}
-
 const ThreeJsScene = () => {
   return (
-    <Canvas shadows>
+    <Canvas
+      shadows
+      onPointerDown={() => (document.body.style.cursor = "grabbing")}
+      onPointerUp={() => (document.body.style.cursor = "grab")}
+    >
       <Suspense fallback={<Loader />}>
         <LoaderScreen />
         <GradientTexture
@@ -155,6 +120,7 @@ const ThreeJsScene = () => {
             tension: 60,
             friction: 20,
           }}
+          cursor={false}
         >
           <LanguageButton />
           <Name position={new THREE.Vector3(0.5, 0, -12)} name={firstName} />

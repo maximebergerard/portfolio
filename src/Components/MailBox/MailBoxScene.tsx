@@ -47,7 +47,7 @@ const MailBoxScene = () => {
       />
       <TextModal
         title="MAIL"
-        titlePosition={[-3.4, 1, 0]}
+        titlePosition={[-3.3, 1, 0]}
         modalSize={[10, 3.5, 1]}
         modalPosition={[14, 8, -1.4]}
         setIsVisible={setIsVisible}
@@ -55,16 +55,20 @@ const MailBoxScene = () => {
         text="maxime.bergerard@gmail.com"
         textPosition={[0, 0, 0]}
       />
-      <group position={[14, 2.6, -1.3]} rotation={[0, (-7 * Math.PI) / 9, 0]}>
+      {/* Hitbox click */}
+      <group
+        position={[14, 2.6, -1.3]}
+        rotation={[0, (-7 * Math.PI) / 9, 0]}
+        onPointerOver={() => (document.body.style.cursor = "pointer")}
+        onPointerOut={() => (document.body.style.cursor = "grab")}
+      >
         <Box
           args={[2.2, 5, 1.4]}
           visible={false}
           scale={1.1}
           onClick={handleClick}
           ref={ref}
-        >
-          <meshStandardMaterial color="red" />
-        </Box>
+        />
       </group>
     </>
   )

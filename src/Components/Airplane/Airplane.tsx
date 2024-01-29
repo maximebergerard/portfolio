@@ -148,7 +148,13 @@ const Airplane = () => {
         radius={radius}
         speed={speed}
       />
-      <group dispose={null} ref={airplaneRef} onClick={handleClick}>
+      <group
+        dispose={null}
+        ref={airplaneRef}
+        onClick={handleClick}
+        onPointerOver={() => (document.body.style.cursor = "pointer")}
+        onPointerOut={() => (document.body.style.cursor = "grab")}
+      >
         <mesh scale={0.03} rotation={[Math.PI, -Math.PI, 0]}>
           <primitive object={fbx} />
         </mesh>

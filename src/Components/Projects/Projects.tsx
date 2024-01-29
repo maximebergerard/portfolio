@@ -1,8 +1,11 @@
+import { useFBX } from "@react-three/drei"
+import { useLayoutEffect, useRef } from "react"
+import * as THREE from "three"
+
 import Wino from "./Wino"
 import SmartGarant from "./SmartGarant"
-import { useFBX } from "@react-three/drei"
-import { useLayoutEffect } from "react"
-import * as THREE from "three"
+import Portfolio from "./Portfolio"
+import { useFrame } from "@react-three/fiber"
 
 const Podium = () => {
   return (
@@ -25,6 +28,17 @@ const Podium = () => {
 
 const Project = () => {
   const fbx = useFBX("./3dmodels/projects_panel.fbx")
+  const objectRef = useRef<THREE.Mesh | null>(null)
+
+  const amplitude = 0.5
+  const speed = 3
+
+  useFrame((state) => {
+    if (objectRef.current) {
+      objectRef.current.position.y =
+        amplitude * Math.sin(speed * state.clock.elapsedTime) + 7
+    }
+  })
 
   useLayoutEffect(
     () =>
@@ -42,6 +56,7 @@ const Project = () => {
         scale={0.0013}
         position={[-5, 6, 4.6]}
         rotation={[0, -Math.PI / 4, 0]}
+        ref={objectRef}
       />
       <Wino
         descriptionFr="Développeur en alternance sur le site vitrine et l'application back-office pour Wino, une startup de caisse enregistreuse connectée. J'étais spécialisé dans le développement de l'interface en ReScript."
@@ -53,6 +68,7 @@ const Project = () => {
         descriptionFr="J'ai collaboré et supervisé la création d'un site web complet, en contribuant au frontend avec du ReactJS ainsi que du TypeScript et au backend avec la mise en place du headless CMS Strapi."
         position={[-9.4, -0.36, 9.6]}
       />
+      <Portfolio position={[-8.6, 2.05, 2]} />
       <group position={[-5, 0.5, 5]} rotation={[0, -Math.PI / 4, 0]}>
         <Podium />
       </group>
