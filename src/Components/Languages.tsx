@@ -1,6 +1,8 @@
 import { useSpring, animated } from "@react-spring/three"
 import { useFBX, Box } from "@react-three/drei"
-import { useLanguage } from "./useLanguage"
+import { useLanguage } from "../Utils/useLanguage"
+import { useLayoutEffect } from "react"
+import * as THREE from "three"
 
 const LanguageButton = () => {
   const { language, toggleLanguage } = useLanguage()
@@ -15,6 +17,24 @@ const LanguageButton = () => {
       friction: 20,
     },
   })
+
+  useLayoutEffect(
+    () =>
+      frenchFlag.traverse(
+        (o) =>
+          o instanceof THREE.Mesh && (o.castShadow = o.receiveShadow = true),
+      ),
+    [frenchFlag],
+  )
+
+  useLayoutEffect(
+    () =>
+      englishFlag.traverse(
+        (o) =>
+          o instanceof THREE.Mesh && (o.castShadow = o.receiveShadow = true),
+      ),
+    [englishFlag],
+  )
 
   return (
     <>

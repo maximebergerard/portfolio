@@ -1,4 +1,3 @@
-// LanguageContext.tsx
 import { createContext, ReactNode, useState } from "react"
 
 type Language = "en" | "fr" // Define your supported languages

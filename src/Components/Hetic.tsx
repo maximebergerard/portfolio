@@ -3,7 +3,7 @@ import { RoundedBox, useFBX, Text, Box } from "@react-three/drei"
 import * as THREE from "three"
 import { ThreeEvent, useFrame, useThree } from "@react-three/fiber"
 import { animated, useSpring } from "@react-spring/three"
-import { useLanguage } from "./useLanguage"
+import { useLanguage } from "../Utils/useLanguage"
 
 const TextModal = ({
   isVisible,
@@ -39,60 +39,62 @@ const TextModal = ({
   return (
     <animated.group ref={groupRef} position={[0, 8, 6]} scale={animation.scale}>
       <RoundedBox
-        args={[8.5, 7, 1]}
+        args={[8.5, 6.4, 1]}
         position={[0.3, -1, -0.6]}
         radius={0.1}
         castShadow
       >
         <meshStandardMaterial color="#a6f7a0" />
       </RoundedBox>
-      <Text
-        fontSize={1}
-        position={[-2, 1.6, 0]}
-        font={"./fonts/Montserrat-Bold.ttf"}
-        color={"#242323"}
-      >
-        {title}
-      </Text>
-      <Text
-        fontSize={0.5}
-        position={[-2.2, 0.8, 0]}
-        font={"./fonts/Montserrat-SemiBold.ttf"}
-        color="#4a4a4a"
-      >
-        {date}
-      </Text>
-      <Text
-        ref={textRef}
-        font={"./fonts/Montserrat-Regular.ttf"}
-        maxWidth={7.4}
-        fontSize={0.6}
-        anchorX={"center"}
-        anchorY={"top"}
-        position={[0.4, 0.1, 0]}
-      >
-        <meshBasicMaterial color="black" />
-        {text}
-      </Text>
-      <Box
-        args={[1, 1, 1]}
-        position={[3.6, 1.7, 0]}
-        visible={false}
-        onClick={() => setIsVisible(false)}
-        onPointerOver={() => (document.body.style.cursor = "pointer")}
-        onPointerOut={() => (document.body.style.cursor = "grab")}
-      />
-      <group position={[3.6, 1.7, 0]} rotation={[0, 0, Math.PI / 4]}>
-        <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
-          <meshStandardMaterial color="#f25050" />
-        </RoundedBox>
-        <RoundedBox
-          args={[0.8, 0.2, 0.2]}
-          radius={0.05}
-          rotation={[0, 0, Math.PI / 2]}
+      <group position={[0, -0.3, 0]}>
+        <Text
+          fontSize={1}
+          position={[-2, 1.6, 0]}
+          font={"./fonts/Montserrat-Bold.ttf"}
+          color={"#242323"}
         >
-          <meshStandardMaterial color="#f25050" />
-        </RoundedBox>
+          {title}
+        </Text>
+        <Text
+          fontSize={0.5}
+          position={[-2.2, 0.8, 0]}
+          font={"./fonts/Montserrat-SemiBold.ttf"}
+          color="#4a4a4a"
+        >
+          {date}
+        </Text>
+        <Text
+          ref={textRef}
+          font={"./fonts/Montserrat-Regular.ttf"}
+          maxWidth={7.6}
+          fontSize={0.6}
+          anchorX={"center"}
+          anchorY={"top"}
+          position={[0.4, 0.3, 0]}
+        >
+          <meshBasicMaterial color="black" />
+          {text}
+        </Text>
+        <Box
+          args={[1, 1, 1]}
+          position={[3.6, 1.7, 0]}
+          visible={false}
+          onClick={() => setIsVisible(false)}
+          onPointerOver={() => (document.body.style.cursor = "pointer")}
+          onPointerOut={() => (document.body.style.cursor = "grab")}
+        />
+        <group position={[3.6, 1.7, 0]} rotation={[0, 0, Math.PI / 4]}>
+          <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
+            <meshStandardMaterial color="#f25050" />
+          </RoundedBox>
+          <RoundedBox
+            args={[0.8, 0.2, 0.2]}
+            radius={0.05}
+            rotation={[0, 0, Math.PI / 2]}
+          >
+            <meshStandardMaterial color="#f25050" />
+          </RoundedBox>
+        </group>
       </group>
     </animated.group>
   )
@@ -150,8 +152,8 @@ const Hetic = () => {
         isVisible={isVisible}
         text={
           language === "en"
-            ? "Graduating in 2023 after 5 years of a Masters in Digital Communication Engineering and Management"
-            : "Diplômé en 2023 après 5 ans de Master en Ingénierie et Management de la communication numérique"
+            ? "Graduating in 2023 after 5 years of a Master in digital and technological transformation"
+            : "Diplômé en 2023 d'un Master en Ingénierie et Management de la communication numérique"
         }
       />
       <group

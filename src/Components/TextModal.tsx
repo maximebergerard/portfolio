@@ -2,6 +2,7 @@ import { animated, useSpring } from "@react-spring/three"
 import { Box, RoundedBox, Text } from "@react-three/drei"
 import { Euler, useFrame, useThree } from "@react-three/fiber"
 import { useRef, useState } from "react"
+import { useProject } from "../Utils/useProject"
 
 interface TextModalProps {
   modalSize: [number, number, number]
@@ -15,12 +16,14 @@ interface TextModalProps {
   textPosition?: [number, number, number]
   linkName?: string
   linkUrl?: string
+  groupPosition?: [number, number, number]
 }
 
 const TextModal = (props: TextModalProps) => {
   const groupRef = useRef<THREE.Group>(null)
   const [flipped, setFlipped] = useState(false)
   const { camera } = useThree()
+  const { toggleProjects } = useProject()
 
   const closeAnimation = useSpring({
     scale: props.isVisible ? 1 : 0,
@@ -59,46 +62,47 @@ const TextModal = (props: TextModalProps) => {
         >
           <meshStandardMaterial color="#fffaa0" />
         </RoundedBox>
-        <Text
-          fontSize={1}
-          position={props.titlePosition}
-          font={"./fonts/Montserrat-Bold.ttf"}
-          color={"#242323"}
-        >
-          {props.title}
-        </Text>
-        <Text
-          fontSize={0.6}
-          position={[-3, 2.5, 0]}
-          font={"./fonts/Montserrat-Regular.ttf"}
-          color="#4a4a4a"
-        >
-          {props.date}
-        </Text>
-        <Text
-          font={"./fonts/Montserrat-Regular.ttf"}
-          maxWidth={8.5}
-          fontSize={0.6}
-          anchorX={"center"}
-          anchorY={"top"}
-          position={props.textPosition}
-        >
-          <meshBasicMaterial color="black" />
-          {props.text}
-        </Text>
-        {props.linkName && props.linkUrl && (
+        <group position={props.groupPosition}>
           <Text
-            position={[4, -3.8, 0]}
-            fontSize={0.4}
-            font={"./fonts/Montserrat-Regular.ttf"}
-            onClick={() => window.open(props.linkUrl, "_blank")}
+            fontSize={1}
+            position={props.titlePosition}
+            font={"./fonts/Montserrat-Bold.ttf"}
+            color={"#242323"}
           >
-            <meshBasicMaterial color="#0c0cff" />
-            {props.linkName}
+            {props.title}
           </Text>
-        )}
-        {/** Technos */}
-        {/* <Text
+          <Text
+            fontSize={0.6}
+            position={[-3, 2.5, 0]}
+            font={"./fonts/Montserrat-Regular.ttf"}
+            color="#4a4a4a"
+          >
+            {props.date}
+          </Text>
+          <Text
+            font={"./fonts/Montserrat-Regular.ttf"}
+            maxWidth={8.5}
+            fontSize={0.6}
+            anchorX={"center"}
+            anchorY={"top"}
+            position={props.textPosition}
+          >
+            <meshBasicMaterial color="black" />
+            {props.text}
+          </Text>
+          {props.linkName && props.linkUrl && (
+            <Text
+              position={[4, -3.8, 0]}
+              fontSize={0.4}
+              font={"./fonts/Montserrat-Regular.ttf"}
+              onClick={() => window.open(props.linkUrl, "_blank")}
+            >
+              <meshBasicMaterial color="#0c0cff" />
+              {props.linkName}
+            </Text>
+          )}
+          {/** Technos */}
+          {/* <Text
           fontSize={1}
           position={[2.5, 3.5, -1.11]}
           font={"./fonts/Montserrat-Bold.ttf"}
@@ -137,35 +141,36 @@ const TextModal = (props: TextModalProps) => {
           <meshBasicMaterial color="#545454" />
           {"ReactJS"}
         </Text> */}
-        {/** Close hitbox button front */}
-        <Box
-          args={[1, 1, 1]}
-          position={[props.modalSize[0] / 2.5, props.modalSize[1] / 3.2, 0]}
-          visible={false}
-          onClick={() => {
-            props.setIsVisible(false)
-            setFlipped(false)
-          }}
-          onPointerOver={() => (document.body.style.cursor = "pointer")}
-          onPointerOut={() => (document.body.style.cursor = "grab")}
-        />
-        <group
-          position={[props.modalSize[0] / 2.5, props.modalSize[1] / 3.2, 0]}
-          rotation={[0, 0, Math.PI / 4]}
-        >
-          <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
-            <meshStandardMaterial color="#f25050" />
-          </RoundedBox>
-          <RoundedBox
-            args={[0.8, 0.2, 0.2]}
-            radius={0.05}
-            rotation={[0, 0, Math.PI / 2]}
+          {/** Close hitbox button front */}
+          <Box
+            args={[1, 1, 1]}
+            position={[props.modalSize[0] / 2.5, 0, 0]}
+            visible={false}
+            onClick={() => {
+              props.setIsVisible(false)
+              setFlipped(false)
+              toggleProjects("none")
+            }}
+            onPointerOver={() => (document.body.style.cursor = "pointer")}
+            onPointerOut={() => (document.body.style.cursor = "grab")}
+          />
+          <group
+            position={[props.modalSize[0] / 2.5, 0, 0]}
+            rotation={[0, 0, Math.PI / 4]}
           >
-            <meshStandardMaterial color="#f25050" />
-          </RoundedBox>
-        </group>
-        {/** Close hitbox button back */}
-        {/* <Box
+            <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
+              <meshStandardMaterial color="#f25050" />
+            </RoundedBox>
+            <RoundedBox
+              args={[0.8, 0.2, 0.2]}
+              radius={0.05}
+              rotation={[0, 0, Math.PI / 2]}
+            >
+              <meshStandardMaterial color="#f25050" />
+            </RoundedBox>
+          </group>
+          {/** Close hitbox button back */}
+          {/* <Box
           args={[1, 1, 1]}
           position={[-4, 3.5, -1.2]}
           visible={false}
@@ -186,8 +191,8 @@ const TextModal = (props: TextModalProps) => {
             <meshStandardMaterial color="#f25050" />
           </RoundedBox>
         </group> */}
-        {/** Flip hitbox button front */}
-        {/* <Box
+          {/** Flip hitbox button front */}
+          {/* <Box
           args={[1, 1, 1]}
           position={[4, 2.5, 0]}
           visible={false}
@@ -216,8 +221,8 @@ const TextModal = (props: TextModalProps) => {
             <meshStandardMaterial color="#6365b7" />
           </RoundedBox>
         </group> */}
-        {/** Flip hitbox button back */}
-        {/* <Box
+          {/** Flip hitbox button back */}
+          {/* <Box
           args={[1, 1, 1]}
           position={[-4, 2.5, -1.2]}
           visible={false}
@@ -225,6 +230,7 @@ const TextModal = (props: TextModalProps) => {
             setFlipped(!flipped)
           }}
         /> */}
+        </group>
       </animated.group>
     </animated.group>
   )

@@ -8,7 +8,7 @@ import { ThreeEvent, useFrame, useLoader, useThree } from "@react-three/fiber"
 import Cable from "./Cable"
 import Banner from "./Banner"
 // import { drawTextOnCanvasProps } from "./Banner"
-import { useLanguage } from "../useLanguage"
+import { useLanguage } from "../../Utils/useLanguage"
 
 const Airplane = () => {
   const fbx = useFBX("./3dmodels/Airplane/airplane.fbx")

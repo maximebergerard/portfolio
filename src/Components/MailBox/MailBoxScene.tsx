@@ -1,20 +1,34 @@
 import { Box, useFBX } from "@react-three/drei"
-import { useRef, useState } from "react"
+import { useLayoutEffect, useRef, useState } from "react"
 import * as THREE from "three"
 import { ThreeEvent, useThree } from "@react-three/fiber"
 
 import Grass from "./Grass"
 import TextModal from "../TextModal"
+import { ProjectsProvider } from "../../Providers/ProjectProvider"
 
 const MailBoxScene = () => {
   const fbx = useFBX("./3dmodels/MailBox/mailbox.fbx")
   const ref = useRef<THREE.Mesh | null>(null)
+  const ref2 = useRef<THREE.Mesh | null>(null)
   const { camera, scene } = useThree()
   const [isVisible, setIsVisible] = useState(false)
 
   if (ref.current) {
     ref.current.name = "MailBox"
   }
+  if (ref2.current) {
+    ref2.current.name = "MailBox"
+  }
+
+  useLayoutEffect(
+    () =>
+      fbx.traverse(
+        (o) =>
+          o instanceof THREE.Mesh && (o.castShadow = o.receiveShadow = true),
+      ),
+    [fbx],
+  )
 
   const handleClick = (event: ThreeEvent<MouseEvent>) => {
     const raycaster = new THREE.Raycaster()
@@ -37,7 +51,7 @@ const MailBoxScene = () => {
   }
 
   return (
-    <>
+    <ProjectsProvider>
       <Grass />
       <primitive
         object={fbx}
@@ -46,14 +60,15 @@ const MailBoxScene = () => {
         rotation={[0, (-7 * Math.PI) / 9, 0]}
       />
       <TextModal
-        title="MAIL"
-        titlePosition={[-3.3, 1, 0]}
         modalSize={[10, 3.5, 1]}
         modalPosition={[14, 8, -1.4]}
+        title="MAIL"
+        titlePosition={[-3.3, 0, 0]}
         setIsVisible={setIsVisible}
         isVisible={isVisible}
         text="maxime.bergerard@gmail.com"
-        textPosition={[0, 0, 0]}
+        textPosition={[0, -1, 0]}
+        groupPosition={[0, 0.8, 0]}
       />
       {/* Hitbox click */}
       <group
@@ -69,8 +84,17 @@ const MailBoxScene = () => {
           onClick={handleClick}
           ref={ref}
         />
+        <Box
+          args={[1.2, 0.5, 1.3]}
+          visible={false}
+          scale={1.1}
+          position={[1.6, 1, 0]}
+          rotation={[0, 0, -Math.PI / 5]}
+          onClick={handleClick}
+          ref={ref2}
+        />
       </group>
-    </>
+    </ProjectsProvider>
   )
 }
 

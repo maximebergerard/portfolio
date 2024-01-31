@@ -1,10 +1,11 @@
-import { useLayoutEffect, useRef, useState } from "react"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import * as THREE from "three"
 
 import { Box, RoundedBox, Text, useFBX } from "@react-three/drei"
 import { Euler, ThreeEvent, useFrame, useThree } from "@react-three/fiber"
 import { useSpring, animated } from "@react-spring/three"
-import { useLanguage } from "../useLanguage"
+import { useLanguage } from "../../Utils/useLanguage"
+import { useProject } from "../../Utils/useProject"
 
 const TextModal = ({
   isVisible,
@@ -18,12 +19,13 @@ const TextModal = ({
   const title = "SMARTGARANT"
   const date = "2021"
 
+  const { camera } = useThree()
   const typescriptLogo = useFBX("./3dmodels/Logo/typescriptLogo.fbx")
   const reactLogo2 = useFBX("./3dmodels/Logo/reactLogo2.fbx")
   const strapiLogo = useFBX("./3dmodels/Logo/strapiLogo.fbx")
   const groupRef = useRef<THREE.Group>(null)
   const [flipped, setFlipped] = useState(false)
-  const { camera } = useThree()
+  const { toggleProjects } = useProject()
 
   // Define the animation spring
   const animation = useSpring({
@@ -161,7 +163,11 @@ const TextModal = ({
           args={[1, 1, 1]}
           position={[4.3, 4, 0]}
           visible={false}
-          onClick={() => setIsVisible(false)}
+          onClick={() => {
+            setIsVisible(false)
+            setFlipped(false)
+            toggleProjects("none")
+          }}
           onPointerOver={() => (document.body.style.cursor = "pointer")}
           onPointerOut={() => (document.body.style.cursor = "grab")}
         />
@@ -184,6 +190,7 @@ const TextModal = ({
           visible={false}
           onClick={() => {
             setIsVisible(false)
+            toggleProjects("none")
             setFlipped(false)
           }}
           onPointerOver={() => (document.body.style.cursor = "pointer")}
@@ -280,9 +287,10 @@ interface Props {
 const SmartGarant = ({ descriptionEn, descriptionFr, position }: Props) => {
   const logoSmartgarant = useFBX("./3dmodels/Logo/smartgarantLogo.fbx")
   const { language } = useLanguage()
-
+  const { projects, toggleProjects } = useProject()
   const { camera, scene } = useThree()
   const [isVisible, setIsVisible] = useState(false)
+
   const ref1 = useRef<THREE.Mesh | null>(null)
   const ref2 = useRef<THREE.Mesh | null>(null)
   const ref3 = useRef<THREE.Mesh | null>(null)
@@ -318,6 +326,12 @@ const SmartGarant = ({ descriptionEn, descriptionFr, position }: Props) => {
     [logoSmartgarant],
   )
 
+  useEffect(() => {
+    if (projects !== "smartgarant") {
+      setIsVisible(false)
+    }
+  }, [projects])
+
   const handleClick = (event: ThreeEvent<MouseEvent>) => {
     const raycaster = new THREE.Raycaster()
     const mouse = new THREE.Vector2()
@@ -335,6 +349,7 @@ const SmartGarant = ({ descriptionEn, descriptionFr, position }: Props) => {
 
     if (intersects.length > 0 && intersects[0].object.name === "Smartgarant") {
       setIsVisible(true)
+      toggleProjects("smartgarant")
     }
   }
 

@@ -28,6 +28,7 @@ import Hetic from "./Components/Hetic"
 import MousePointerPanel from "./Components/MousePointerPanel"
 import MailBoxScene from "./Components/MailBox/MailBoxScene"
 import LanguageButton from "./Components/Languages"
+import { ProjectsProvider } from "./Providers/ProjectProvider"
 
 // WIP
 // import Mannequin from "./Components/Mannequin"
@@ -129,7 +130,9 @@ const ThreeJsScene = () => {
           {/* <Mannequin /> */}
           <Airplane />
           <PlanePanel />
-          <Projects />
+          <ProjectsProvider>
+            <Projects />
+          </ProjectsProvider>
           <MousePointerPanel />
           {/* <BucketHat /> */}
           {/* <Construction /> */}

@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useLayoutEffect, useRef, useState } from "react"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import * as THREE from "three"
 
 import { Box, RoundedBox, Text, useFBX } from "@react-three/drei"
 import { Euler, ThreeEvent, useFrame, useThree } from "@react-three/fiber"
 import { useSpring, animated } from "@react-spring/three"
-import { useLanguage } from "../useLanguage"
+import { useLanguage } from "../../Utils/useLanguage"
+import { useProject } from "../../Utils/useProject"
+import Project from "./Projects"
 
 const TextModal = ({
   isVisible,
@@ -19,11 +21,12 @@ const TextModal = ({
   const title = "WINO"
   const date = "2021-2022"
 
+  const { camera } = useThree()
   const reactLogo1 = useFBX("./3dmodels/Logo/reactLogo1.fbx")
   const rescriptLogo = useFBX("./3dmodels/Logo/rescriptLogo.fbx")
   const groupRef = useRef<THREE.Group>(null)
   const [flipped, setFlipped] = useState(false)
-  const { camera } = useThree()
+  const { toggleProjects } = useProject()
 
   // Define the closeAnimation spring
   const closeAnimation = useSpring({
@@ -51,7 +54,7 @@ const TextModal = ({
   return (
     <animated.group
       ref={groupRef}
-      position={[-1.8, 8, 0]}
+      position={[-5, 9.4, 5]}
       scale={closeAnimation.scale}
     >
       <animated.group rotation={flippedAnimation.rotation as unknown as Euler}>
@@ -150,6 +153,7 @@ const TextModal = ({
           onClick={() => {
             setIsVisible(false)
             setFlipped(false)
+            toggleProjects("none")
           }}
           onPointerOver={() => (document.body.style.cursor = "pointer")}
           onPointerOut={() => (document.body.style.cursor = "grab")}
@@ -174,6 +178,7 @@ const TextModal = ({
           onClick={() => {
             setIsVisible(false)
             setFlipped(false)
+            toggleProjects("none")
           }}
           onPointerOver={() => (document.body.style.cursor = "pointer")}
           onPointerOut={() => (document.body.style.cursor = "grab")}
@@ -268,6 +273,7 @@ const Wino = ({ descriptionEn, descriptionFr, position }: Props) => {
   const logoWino = useFBX("./3dmodels/Logo/winoLogo.fbx")
   const ref = useRef<THREE.Mesh | null>(null)
   const { language } = useLanguage()
+  const { projects, toggleProjects } = useProject()
 
   const { camera, scene } = useThree()
   const [isVisible, setIsVisible] = useState(false)
@@ -284,6 +290,12 @@ const Wino = ({ descriptionEn, descriptionFr, position }: Props) => {
       ),
     [logoWino],
   )
+
+  useEffect(() => {
+    if (projects !== "wino") {
+      setIsVisible(false)
+    }
+  }, [projects])
 
   const handleClick = (event: ThreeEvent<MouseEvent>) => {
     const raycaster = new THREE.Raycaster()
@@ -302,6 +314,7 @@ const Wino = ({ descriptionEn, descriptionFr, position }: Props) => {
 
     if (intersects.length > 0 && intersects[0].object.name === "Wino") {
       setIsVisible(true)
+      toggleProjects("wino")
     }
   }
 
@@ -319,15 +332,13 @@ const Wino = ({ descriptionEn, descriptionFr, position }: Props) => {
         onPointerOut={() => (document.body.style.cursor = "grab")}
       >
         <Box
-          args={[7.1, 2, 2]}
+          args={[7.1, 1.3, 2]}
           position={[-3.9, 0, -1]}
           visible={false}
           scale={1.1}
           onClick={handleClick}
           ref={ref}
-        >
-          <meshStandardMaterial color="blue" />
-        </Box>
+        />
         <primitive object={logoWino} scale={0.02} />
       </group>
     </>
