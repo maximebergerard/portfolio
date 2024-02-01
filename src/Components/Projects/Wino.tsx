@@ -7,8 +7,8 @@ import { Euler, ThreeEvent, useFrame, useThree } from "@react-three/fiber"
 import { useSpring, animated } from "@react-spring/three"
 import { useLanguage } from "../../Utils/useLanguage"
 import { useProject } from "../../Utils/useProject"
-import Project from "./Projects"
 
+// TODO : Rewrite this component with the new TextModal component
 const TextModal = ({
   isVisible,
   setIsVisible,

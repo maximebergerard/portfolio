@@ -12,6 +12,7 @@ interface RubiksCubeProps {
 
 const RubiksCube = ({ position }: RubiksCubeProps) => {
   const logoFolio = useFBX("./3dmodels/Logo/rubiks_cube.fbx")
+  const reactLogo = useFBX("./3dmodels/Logo/reactLogo1.fbx")
   const ref = useRef<THREE.Mesh | null>(null)
   const { camera, scene } = useThree()
   const [isVisible, setIsVisible] = useState(false)
@@ -70,11 +71,24 @@ const RubiksCube = ({ position }: RubiksCubeProps) => {
         modalPosition={[-7, 9, 2]}
         title="PORTFOLIO"
         titlePosition={[-1.3, 0, 0]}
+        date="2023"
         setIsVisible={setIsVisible}
         isVisible={isVisible}
-        text="Mon portfolio est un site web que j'ai réalisé avec React et Three.js. Il est composé de plusieurs pages qui présentent mes projets, mes compétences et mes expériences."
-        textPosition={[0, -0.8, 0]}
+        text="Ce portfolio est réalisé avec React et Three.js."
+        textPosition={[0, -1.4, 0]}
         groupPosition={[0, 2.9, 0]}
+        linkName="threejs-journey.com"
+        linkUrl="https://threejs-journey.com/"
+        linkPosition={[2.6, -6.3, 0]}
+        technosTitlePosition={[2.3, 0, -1.11]}
+        technosArray={[
+          {
+            title: "React",
+            titlePosition: [2.7, -3.2, -1.11],
+            logo: reactLogo,
+            logoPosition: [1.6, -3, -1.3],
+          },
+        ]}
       />
       <Box
         args={[2.1, 2.1, 2.1]}
