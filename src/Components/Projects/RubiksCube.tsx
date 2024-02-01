@@ -3,7 +3,6 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import * as THREE from "three"
 import TextModal from "../TextModal"
 import { ThreeEvent, useThree } from "@react-three/fiber"
-import { ProjectsProvider } from "../../Providers/ProjectProvider"
 import { useProject } from "../../Utils/useProject"
 
 interface RubiksCubeProps {
