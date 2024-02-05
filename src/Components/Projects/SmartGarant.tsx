@@ -51,6 +51,12 @@ const TextModal = ({
     }
   })
 
+  useEffect(() => {
+    if (!isVisible) {
+      setFlipped(false)
+    }
+  }, [isVisible])
+
   return (
     <animated.group
       ref={groupRef}
@@ -59,7 +65,7 @@ const TextModal = ({
     >
       <animated.group rotation={flippedAnimation.rotation as unknown as Euler}>
         <RoundedBox
-          args={[10.5, 10, 1]}
+          args={[10.5, 9.5, 1]}
           position={[0, 0, -0.6]}
           radius={0.1}
           castShadow
@@ -94,7 +100,7 @@ const TextModal = ({
           {text}
         </Text>
         <Text
-          position={[3, -4.2, 0]}
+          position={[3, -4, 0]}
           fontSize={0.4}
           font={"./fonts/Montserrat-Regular.ttf"}
           onClick={() => window.open("https://smart-garant.com", "_blank")}
@@ -291,6 +297,7 @@ const SmartGarant = ({ descriptionEn, descriptionFr, position }: Props) => {
   const { projects, toggleProjects } = useProject()
   const { camera, scene } = useThree()
   const [isVisible, setIsVisible] = useState(false)
+  const [hovered, setHover] = useState(false)
 
   const ref1 = useRef<THREE.Mesh | null>(null)
   const ref2 = useRef<THREE.Mesh | null>(null)
@@ -320,10 +327,12 @@ const SmartGarant = ({ descriptionEn, descriptionFr, position }: Props) => {
 
   useLayoutEffect(
     () =>
-      logoSmartgarant.traverse(
-        (o) =>
-          o instanceof THREE.Mesh && (o.castShadow = o.receiveShadow = true),
-      ),
+      logoSmartgarant.traverse((o) => {
+        if (o instanceof THREE.Mesh) {
+          o.castShadow = o.receiveShadow = true
+          o.material.emissiveIntensity = 0
+        }
+      }),
     [logoSmartgarant],
   )
 
@@ -332,6 +341,23 @@ const SmartGarant = ({ descriptionEn, descriptionFr, position }: Props) => {
       setIsVisible(false)
     }
   }, [projects])
+
+  useFrame(() => {
+    const glowIntensity = 0.08
+    const glowColor = "#ffffff"
+
+    logoSmartgarant.traverse((o) => {
+      if (o instanceof THREE.Mesh) {
+        o.material.emissive = new THREE.Color(glowColor)
+
+        if (hovered && o.material.emissiveIntensity < glowIntensity) {
+          o.material.emissiveIntensity += 0.01
+        } else if (!hovered && o.material.emissiveIntensity > 0) {
+          o.material.emissiveIntensity -= 0.01
+        }
+      }
+    })
+  })
 
   const handleClick = (event: ThreeEvent<MouseEvent>) => {
     const raycaster = new THREE.Raycaster()
@@ -364,8 +390,14 @@ const SmartGarant = ({ descriptionEn, descriptionFr, position }: Props) => {
       <group
         position={position}
         rotation={[Math.PI / 5.2, Math.PI / -8, Math.PI / 10]}
-        onPointerOver={() => (document.body.style.cursor = "pointer")}
-        onPointerOut={() => (document.body.style.cursor = "grab")}
+        onPointerOver={() => {
+          document.body.style.cursor = "pointer"
+          setHover(true)
+        }}
+        onPointerOut={() => {
+          document.body.style.cursor = "grab"
+          setHover(false)
+        }}
       >
         <group onClick={handleClick}>
           <Box

@@ -2,7 +2,7 @@ import { Box, useFBX } from "@react-three/drei"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import * as THREE from "three"
 import TextModal from "../TextModal"
-import { ThreeEvent, useThree } from "@react-three/fiber"
+import { ThreeEvent, useFrame, useThree } from "@react-three/fiber"
 import { useProject } from "../../Utils/useProject"
 
 interface RubiksCubeProps {
@@ -10,11 +10,13 @@ interface RubiksCubeProps {
 }
 
 const RubiksCube = ({ position }: RubiksCubeProps) => {
-  const logoFolio = useFBX("./3dmodels/Logo/rubiks_cube.fbx")
-  const reactLogo = useFBX("./3dmodels/Logo/reactLogo1.fbx")
+  const rubiksCubeObj = useFBX("./3dmodels/Logo/rubiks_cube.fbx")
+  const reactLogo = useFBX("./3dmodels/Logo/reactLogo.fbx")
   const ref = useRef<THREE.Mesh | null>(null)
-  const { camera, scene } = useThree()
   const [isVisible, setIsVisible] = useState(false)
+  const [hovered, setHover] = useState(false)
+
+  const { camera, scene } = useThree()
   const { projects, toggleProjects } = useProject()
 
   if (ref.current) {
@@ -23,11 +25,15 @@ const RubiksCube = ({ position }: RubiksCubeProps) => {
 
   useLayoutEffect(
     () =>
-      logoFolio.traverse(
-        (o) =>
-          o instanceof THREE.Mesh && (o.castShadow = o.receiveShadow = true),
-      ),
-    [logoFolio],
+      rubiksCubeObj.traverse((o) => {
+        if (o instanceof THREE.Mesh) {
+          o.castShadow = o.receiveShadow = true
+          o.material.forEach((m: { emissiveIntensity: number }) => {
+            m.emissiveIntensity = 0
+          })
+        }
+      }),
+    [rubiksCubeObj],
   )
 
   useEffect(() => {
@@ -35,6 +41,27 @@ const RubiksCube = ({ position }: RubiksCubeProps) => {
       setIsVisible(false)
     }
   }, [projects])
+
+  useFrame(() => {
+    const glowIntensity = 0.08
+    const glowColor = "#ffffff"
+
+    rubiksCubeObj.traverse((o) => {
+      if (o instanceof THREE.Mesh) {
+        o.material.forEach(
+          (m: { emissive: THREE.Color; emissiveIntensity: number }) => {
+            m.emissive = new THREE.Color(glowColor)
+
+            if (hovered && m.emissiveIntensity < glowIntensity) {
+              m.emissiveIntensity += 0.01
+            } else if (!hovered && m.emissiveIntensity > 0) {
+              m.emissiveIntensity -= 0.01
+            }
+          },
+        )
+      }
+    })
+  })
 
   const handleClick = (event: ThreeEvent<MouseEvent>) => {
     const raycaster = new THREE.Raycaster()
@@ -60,7 +87,9 @@ const RubiksCube = ({ position }: RubiksCubeProps) => {
   return (
     <>
       <primitive
-        object={logoFolio}
+        onPointerOver={() => setHover(true)}
+        onPointerOut={() => setHover(false)}
+        object={rubiksCubeObj}
         position={position}
         scale={0.018}
         rotation={[0, -Math.PI / 3, 0]}

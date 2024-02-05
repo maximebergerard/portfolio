@@ -8,6 +8,9 @@ import { useSpring, animated } from "@react-spring/three"
 import { useLanguage } from "../../Utils/useLanguage"
 import { useProject } from "../../Utils/useProject"
 
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader"
+import { useLoader } from "@react-three/fiber"
+
 // TODO : Rewrite this component with the new TextModal component
 const TextModal = ({
   isVisible,
@@ -22,7 +25,8 @@ const TextModal = ({
   const date = "2021-2022"
 
   const { camera } = useThree()
-  const reactLogo1 = useFBX("./3dmodels/Logo/reactLogo1.fbx")
+  const reactLogo = useLoader(FBXLoader, "./3dmodels/Logo/reactLogo.fbx")
+
   const rescriptLogo = useFBX("./3dmodels/Logo/rescriptLogo.fbx")
   const groupRef = useRef<THREE.Group>(null)
   const [flipped, setFlipped] = useState(false)
@@ -50,6 +54,12 @@ const TextModal = ({
       groupRef.current.lookAt(camera.position)
     }
   })
+
+  useEffect(() => {
+    if (!isVisible) {
+      setFlipped(false)
+    }
+  }, [isVisible])
 
   return (
     <animated.group
@@ -131,7 +141,7 @@ const TextModal = ({
           {"Rescript"}
         </Text>
         <primitive
-          object={reactLogo1}
+          object={reactLogo}
           scale={0.015}
           rotation={[Math.PI / 2, 0, 0]}
           position={[-2, 0.6, -1.3]}
@@ -272,11 +282,12 @@ interface Props {
 const Wino = ({ descriptionEn, descriptionFr, position }: Props) => {
   const logoWino = useFBX("./3dmodels/Logo/winoLogo.fbx")
   const ref = useRef<THREE.Mesh | null>(null)
+  const [isVisible, setIsVisible] = useState(false)
+  const [hovered, setHover] = useState(false)
+
   const { language } = useLanguage()
   const { projects, toggleProjects } = useProject()
-
   const { camera, scene } = useThree()
-  const [isVisible, setIsVisible] = useState(false)
 
   if (ref.current) {
     ref.current.name = "Wino"
@@ -284,10 +295,12 @@ const Wino = ({ descriptionEn, descriptionFr, position }: Props) => {
 
   useLayoutEffect(
     () =>
-      logoWino.traverse(
-        (o) =>
-          o instanceof THREE.Mesh && (o.castShadow = o.receiveShadow = true),
-      ),
+      logoWino.traverse((o) => {
+        if (o instanceof THREE.Mesh) {
+          o.castShadow = o.receiveShadow = true
+          o.material.emissiveIntensity = 0
+        }
+      }),
     [logoWino],
   )
 
@@ -296,6 +309,23 @@ const Wino = ({ descriptionEn, descriptionFr, position }: Props) => {
       setIsVisible(false)
     }
   }, [projects])
+
+  useFrame(() => {
+    const glowIntensity = 0.08
+    const glowColor = "#ffffff"
+
+    logoWino.traverse((o) => {
+      if (o instanceof THREE.Mesh) {
+        o.material.emissive = new THREE.Color(glowColor)
+
+        if (hovered && o.material.emissiveIntensity < glowIntensity) {
+          o.material.emissiveIntensity += 0.01
+        } else if (!hovered && o.material.emissiveIntensity > 0) {
+          o.material.emissiveIntensity -= 0.01
+        }
+      }
+    })
+  })
 
   const handleClick = (event: ThreeEvent<MouseEvent>) => {
     const raycaster = new THREE.Raycaster()
@@ -337,6 +367,8 @@ const Wino = ({ descriptionEn, descriptionFr, position }: Props) => {
           visible={false}
           scale={1.1}
           onClick={handleClick}
+          onPointerOver={() => setHover(true)}
+          onPointerOut={() => setHover(false)}
           ref={ref}
         />
         <primitive object={logoWino} scale={0.02} />

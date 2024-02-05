@@ -1,7 +1,7 @@
 import { animated, useSpring } from "@react-spring/three"
 import { Box, RoundedBox, Text } from "@react-three/drei"
 import { Euler, useFrame, useThree } from "@react-three/fiber"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useProject } from "../Utils/useProject"
 import * as THREE from "three"
 
@@ -57,6 +57,12 @@ const TextModal = (props: TextModalProps) => {
       groupRef.current.lookAt(camera.position)
     }
   })
+
+  useEffect(() => {
+    if (!props.isVisible) {
+      setFlipped(false)
+    }
+  }, [props.isVisible])
 
   return (
     <animated.group
@@ -119,7 +125,7 @@ const TextModal = (props: TextModalProps) => {
           {/** Technos */}
           {props.technosArray &&
             props.technosArray.map((techno) => (
-              <>
+              <group key={techno.title}>
                 <Text
                   fontSize={1}
                   position={props.technosTitlePosition}
@@ -144,7 +150,7 @@ const TextModal = (props: TextModalProps) => {
                 >
                   {techno.title}
                 </Text>
-              </>
+              </group>
             ))}
           {/** Close hitbox button front */}
           <Box

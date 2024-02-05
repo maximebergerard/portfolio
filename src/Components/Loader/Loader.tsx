@@ -77,7 +77,6 @@ const Loader = () => {
       >
         <p
           style={{
-            fontFamily: "Oswald, sans-serif",
             fontSize: "2rem",
           }}
         >

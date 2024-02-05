@@ -101,13 +101,14 @@ const TextModal = ({
 }
 
 const Hetic = () => {
-  const heticLogo = useFBX("./3dmodels/hetic_cap.fbx")
+  const logoHetic = useFBX("./3dmodels/hetic_cap.fbx")
 
   const { language } = useLanguage()
   const { camera, scene } = useThree()
   const [isVisible, setIsVisible] = useState(false)
   const ref1 = useRef<THREE.Mesh | null>(null)
   const ref2 = useRef<THREE.Mesh | null>(null)
+  const [hovered, setHover] = useState(false)
 
   if (ref1.current) {
     ref1.current.name = "Hetic"
@@ -118,12 +119,30 @@ const Hetic = () => {
 
   useLayoutEffect(
     () =>
-      heticLogo.traverse(
-        (o) =>
-          o instanceof THREE.Mesh && (o.castShadow = o.receiveShadow = true),
-      ),
-    [heticLogo],
+      logoHetic.traverse((o) => {
+        if (o instanceof THREE.Mesh) {
+          o.castShadow = o.receiveShadow = true
+          o.material.emissiveIntensity = 0
+        }
+      }),
+    [logoHetic],
   )
+  useFrame(() => {
+    const glowIntensity = 0.08
+    const glowColor = "#ffffff"
+
+    logoHetic.traverse((o) => {
+      if (o instanceof THREE.Mesh) {
+        o.material.emissive = new THREE.Color(glowColor)
+
+        if (hovered && o.material.emissiveIntensity < glowIntensity) {
+          o.material.emissiveIntensity += 0.01
+        } else if (!hovered && o.material.emissiveIntensity > 0) {
+          o.material.emissiveIntensity -= 0.01
+        }
+      }
+    })
+  })
 
   const handleClick = (event: ThreeEvent<MouseEvent>) => {
     const raycaster = new THREE.Raycaster()
@@ -158,8 +177,14 @@ const Hetic = () => {
       />
       <group
         position={[0, 0.4, 8]}
-        onPointerOver={() => (document.body.style.cursor = "pointer")}
-        onPointerOut={() => (document.body.style.cursor = "grab")}
+        onPointerOver={() => {
+          document.body.style.cursor = "pointer"
+          setHover(true)
+        }}
+        onPointerOut={() => {
+          document.body.style.cursor = "grab"
+          setHover(false)
+        }}
       >
         <group onClick={handleClick}>
           <Box
@@ -176,7 +201,7 @@ const Hetic = () => {
             ref={ref2}
           />
         </group>
-        <primitive object={heticLogo} scale={0.015} />
+        <primitive object={logoHetic} scale={0.015} />
       </group>
     </>
   )

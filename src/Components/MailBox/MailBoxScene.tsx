@@ -1,18 +1,19 @@
 import { Box, useFBX } from "@react-three/drei"
 import { useLayoutEffect, useRef, useState } from "react"
 import * as THREE from "three"
-import { ThreeEvent, useThree } from "@react-three/fiber"
+import { ThreeEvent, useFrame, useThree } from "@react-three/fiber"
 
 import Grass from "./Grass"
 import TextModal from "../TextModal"
 import { ProjectsProvider } from "../../Providers/ProjectProvider"
 
 const MailBoxScene = () => {
-  const fbx = useFBX("./3dmodels/MailBox/mailbox.fbx")
+  const mailboxObj = useFBX("./3dmodels/MailBox/mailbox.fbx")
   const ref = useRef<THREE.Mesh | null>(null)
   const ref2 = useRef<THREE.Mesh | null>(null)
   const { camera, scene } = useThree()
   const [isVisible, setIsVisible] = useState(false)
+  const [hovered, setHover] = useState(false)
 
   if (ref.current) {
     ref.current.name = "MailBox"
@@ -23,12 +24,30 @@ const MailBoxScene = () => {
 
   useLayoutEffect(
     () =>
-      fbx.traverse(
-        (o) =>
-          o instanceof THREE.Mesh && (o.castShadow = o.receiveShadow = true),
-      ),
-    [fbx],
+      mailboxObj.traverse((o) => {
+        if (o instanceof THREE.Mesh) {
+          o.castShadow = o.receiveShadow = true
+          o.material.emissiveIntensity = 0
+        }
+      }),
+    [mailboxObj],
   )
+  useFrame(() => {
+    const glowIntensity = 0.08
+    const glowColor = "#ffffff"
+
+    mailboxObj.traverse((o) => {
+      if (o instanceof THREE.Mesh) {
+        o.material.emissive = new THREE.Color(glowColor)
+
+        if (hovered && o.material.emissiveIntensity < glowIntensity) {
+          o.material.emissiveIntensity += 0.01
+        } else if (!hovered && o.material.emissiveIntensity > 0) {
+          o.material.emissiveIntensity -= 0.01
+        }
+      }
+    })
+  })
 
   const handleClick = (event: ThreeEvent<MouseEvent>) => {
     const raycaster = new THREE.Raycaster()
@@ -54,7 +73,7 @@ const MailBoxScene = () => {
     <ProjectsProvider>
       <Grass />
       <primitive
-        object={fbx}
+        object={mailboxObj}
         scale={0.04}
         position={[14, 1.6, -1.6]}
         rotation={[0, (-7 * Math.PI) / 9, 0]}
@@ -74,8 +93,14 @@ const MailBoxScene = () => {
       <group
         position={[14, 2.6, -1.3]}
         rotation={[0, (-7 * Math.PI) / 9, 0]}
-        onPointerOver={() => (document.body.style.cursor = "pointer")}
-        onPointerOut={() => (document.body.style.cursor = "grab")}
+        onPointerOver={() => {
+          document.body.style.cursor = "pointer"
+          setHover(true)
+        }}
+        onPointerOut={() => {
+          document.body.style.cursor = "grab"
+          setHover(false)
+        }}
       >
         <Box
           args={[2.2, 5, 1.4]}

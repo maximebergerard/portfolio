@@ -19,17 +19,16 @@ const drawTextOnCanvas = ({ text }: drawTextOnCanvasProps) => {
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 
   // Font
-  ctx.font = "36px 'Oswald', sans-serif"
+  ctx.font = "34px 'Montserrat', sans-serif"
+
+  ctx.strokeStyle = "#000000"
+  ctx.lineWidth = 2
 
   ctx.fillStyle = "#000000"
   ctx.textAlign = "center"
   ctx.textBaseline = "middle"
+  ctx.strokeText(text, canvas.width / 2, canvas.height / 2)
   ctx.fillText(text, canvas.width / 2, canvas.height / 2)
-
-  // Draw the underline
-  ctx.beginPath() // +70 et -50
-  ctx.lineWidth = 2 // Set the thickness of the underline
-  ctx.stroke()
 
   return canvas
 }
