@@ -1,4 +1,4 @@
-import { Cylinder } from "@react-three/drei"
+import { Box, Cylinder } from "@react-three/drei"
 import { Base, Geometry, Subtraction } from "@react-three/csg"
 import { useLoader } from "@react-three/fiber"
 import * as THREE from "three"
@@ -6,6 +6,7 @@ import * as THREE from "three"
 const AdsPanel = () => {
   const panelHeight = 10
   const texture1 = useLoader(THREE.TextureLoader, "/images/adsImg1.png")
+  const texture2 = useLoader(THREE.TextureLoader, "/images/adsImg2.png")
 
   return (
     <>
@@ -34,8 +35,31 @@ const AdsPanel = () => {
           position={[-0.9, panelHeight / 2 - 2, 0]}
           rotation={[0, -Math.PI / 2, 0]}
         >
-          <Panel texture={texture1} />
+          <Panel texture={texture2} />
         </group>
+        <Box
+          args={[0.6, 0.6, 0.6]}
+          position={[1, 1.25, 4]}
+          visible={false}
+          onClick={() =>
+            window.open(
+              "https://www.linkedin.com/in/maxime-bergerard/",
+              "_blank",
+            )
+          }
+          onPointerOver={() => (document.body.style.cursor = "pointer")}
+          onPointerOut={() => (document.body.style.cursor = "grab")}
+        />
+        <Box
+          args={[0.6, 0.6, 0.6]}
+          position={[1, 1.25, 4.8]}
+          visible={false}
+          onClick={() =>
+            window.open("https://github.com/maximebergerard", "_blank")
+          }
+          onPointerOver={() => (document.body.style.cursor = "pointer")}
+          onPointerOut={() => (document.body.style.cursor = "grab")}
+        />
       </group>
     </>
   )

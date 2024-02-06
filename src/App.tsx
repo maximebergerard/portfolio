@@ -40,7 +40,7 @@ const OCamera = () => {
 
   const three = useThree()
 
-  const zoom = three.size.width * 0.02
+  const zoom = three.size.width * 0.023
   if (camera.current) {
     camera.current.zoom = zoom
     if (three.size.width < 768) {
