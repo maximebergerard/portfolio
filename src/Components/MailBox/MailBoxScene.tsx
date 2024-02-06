@@ -85,7 +85,8 @@ const MailBoxScene = () => {
         titlePosition={[-3.3, 0, 0]}
         setIsVisible={setIsVisible}
         isVisible={isVisible}
-        text="maxime.bergerard@gmail.com"
+        textFr="maxime.bergerard@gmail.com"
+        textEn="maxime.bergerard@gmail.com"
         textPosition={[0, -1, 0]}
         groupPosition={[0, 0.8, 0]}
       />

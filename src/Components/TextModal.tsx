@@ -1,9 +1,11 @@
 import { animated, useSpring } from "@react-spring/three"
 import { Box, RoundedBox, Text } from "@react-three/drei"
-import { Euler, useFrame, useThree } from "@react-three/fiber"
+import { Euler, ObjectMap, useFrame, useThree } from "@react-three/fiber"
 import { useEffect, useRef, useState } from "react"
 import { useProject } from "../Utils/useProject"
 import * as THREE from "three"
+import { useLanguage } from "../Utils/useLanguage"
+import { GLTF } from "three/examples/jsm/loaders/GLTFLoader"
 
 interface TextModalProps {
   modalSize: [number, number, number]
@@ -13,21 +15,22 @@ interface TextModalProps {
   date?: string
   isVisible: boolean
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
-  text: string
+  textFr: string
+  textEn: string
   textPosition?: [number, number, number]
   linkName?: string
   linkUrl?: string
   linkPosition?: [number, number, number]
   groupPosition?: [number, number, number]
   technosTitlePosition?: [number, number, number]
-  technosArray?: [
-    {
-      title: string
-      logo: THREE.Group
-      logoPosition: [number, number, number]
-      titlePosition: [number, number, number]
-    },
-  ]
+  technosArray?: {
+    title: string
+    logo: THREE.Group | (GLTF & ObjectMap)
+    logoScale: number
+    logoPosition: [number, number, number]
+    titlePosition: [number, number, number]
+    rotation?: [number, number, number]
+  }[]
 }
 
 const TextModal = (props: TextModalProps) => {
@@ -35,6 +38,7 @@ const TextModal = (props: TextModalProps) => {
   const [flipped, setFlipped] = useState(false)
   const { camera } = useThree()
   const { toggleProjects } = useProject()
+  const { language } = useLanguage()
 
   const closeAnimation = useSpring({
     scale: props.isVisible ? 1 : 0,
@@ -107,7 +111,7 @@ const TextModal = (props: TextModalProps) => {
             position={props.textPosition}
           >
             <meshBasicMaterial color="black" />
-            {props.text}
+            {language === "fr" ? props.textFr : props.textEn}
           </Text>
           {props.linkName && props.linkUrl && (
             <Text
@@ -137,9 +141,11 @@ const TextModal = (props: TextModalProps) => {
                 </Text>
                 <primitive
                   object={techno.logo}
-                  scale={0.015}
-                  rotation={[Math.PI / 2, 0, 0]}
+                  scale={techno.logoScale}
                   position={techno.logoPosition}
+                  rotation={
+                    techno.rotation ? techno.rotation : [Math.PI / 2, 0, 0]
+                  }
                 />
                 <Text
                   fontSize={0.6}

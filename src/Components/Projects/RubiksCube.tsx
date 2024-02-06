@@ -2,8 +2,10 @@ import { Box, useFBX } from "@react-three/drei"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import * as THREE from "three"
 import TextModal from "../TextModal"
-import { ThreeEvent, useFrame, useThree } from "@react-three/fiber"
+import { ThreeEvent, useFrame, useLoader, useThree } from "@react-three/fiber"
 import { useProject } from "../../Utils/useProject"
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader"
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
 
 interface RubiksCubeProps {
   position: [number, number, number]
@@ -12,6 +14,11 @@ interface RubiksCubeProps {
 const RubiksCube = ({ position }: RubiksCubeProps) => {
   const rubiksCubeObj = useFBX("./3dmodels/Logo/rubiks_cube.fbx")
   const reactLogo = useFBX("./3dmodels/Logo/reactLogo.fbx")
+  const typeScriptLogo = useLoader(
+    FBXLoader,
+    "./3dmodels/Logo/typescriptLogo.fbx",
+  )
+  const threeLogo = useLoader(GLTFLoader, "./3dmodels/Logo/threeLogo.gltf")
   const ref = useRef<THREE.Mesh | null>(null)
   const [isVisible, setIsVisible] = useState(false)
   const [hovered, setHover] = useState(false)
@@ -95,19 +102,20 @@ const RubiksCube = ({ position }: RubiksCubeProps) => {
         rotation={[0, -Math.PI / 3, 0]}
       />
       <TextModal
-        modalSize={[10, 8, 1]}
+        modalSize={[10, 9, 1]}
         modalPosition={[-7, 9, 2]}
         title="PORTFOLIO"
         titlePosition={[-1.3, 0, 0]}
         date="2023"
         setIsVisible={setIsVisible}
         isVisible={isVisible}
-        text="Ce portfolio est réalisé avec React et Three.js."
+        textFr="J'ai mis en place mon portfolio en utilisant ReactJS, TypeScript et ThreeJS. Grâce à la formation ThreeJS-Journey j'ai pu utiliser ces outils et créer un projet interactif"
+        textEn="I set up my portfolio using ReactJS, TypeScript and ThreeJS. Thanks to the ThreeJS-Journey course, I was able to use these tools and create an interactive project."
         textPosition={[0, -1.4, 0]}
-        groupPosition={[0, 2.9, 0]}
+        groupPosition={[0, 3.4, 0]}
         linkName="threejs-journey.com"
         linkUrl="https://threejs-journey.com/"
-        linkPosition={[2.6, -6.3, 0]}
+        linkPosition={[2.6, -7.2, 0]}
         technosTitlePosition={[2.3, 0, -1.11]}
         technosArray={[
           {
@@ -115,6 +123,23 @@ const RubiksCube = ({ position }: RubiksCubeProps) => {
             titlePosition: [2.7, -3.2, -1.11],
             logo: reactLogo,
             logoPosition: [1.6, -3, -1.3],
+            logoScale: 0.015,
+          },
+          {
+            title: "TypeScript",
+            titlePosition: [-1.5, -3.2, -1.11],
+            logo: typeScriptLogo,
+            logoPosition: [-0.8, -2.55, -1.3],
+            logoScale: 0.01,
+            rotation: [Math.PI / 2, 0, Math.PI],
+          },
+          {
+            title: "ThreeJS",
+            titlePosition: [2.7, -6.2, -1.11],
+            logo: threeLogo.scene,
+            logoPosition: [2.7, -5, -1.3],
+            logoScale: 0.017,
+            rotation: [Math.PI, 0, 0],
           },
         ]}
       />

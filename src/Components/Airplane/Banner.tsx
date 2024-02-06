@@ -21,10 +21,10 @@ const drawTextOnCanvas = ({ text }: drawTextOnCanvasProps) => {
   // Font
   ctx.font = "34px 'Montserrat', sans-serif"
 
-  ctx.strokeStyle = "#000000"
+  ctx.strokeStyle = "#242323"
   ctx.lineWidth = 2
 
-  ctx.fillStyle = "#000000"
+  ctx.fillStyle = "#242323"
   ctx.textAlign = "center"
   ctx.textBaseline = "middle"
   ctx.strokeText(text, canvas.width / 2, canvas.height / 2)
