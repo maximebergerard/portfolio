@@ -171,7 +171,7 @@ const Hetic = () => {
         isVisible={isVisible}
         text={
           language === "en"
-            ? "Graduating in 2023 after 5 years of a Master in digital and technological transformation"
+            ? "Graduated in 2023 after 5 years of a Master in digital and technological transformation"
             : "Diplômé en 2023 d'un Master en Ingénierie et Management de la communication numérique"
         }
       />
