@@ -3,7 +3,7 @@ import * as THREE from "three"
 import { useSpring, animated } from "@react-spring/three"
 import { Text3D } from "@react-three/drei"
 import { useRef, useState } from "react"
-import { useFrame, useThree } from "@react-three/fiber"
+// import { useFrame, useThree } from "@react-three/fiber"
 
 interface LetterProps {
   id?: number
