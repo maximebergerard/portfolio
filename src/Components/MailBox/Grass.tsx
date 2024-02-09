@@ -48,7 +48,7 @@ const Grass = memo(
               rotation={[0, Math.random() * 360, 0]}
               castShadow
             >
-              <planeBufferGeometry args={[grassWidth, grassHeight]} />
+              <planeGeometry args={[grassWidth, grassHeight]} />
               <meshStandardMaterial color="#3A9D23" side={THREE.DoubleSide} />
             </mesh>
           ))}

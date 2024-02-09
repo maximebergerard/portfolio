@@ -33,15 +33,15 @@ const MousePointer = () => {
       <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 7, 0]} castShadow>
         <Geometry useGroups>
           <Base name="base">
-            <cylinderBufferGeometry args={[1.7, 1.7, 0.4, 32]} />
+            <cylinderGeometry args={[1.7, 1.7, 0.4, 32]} />
             <meshStandardMaterial color="#ffffff" side={THREE.DoubleSide} />
           </Base>
           <Subtraction name="hole" position={[0, 0.15, 0]}>
-            <cylinderBufferGeometry args={[1.5, 1.5, 0.3, 32]} />
+            <cylinderGeometry args={[1.5, 1.5, 0.3, 32]} />
             <meshStandardMaterial color="#585efc" side={THREE.DoubleSide} />
           </Subtraction>
           <Subtraction name="hole" position={[0, -0.3, 0]}>
-            <cylinderBufferGeometry args={[1.5, 1.5, 0.3, 32]} />
+            <cylinderGeometry args={[1.5, 1.5, 0.3, 32]} />
             <meshStandardMaterial color="#585efc" side={THREE.DoubleSide} />
           </Subtraction>
         </Geometry>

@@ -101,7 +101,7 @@ const TextModal = ({
 }
 
 const Hetic = () => {
-  const logoHetic = useFBX("./3dmodels/hetic_cap.fbx")
+  const logoHetic = useFBX("./3dmodels/hetic_cap2.fbx")
 
   const { language } = useLanguage()
   const { camera, scene } = useThree()
@@ -201,7 +201,7 @@ const Hetic = () => {
             ref={ref2}
           />
         </group>
-        <primitive object={logoHetic} scale={0.015} />
+        <primitive object={logoHetic} scale={1} />
       </group>
     </>
   )

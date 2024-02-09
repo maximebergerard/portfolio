@@ -13,15 +13,15 @@ const Podium = () => {
   return (
     <>
       <mesh position={[-3, 0, 0]} castShadow receiveShadow>
-        <boxBufferGeometry args={[3, 2.5, 3]} />
+        <boxGeometry args={[3, 2.5, 3]} />
         <meshStandardMaterial color="#ffcffd" />
       </mesh>
       <mesh position={[0, 0.5, 0]} castShadow receiveShadow>
-        <boxBufferGeometry args={[3, 3, 3]} />
+        <boxGeometry args={[3, 3, 3]} />
         <meshStandardMaterial color="#ffcffd" />
       </mesh>
       <mesh position={[3, 0, 0]} castShadow receiveShadow>
-        <boxBufferGeometry args={[3, 2, 3]} />
+        <boxGeometry args={[3, 2, 3]} />
         <meshStandardMaterial color="#ffcffd" />
       </mesh>
     </>

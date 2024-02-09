@@ -25,7 +25,7 @@ const Airplane = () => {
   const flagWidth = 3 // Width of the plane
   const flagHeight = 20 // Height of the plane
   const radius = 70 // Radius of the airplane's circular path
-  const speed = 0.15 // Speed of the airplane
+  const speed = 0.1 // Speed of the airplane
 
   // const [hasIncremented, setHasIncremented] = useState(false)
   // const [angle, setAngle] = useState(0)

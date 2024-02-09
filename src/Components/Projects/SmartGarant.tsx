@@ -292,7 +292,7 @@ interface Props {
   position: [number, number, number]
 }
 const SmartGarant = ({ descriptionEn, descriptionFr, position }: Props) => {
-  const logoSmartgarant = useFBX("./3dmodels/Logo/smartgarantLogo.fbx")
+  const logoSmartgarant = useFBX("./3dmodels/Logo/smartgarantLogo2.fbx")
   const { language } = useLanguage()
   const { projects, toggleProjects } = useProject()
   const { camera, scene } = useThree()
@@ -330,7 +330,9 @@ const SmartGarant = ({ descriptionEn, descriptionFr, position }: Props) => {
       logoSmartgarant.traverse((o) => {
         if (o instanceof THREE.Mesh) {
           o.castShadow = o.receiveShadow = true
-          o.material.emissiveIntensity = 0
+          o.material.forEach((m: { emissiveIntensity: number }) => {
+            m.emissiveIntensity = 0
+          })
         }
       }),
     [logoSmartgarant],
@@ -348,13 +350,17 @@ const SmartGarant = ({ descriptionEn, descriptionFr, position }: Props) => {
 
     logoSmartgarant.traverse((o) => {
       if (o instanceof THREE.Mesh) {
-        o.material.emissive = new THREE.Color(glowColor)
+        o.material.forEach(
+          (m: { emissive: THREE.Color; emissiveIntensity: number }) => {
+            m.emissive = new THREE.Color(glowColor)
 
-        if (hovered && o.material.emissiveIntensity < glowIntensity) {
-          o.material.emissiveIntensity += 0.01
-        } else if (!hovered && o.material.emissiveIntensity > 0) {
-          o.material.emissiveIntensity -= 0.01
-        }
+            if (hovered && m.emissiveIntensity < glowIntensity) {
+              m.emissiveIntensity += 0.01
+            } else if (!hovered && m.emissiveIntensity > 0) {
+              m.emissiveIntensity -= 0.01
+            }
+          },
+        )
       }
     })
   })
@@ -402,20 +408,25 @@ const SmartGarant = ({ descriptionEn, descriptionFr, position }: Props) => {
         <group onClick={handleClick}>
           <Box
             args={[3, 1, 1]}
-            position={[0.4, 0.3, -2.8]}
+            position={[0.4, 0.25, -2.8]}
             rotation={[0, Math.PI / 2, 0]}
             visible={false}
             scale={1.1}
             ref={ref1}
-          />
+            onPointerOver={() => setHover(true)}
+          >
+            <meshStandardMaterial color="red" />
+          </Box>
           <Box
             args={[3, 1, 1]}
-            position={[1.5, 0.3, -4.8]}
+            position={[1.5, 0.4, -4.8]}
             rotation={[0, Math.PI / 5, 0]}
             visible={false}
             scale={1.1}
             ref={ref2}
-          />
+          >
+            <meshStandardMaterial color="green" />
+          </Box>
           <Box
             args={[3, 1, 1]}
             position={[3.8, 0.3, -4.8]}
@@ -448,7 +459,7 @@ const SmartGarant = ({ descriptionEn, descriptionFr, position }: Props) => {
             ref={ref6}
           />
         </group>
-        <primitive object={logoSmartgarant} scale={0.015} />
+        <primitive object={logoSmartgarant} scale={1} />
       </group>
     </>
   )

@@ -12,7 +12,7 @@ interface RubiksCubeProps {
 }
 
 const RubiksCube = ({ position }: RubiksCubeProps) => {
-  const rubiksCubeObj = useFBX("./3dmodels/Logo/rubiks_cube.fbx")
+  const rubiksCubeObj = useFBX("./3dmodels/Logo/rubiks_cube2.fbx")
   const reactLogo = useFBX("./3dmodels/Logo/reactLogo.fbx")
   const typeScriptLogo = useLoader(
     FBXLoader,
@@ -94,11 +94,9 @@ const RubiksCube = ({ position }: RubiksCubeProps) => {
   return (
     <>
       <primitive
-        onPointerOver={() => setHover(true)}
-        onPointerOut={() => setHover(false)}
         object={rubiksCubeObj}
         position={position}
-        scale={0.018}
+        scale={1}
         rotation={[0, -Math.PI / 3, 0]}
       />
       <TextModal
@@ -150,8 +148,14 @@ const RubiksCube = ({ position }: RubiksCubeProps) => {
         ref={ref}
         visible={false}
         onClick={handleClick}
-        onPointerOver={() => (document.body.style.cursor = "pointer")}
-        onPointerOut={() => (document.body.style.cursor = "grab")}
+        onPointerOver={() => {
+          document.body.style.cursor = "pointer"
+          setHover(true)
+        }}
+        onPointerOut={() => {
+          document.body.style.cursor = "grab"
+          setHover(false)
+        }}
       />
     </>
   )

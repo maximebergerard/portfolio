@@ -5,6 +5,10 @@ body {
   background-color: #B89DE0;
 }
 
+* {
+  touch-action: none;
+}
+
 .App {
   width: 100vw;
   height: 100vh;

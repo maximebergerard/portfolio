@@ -280,7 +280,8 @@ interface Props {
   position: [number, number, number]
 }
 const Wino = ({ descriptionEn, descriptionFr, position }: Props) => {
-  const logoWino = useFBX("./3dmodels/Logo/winoLogo.fbx")
+  const logoWino = useFBX("./3dmodels/Logo/winoLogo2.fbx")
+
   const ref = useRef<THREE.Mesh | null>(null)
   const [isVisible, setIsVisible] = useState(false)
   const [hovered, setHover] = useState(false)
@@ -355,23 +356,24 @@ const Wino = ({ descriptionEn, descriptionFr, position }: Props) => {
         isVisible={isVisible}
         text={language === "en" ? descriptionEn : descriptionFr}
       />
-      <group
-        position={position}
-        rotation={[0, Math.PI / 12, Math.PI / 5]}
-        onPointerOver={() => (document.body.style.cursor = "pointer")}
-        onPointerOut={() => (document.body.style.cursor = "grab")}
-      >
+      <group position={position} rotation={[0, Math.PI / 12, Math.PI / 5]}>
         <Box
           args={[7.1, 1.3, 2]}
           position={[-3.9, 0, -1]}
           visible={false}
           scale={1.1}
           onClick={handleClick}
-          onPointerOver={() => setHover(true)}
-          onPointerOut={() => setHover(false)}
+          onPointerOver={() => {
+            setHover(true)
+            document.body.style.cursor = "pointer"
+          }}
+          onPointerOut={() => {
+            setHover(false)
+            document.body.style.cursor = "grab"
+          }}
           ref={ref}
         />
-        <primitive object={logoWino} scale={0.02} />
+        <primitive object={logoWino} scale={1} />
       </group>
     </>
   )

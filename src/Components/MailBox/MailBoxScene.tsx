@@ -75,7 +75,7 @@ const MailBoxScene = () => {
       <primitive
         object={mailboxObj}
         scale={0.04}
-        position={[14, 1.6, -1.6]}
+        position={[14, 2.1, -1.6]}
         rotation={[0, (-7 * Math.PI) / 9, 0]}
       />
       <TextModal
@@ -92,7 +92,7 @@ const MailBoxScene = () => {
       />
       {/* Hitbox click */}
       <group
-        position={[14, 2.6, -1.3]}
+        position={[14, 3.2, -1.15]}
         rotation={[0, (-7 * Math.PI) / 9, 0]}
         onPointerOver={() => {
           document.body.style.cursor = "pointer"
@@ -104,17 +104,17 @@ const MailBoxScene = () => {
         }}
       >
         <Box
-          args={[2.2, 5, 1.4]}
+          args={[2.6, 6, 1.9]}
           visible={false}
           scale={1.1}
           onClick={handleClick}
           ref={ref}
         />
         <Box
-          args={[1.2, 0.5, 1.3]}
+          args={[2.4, 0.5, 1.6]}
           visible={false}
           scale={1.1}
-          position={[1.6, 1, 0]}
+          position={[1.7, 1.3, 0.1]}
           rotation={[0, 0, -Math.PI / 5]}
           onClick={handleClick}
           ref={ref2}
