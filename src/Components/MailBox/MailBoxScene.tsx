@@ -6,14 +6,27 @@ import { ThreeEvent, useFrame, useThree } from "@react-three/fiber"
 import Grass from "./Grass"
 import TextModal from "../TextModal"
 import { ProjectsProvider } from "../../Providers/ProjectProvider"
+import { animated, useSpring } from "@react-spring/three"
 
 const MailBoxScene = () => {
   const mailboxObj = useFBX("./3dmodels/MailBox/mailbox.fbx")
+  const antenna = useFBX("./3dmodels/MailBox/antenna.fbx")
+
   const ref = useRef<THREE.Mesh | null>(null)
   const ref2 = useRef<THREE.Mesh | null>(null)
+  const ref3 = useRef<THREE.Group | null>(null)
   const { camera, scene } = useThree()
   const [isVisible, setIsVisible] = useState(false)
   const [hovered, setHover] = useState(false)
+
+  const antennaAnimation = useSpring({
+    rotation: isVisible
+      ? [0, (-7 * Math.PI) / 9, 0]
+      : [0, (-7 * Math.PI) / 9, Math.PI / 2],
+    config: {
+      tension: 200,
+    },
+  })
 
   if (ref.current) {
     ref.current.name = "MailBox"
@@ -47,6 +60,11 @@ const MailBoxScene = () => {
         }
       }
     })
+
+    if (ref3.current) {
+      // ref3.current.rotation.z += 0.01
+      // ref3.current.rotation.y += 0.01
+    }
   })
 
   const handleClick = (event: ThreeEvent<MouseEvent>) => {
@@ -74,13 +92,25 @@ const MailBoxScene = () => {
       <Grass />
       <primitive
         object={mailboxObj}
-        scale={0.04}
+        scale={0.9}
         position={[14, 2.1, -1.6]}
         rotation={[0, (-7 * Math.PI) / 9, 0]}
       />
+      <animated.group
+        rotation={antennaAnimation.rotation as unknown as THREE.Euler}
+        position={[14, 5, -0.23]}
+        ref={ref3}
+      >
+        <primitive
+          object={antenna}
+          scale={0.9}
+          // rotation={[0, (-7 * Math.PI) / 9, 0]}
+          // position={[14, 2.2, -1.6]}
+        />
+      </animated.group>
       <TextModal
         modalSize={[10, 3.5, 1]}
-        modalPosition={[14, 8, -1.4]}
+        modalPosition={[14, 8.6, -1.4]}
         title="MAIL"
         titlePosition={[-3.3, 0, 0]}
         setIsVisible={setIsVisible}

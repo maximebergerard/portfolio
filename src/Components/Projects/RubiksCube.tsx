@@ -19,6 +19,7 @@ const RubiksCube = ({ position }: RubiksCubeProps) => {
     "./3dmodels/Logo/typescriptLogo.fbx",
   )
   const threeLogo = useLoader(GLTFLoader, "./3dmodels/Logo/threeLogo.gltf")
+
   const ref = useRef<THREE.Mesh | null>(null)
   const [isVisible, setIsVisible] = useState(false)
   const [hovered, setHover] = useState(false)
