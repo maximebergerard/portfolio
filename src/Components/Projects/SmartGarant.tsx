@@ -377,7 +377,6 @@ const SmartGarant = ({ descriptionEn, descriptionFr, position }: Props) => {
     // Set the origin and direction of the ray based on the mouse position
     raycaster.setFromCamera(mouse, camera)
 
-    // Check if the ray intersects with the mannequin mesh
     const intersects = raycaster.intersectObjects(scene.children, true)
 
     if (intersects.length > 0 && intersects[0].object.name === "Smartgarant") {

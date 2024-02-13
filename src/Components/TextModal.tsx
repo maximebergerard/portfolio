@@ -196,6 +196,7 @@ const TextModal = (props: TextModalProps) => {
                 onClick={() => {
                   props.setIsVisible(false)
                   setFlipped(false)
+                  toggleProjects("none")
                 }}
               />
               <group position={[-4, 0.2, -1.2]} rotation={[0, 0, Math.PI / 4]}>
