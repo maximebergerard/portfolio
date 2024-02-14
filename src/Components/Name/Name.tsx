@@ -1,9 +1,8 @@
 import * as THREE from "three"
 
-// import { useSpring, animated } from "@react-spring/three"
 import { Text3D } from "@react-three/drei"
-import { useRef } from "react"
-// import { useFrame, useThree } from "@react-three/fiber"
+import { useEffect, useRef } from "react"
+
 import {
   Physics,
   useBox,
@@ -16,15 +15,16 @@ const Plane = () => {
   const [ref] = useBox(
     () => ({
       rotation: [-Math.PI / 2, 0, 0],
-      position: [-0.5, 0.01, 1],
-      args: [32, 10, 0.02],
+      position: [-0.5, 0.01, 11],
+      args: [32, 30, 0.02],
     }),
     useRef<THREE.Mesh>(null),
   )
 
   return (
     <mesh ref={ref} visible={false}>
-      <planeGeometry args={[32, 10, 0.02]} />
+      <planeGeometry args={[32, 30, 2]} />
+      <meshStandardMaterial color="blue" />
     </mesh>
   )
 }
@@ -58,7 +58,7 @@ export interface LetterProps {
   argsHitbox: Triplet
   rotationX: number
   rotationY?: number
-  // isClicked: boolean
+  isClicked?: boolean
 }
 
 const Letter = ({
@@ -68,19 +68,44 @@ const Letter = ({
   argsHitbox,
   rotationX,
   rotationY = 0,
-}: // isClicked,
-LetterProps) => {
+  isClicked,
+}: LetterProps) => {
   const fontSize = 2
   const randomRotation = (Math.random() * -Math.PI) / 2
-  const [ref] = useBox(
+  const randomVelocityRotation = Math.random() * 20 - 10
+
+  const [ref, api] = useBox(
     () => ({
       mass: 0.7,
-      position: [positionGroup.x, positionGroup.y + 10, positionGroup.z],
+      position: [positionGroup.x, positionGroup.y + 6, positionGroup.z],
+      velocity: [0, 0, 2],
       rotation: [randomRotation, -Math.PI / 3, 0],
       args: argsHitbox,
     }),
     useRef<THREE.Mesh>(null),
   )
+
+  const pos = useRef([0, 0, 0])
+
+  useEffect(() => {
+    api.position.subscribe((v) => (pos.current = v))
+  }, [api.position])
+
+  useEffect(() => {
+    if (isClicked && ref.current) {
+      const newPosition = positionGroup
+        .clone()
+        .sub(new THREE.Vector3(pos.current[0], pos.current[1], pos.current[2]))
+
+      if (pos.current[1] < 0) {
+        api.position.set(positionGroup.x, positionGroup.y + 20, positionGroup.z)
+        api.velocity.set(0, 0, 0)
+      } else {
+        api.velocity.set(newPosition.x, 7, newPosition.z)
+        api.angularVelocity.set(0, 0, randomVelocityRotation)
+      }
+    }
+  })
 
   // const { position } = useSpring({
   //   position: isClicked
@@ -93,12 +118,6 @@ LetterProps) => {
   // const ref = useRef<THREE.Mesh | null>(null)
 
   // const [hoveredRotation, setHoveredRotation] = useState(false)
-  // const { rotation } = useSpring({
-  //   rotation: hoveredRotation ? [-Math.PI / 2, 0, 0] : [0, 0, 0],
-  //   config: {
-  //     tension: 80,
-  //   },
-  // })
 
   // const raycaster = new THREE.Raycaster()
   // const { camera, scene } = useThree()
@@ -154,27 +173,16 @@ interface NameProps {
   position: THREE.Vector3
   rotationY?: number
   name: LetterProps[]
+  isClicked?: boolean
 }
 
-const Name = ({ position, rotationY, name }: NameProps) => {
-  // const [isClicked, setIsClicked] = useState(false)
-
-  // const handleResetLetters = () => {
-  //   console.log("click")
-  //   setIsClicked(true)
-  // }
-
+const Name = ({ position, rotationY, name, isClicked }: NameProps) => {
   return (
     <group position={position}>
       <Physics>
-        {/* <Debug color={"blue"} scale={1}> */}
         {/* <Box /> */}
         <Plane />
         <Post position={[11.5, 3, -3.5]} />
-        {/* <Box args={[2, 2, 2]} position={[0, 1, 3]} onClick={handleResetLetters}>
-          <meshStandardMaterial color={"red"} />
-        </Box> */}
-        {/* </Debug> */}
         {name.map((letter, i) => (
           <Letter
             key={i}
@@ -185,7 +193,7 @@ const Name = ({ position, rotationY, name }: NameProps) => {
             argsHitbox={letter.argsHitbox}
             rotationX={letter.rotationX}
             rotationY={rotationY}
-            // isClicked={isClicked}
+            isClicked={isClicked}
           />
         ))}
       </Physics>
