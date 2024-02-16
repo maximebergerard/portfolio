@@ -101,18 +101,18 @@ const RubiksCube = ({ position }: RubiksCubeProps) => {
       />
       <TextModal
         modalSize={[10, 9, 1]}
-        modalPosition={[-7, 9, 2]}
+        modalPosition={[-7, 9.5, 2]}
         title="PORTFOLIO"
         titlePosition={[-1.3, 0, 0]}
         date="2023"
         setIsVisible={setIsVisible}
         isVisible={isVisible}
-        textFr="J'ai mis en place mon portfolio en utilisant ReactJS, TypeScript et ThreeJS. Grâce à la formation ThreeJS-Journey j'ai pu utiliser ces outils et créer un projet interactif"
+        textFr="J'ai mis en place mon portfolio en utilisant ReactJS, TypeScript et ThreeJS. Grâce à la formation ThreeJS-Journey j'ai pu utiliser ces outils et créer un projet interactif."
         textEn="I set up my portfolio using ReactJS, TypeScript and ThreeJS. Thanks to the ThreeJS-Journey course, I was able to use these tools and create an interactive project."
         textPosition={[0, -1.4, 0]}
         groupPosition={[0, 3.4, 0]}
-        linkName="threejs-journey.com"
-        linkUrl="https://threejs-journey.com/"
+        linkName="github.com/portfolio"
+        linkUrl="https://github.com/maximebergerard/portfolio"
         linkPosition={[2.6, -7.2, 0]}
         technosTitlePosition={[2.3, 0, -1.11]}
         technosArray={[

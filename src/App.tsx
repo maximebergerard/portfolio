@@ -13,7 +13,7 @@ import {
   OrthographicCamera,
   // PerspectiveCamera,
   PresentationControls,
-  Stats,
+  // Stats,
   useFBX,
   useProgress,
 } from "@react-three/drei"
@@ -140,7 +140,7 @@ const ThreeJsScene = () => {
           <AdsPanel />
           <Hetic />
           <Light />
-          <Stats />
+          {/* <Stats /> */}
         </PresentationControls>
         {/* <PCamera /> */}
       </Suspense>

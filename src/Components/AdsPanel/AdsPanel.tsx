@@ -81,8 +81,6 @@ const Panel = ({ texture }: { texture: THREE.Texture }) => {
   texture.wrapS = THREE.RepeatWrapping
   texture.wrapT = THREE.RepeatWrapping
 
-  texture.repeat.set(1, 1)
-
   return (
     <group>
       <mesh rotation={[0, 0, -Math.PI / 2]}>
