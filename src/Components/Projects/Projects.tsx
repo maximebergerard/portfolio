@@ -76,7 +76,7 @@ const Project = () => {
         position={[-4.3, 4.2, 5.2]}
       />
       <SmartGarant
-        descriptionEn="I collaborated on and supervised the creation of a complete website, contributing to the frontend with ReactJS and TypeScript and to the backend with the implementation of the headless CMS Strapi."
+        descriptionEn="I collaborated on and supervised the creation of an entire website, contributing to the frontend with ReactJS and TypeScript and to the backend with the implementation of the headless CMS Strapi."
         descriptionFr="J'ai collaboré et supervisé la création d'un site web complet, en contribuant au frontend avec du ReactJS ainsi que du TypeScript et au backend avec la mise en place du headless CMS Strapi."
         position={[-9.4, -0.36, 9.6]}
       />

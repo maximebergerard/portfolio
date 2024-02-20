@@ -22,7 +22,9 @@
   height: 100vh;
 
   @media screen and (max-width: 768px) {
-    font-size: 5rem;
+    font-size: 4rem;
+    flex-direction: column;
+    justify-content: space-evenly;
     
   }
 }
