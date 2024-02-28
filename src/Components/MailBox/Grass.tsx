@@ -49,7 +49,7 @@ const Grass = memo(
               castShadow
             >
               <planeGeometry args={[grassWidth, grassHeight]} />
-              <meshStandardMaterial color="#3A9D23" side={THREE.DoubleSide} />
+              <meshPhongMaterial color="#3A9D23" side={THREE.DoubleSide} />
             </mesh>
           ))}
         </group>

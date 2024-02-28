@@ -12,7 +12,6 @@ const Light = () => {
 
   return (
     <>
-      <ambientLight intensity={0.05} />
       <directionalLight
         ref={directionalLight}
         position={[6, 20, 26]}
@@ -27,7 +26,6 @@ const Light = () => {
         shadow-camera-top={20}
         shadow-camera-bottom={-20}
       />
-
       <hemisphereLight
         ref={hemisphereLight}
         position={[0, 10, 16]}

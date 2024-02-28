@@ -21,7 +21,7 @@ const CraneStructure = ({
         position={[0, 0, 0]}
         castShadow
       >
-        <meshStandardMaterial color="grey" />
+        <meshPhongMaterial color="grey" />
       </RoundedBox>
       <RoundedBox
         args={[
@@ -38,7 +38,7 @@ const CraneStructure = ({
         rotation={[0, Math.PI / 2, 0]}
         castShadow
       >
-        <meshStandardMaterial color="grey" />
+        <meshPhongMaterial color="grey" />
       </RoundedBox>
       <RoundedBox
         args={[
@@ -55,7 +55,7 @@ const CraneStructure = ({
         rotation={[0, Math.PI / 2, 0]}
         castShadow
       >
-        <meshStandardMaterial color="grey" />
+        <meshPhongMaterial color="grey" />
       </RoundedBox>
       <RoundedBox
         args={[craneBaseLength, craneBaseThickness, craneBaseThickness]}
@@ -63,7 +63,7 @@ const CraneStructure = ({
         position={[0, 0, -craneBaseLength]}
         castShadow
       >
-        <meshStandardMaterial color="grey" />
+        <meshPhongMaterial color="grey" />
       </RoundedBox>
       {/** Diagonale base */}
       <RoundedBox
@@ -77,7 +77,7 @@ const CraneStructure = ({
         rotation={[0, 0, -Math.PI / 4]}
         castShadow
       >
-        <meshStandardMaterial color="grey" />
+        <meshPhongMaterial color="grey" />
       </RoundedBox>
       <RoundedBox
         args={[
@@ -90,7 +90,7 @@ const CraneStructure = ({
         rotation={[0, 0, Math.PI / 4]}
         castShadow
       >
-        <meshStandardMaterial color="grey" />
+        <meshPhongMaterial color="grey" />
       </RoundedBox>
       <RoundedBox
         args={[
@@ -107,7 +107,7 @@ const CraneStructure = ({
         rotation={[0, -Math.PI / 2, Math.PI / 4.1]}
         castShadow
       >
-        <meshStandardMaterial color="grey" />
+        <meshPhongMaterial color="grey" />
       </RoundedBox>
       <RoundedBox
         args={[
@@ -124,7 +124,7 @@ const CraneStructure = ({
         rotation={[0, Math.PI / 2, Math.PI / 4.1]}
         castShadow
       >
-        <meshStandardMaterial color="grey" />
+        <meshPhongMaterial color="grey" />
       </RoundedBox>
       {/** Verticale base */}
       <RoundedBox
@@ -142,7 +142,7 @@ const CraneStructure = ({
         rotation={[0, 0, Math.PI / 2]}
         castShadow
       >
-        <meshStandardMaterial color="grey" />
+        <meshPhongMaterial color="grey" />
       </RoundedBox>
       <RoundedBox
         args={[
@@ -159,7 +159,7 @@ const CraneStructure = ({
         rotation={[0, 0, Math.PI / 2]}
         castShadow
       >
-        <meshStandardMaterial color="grey" />
+        <meshPhongMaterial color="grey" />
       </RoundedBox>
       <RoundedBox
         args={[
@@ -176,7 +176,7 @@ const CraneStructure = ({
         rotation={[0, 0, Math.PI / 2]}
         castShadow
       >
-        <meshStandardMaterial color="grey" />
+        <meshPhongMaterial color="grey" />
       </RoundedBox>
       <RoundedBox
         args={[
@@ -193,7 +193,7 @@ const CraneStructure = ({
         rotation={[0, 0, Math.PI / 2]}
         castShadow
       >
-        <meshStandardMaterial color="grey" />
+        <meshPhongMaterial color="grey" />
       </RoundedBox>
       {/** Rectangle end */}
       {hasEnd && (
@@ -204,7 +204,7 @@ const CraneStructure = ({
             position={[0, 0, 0]}
             castShadow
           >
-            <meshStandardMaterial color="grey" />
+            <meshPhongMaterial color="grey" />
           </RoundedBox>
           <RoundedBox
             args={[
@@ -221,7 +221,7 @@ const CraneStructure = ({
             rotation={[0, Math.PI / 2, 0]}
             castShadow
           >
-            <meshStandardMaterial color="grey" />
+            <meshPhongMaterial color="grey" />
           </RoundedBox>
           <RoundedBox
             args={[
@@ -238,7 +238,7 @@ const CraneStructure = ({
             rotation={[0, Math.PI / 2, 0]}
             castShadow
           >
-            <meshStandardMaterial color="grey" />
+            <meshPhongMaterial color="grey" />
           </RoundedBox>
           <RoundedBox
             args={[craneBaseLength, craneBaseThickness, craneBaseThickness]}
@@ -246,7 +246,7 @@ const CraneStructure = ({
             castShadow
             position={[0, 0, -craneBaseLength]}
           >
-            <meshStandardMaterial color="grey" />
+            <meshPhongMaterial color="grey" />
           </RoundedBox>
         </group>
       )}

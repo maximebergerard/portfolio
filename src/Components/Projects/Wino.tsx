@@ -74,7 +74,7 @@ const TextModal = ({
           radius={0.1}
           castShadow
         >
-          <meshStandardMaterial color="#d7a6ff" />
+          <meshPhongMaterial color="#d7a6ff" />
         </RoundedBox>
         <Text
           fontSize={1}
@@ -170,14 +170,14 @@ const TextModal = ({
         />
         <group position={[4, 3.5, 0]} rotation={[0, 0, Math.PI / 4]}>
           <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
-            <meshStandardMaterial color="#f25050" />
+            <meshPhongMaterial color="#f25050" />
           </RoundedBox>
           <RoundedBox
             args={[0.8, 0.2, 0.2]}
             radius={0.05}
             rotation={[0, 0, Math.PI / 2]}
           >
-            <meshStandardMaterial color="#f25050" />
+            <meshPhongMaterial color="#f25050" />
           </RoundedBox>
         </group>
         {/** Close hitbox button back */}
@@ -195,14 +195,14 @@ const TextModal = ({
         />
         <group position={[-4, 3.5, -1.2]} rotation={[0, 0, Math.PI / 4]}>
           <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
-            <meshStandardMaterial color="#f25050" />
+            <meshPhongMaterial color="#f25050" />
           </RoundedBox>
           <RoundedBox
             args={[0.8, 0.2, 0.2]}
             radius={0.05}
             rotation={[0, 0, Math.PI / 2]}
           >
-            <meshStandardMaterial color="#f25050" />
+            <meshPhongMaterial color="#f25050" />
           </RoundedBox>
         </group>
         {/** Flip hitbox button front */}
@@ -218,7 +218,7 @@ const TextModal = ({
         />
         <group position={[4, 2.45, 0]}>
           <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
-            <meshStandardMaterial color="#6365b7" />
+            <meshPhongMaterial color="#6365b7" />
           </RoundedBox>
           <RoundedBox
             args={[0.5, 0.2, 0.2]}
@@ -226,7 +226,7 @@ const TextModal = ({
             rotation={[0, 0, Math.PI / 4]}
             position={[0.17, -0.17, 0]}
           >
-            <meshStandardMaterial color="#6365b7" />
+            <meshPhongMaterial color="#6365b7" />
           </RoundedBox>
           <RoundedBox
             args={[0.5, 0.2, 0.2]}
@@ -234,7 +234,7 @@ const TextModal = ({
             rotation={[0, 0, -Math.PI / 4]}
             position={[0.17, 0.17, 0]}
           >
-            <meshStandardMaterial color="#6365b7" />
+            <meshPhongMaterial color="#6365b7" />
           </RoundedBox>
         </group>
         {/** Flip hitbox button back */}
@@ -250,7 +250,7 @@ const TextModal = ({
         />
         <group position={[-4, 2.45, -1.2]}>
           <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
-            <meshStandardMaterial color="#6365b7" />
+            <meshPhongMaterial color="#6365b7" />
           </RoundedBox>
           <RoundedBox
             args={[0.5, 0.2, 0.2]}
@@ -258,7 +258,7 @@ const TextModal = ({
             rotation={[0, 0, Math.PI / 4]}
             position={[0.17, -0.17, 0]}
           >
-            <meshStandardMaterial color="#6365b7" />
+            <meshPhongMaterial color="#6365b7" />
           </RoundedBox>
           <RoundedBox
             args={[0.5, 0.2, 0.2]}
@@ -266,7 +266,7 @@ const TextModal = ({
             rotation={[0, 0, -Math.PI / 4]}
             position={[0.17, 0.17, 0]}
           >
-            <meshStandardMaterial color="#6365b7" />
+            <meshPhongMaterial color="#6365b7" />
           </RoundedBox>
         </group>
       </animated.group>

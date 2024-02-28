@@ -81,7 +81,7 @@ const TextModal = (props: TextModalProps) => {
           radius={0.1}
           castShadow
         >
-          <meshStandardMaterial color="#fffaa0" />
+          <meshPhongMaterial color="#fffaa0" />
         </RoundedBox>
         <group position={props.groupPosition}>
           <Text
@@ -176,14 +176,14 @@ const TextModal = (props: TextModalProps) => {
             rotation={[0, 0, Math.PI / 4]}
           >
             <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
-              <meshStandardMaterial color="#f25050" />
+              <meshPhongMaterial color="#f25050" />
             </RoundedBox>
             <RoundedBox
               args={[0.8, 0.2, 0.2]}
               radius={0.05}
               rotation={[0, 0, Math.PI / 2]}
             >
-              <meshStandardMaterial color="#f25050" />
+              <meshPhongMaterial color="#f25050" />
             </RoundedBox>
           </group>
           {props.technosTitlePosition && (
@@ -201,14 +201,14 @@ const TextModal = (props: TextModalProps) => {
               />
               <group position={[-4, 0.2, -1.2]} rotation={[0, 0, Math.PI / 4]}>
                 <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
-                  <meshStandardMaterial color="#f25050" />
+                  <meshPhongMaterial color="#f25050" />
                 </RoundedBox>
                 <RoundedBox
                   args={[0.8, 0.2, 0.2]}
                   radius={0.05}
                   rotation={[0, 0, Math.PI / 2]}
                 >
-                  <meshStandardMaterial color="#f25050" />
+                  <meshPhongMaterial color="#f25050" />
                 </RoundedBox>
               </group>
               {/** Flip hitbox button front */}
@@ -222,7 +222,7 @@ const TextModal = (props: TextModalProps) => {
               />
               <group position={[4, -0.8, 0]}>
                 <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
-                  <meshStandardMaterial color="#6365b7" />
+                  <meshPhongMaterial color="#6365b7" />
                 </RoundedBox>
                 <RoundedBox
                   args={[0.5, 0.2, 0.2]}
@@ -230,7 +230,7 @@ const TextModal = (props: TextModalProps) => {
                   rotation={[0, 0, Math.PI / 4]}
                   position={[0.17, -0.17, 0]}
                 >
-                  <meshStandardMaterial color="#6365b7" />
+                  <meshPhongMaterial color="#6365b7" />
                 </RoundedBox>
                 <RoundedBox
                   args={[0.5, 0.2, 0.2]}
@@ -238,7 +238,7 @@ const TextModal = (props: TextModalProps) => {
                   rotation={[0, 0, -Math.PI / 4]}
                   position={[0.17, 0.17, 0]}
                 >
-                  <meshStandardMaterial color="#6365b7" />
+                  <meshPhongMaterial color="#6365b7" />
                 </RoundedBox>
               </group>
               {/** Flip hitbox button back */}
@@ -252,7 +252,7 @@ const TextModal = (props: TextModalProps) => {
               />
               <group position={[-4, -0.8, -1.2]}>
                 <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
-                  <meshStandardMaterial color="#6365b7" />
+                  <meshPhongMaterial color="#6365b7" />
                 </RoundedBox>
                 <RoundedBox
                   args={[0.5, 0.2, 0.2]}
@@ -260,7 +260,7 @@ const TextModal = (props: TextModalProps) => {
                   rotation={[0, 0, Math.PI / 4]}
                   position={[0.17, -0.17, 0]}
                 >
-                  <meshStandardMaterial color="#6365b7" />
+                  <meshPhongMaterial color="#6365b7" />
                 </RoundedBox>
                 <RoundedBox
                   args={[0.5, 0.2, 0.2]}
@@ -268,7 +268,7 @@ const TextModal = (props: TextModalProps) => {
                   rotation={[0, 0, -Math.PI / 4]}
                   position={[0.17, 0.17, 0]}
                 >
-                  <meshStandardMaterial color="#6365b7" />
+                  <meshPhongMaterial color="#6365b7" />
                 </RoundedBox>
               </group>
             </>

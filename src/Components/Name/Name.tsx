@@ -77,7 +77,7 @@ const Letter = ({
   return (
     <mesh ref={ref}>
       <boxGeometry args={argsHitbox} />
-      <meshStandardMaterial color={"#ff0000"} visible={false} />
+      <meshPhongMaterial color={"#ff0000"} visible={false} />
       <Text3D
         font={"./fonts/Bree_Serif_Regular.json"}
         position={positionMesh}
@@ -89,7 +89,7 @@ const Letter = ({
         receiveShadow
       >
         {letter}
-        <meshStandardMaterial color={"#ffffff"} />
+        <meshPhongMaterial color={"#ffffff"} />
       </Text3D>
     </mesh>
   )
@@ -164,7 +164,7 @@ const Plane = () => {
   return (
     <mesh ref={ref} visible={false}>
       <planeGeometry args={[32, 30, 2]} />
-      <meshStandardMaterial color="blue" />
+      <meshPhongMaterial color="blue" />
     </mesh>
   )
 }
@@ -186,7 +186,7 @@ const Post = ({ position, args }: Post) => {
   return (
     <mesh ref={ref} visible={false}>
       <cylinderGeometry args={args} />
-      <meshStandardMaterial color={"blue"} />
+      <meshPhongMaterial color={"blue"} />
     </mesh>
   )
 }
@@ -210,7 +210,7 @@ const Box = ({ position, args, rotation }: Box) => {
   return (
     <mesh ref={ref} visible={false}>
       <boxGeometry args={args} />
-      <meshStandardMaterial color={"green"} />
+      <meshPhongMaterial color={"green"} />
     </mesh>
   )
 }

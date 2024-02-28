@@ -10,7 +10,7 @@ const BasePlane = () => {
         rotation={[Math.PI / 2, 0, 0]}
         receiveShadow
       >
-        <meshStandardMaterial color={"#a88cf5"} />
+        <meshPhongMaterial color={"#a88cf5"} />
       </RoundedBox>
     </>
   )

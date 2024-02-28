@@ -44,7 +44,7 @@ const TextModal = ({
         radius={0.1}
         castShadow
       >
-        <meshStandardMaterial color="#a6f7a0" />
+        <meshPhongMaterial color="#a6f7a0" />
       </RoundedBox>
       <group position={[0, -0.3, 0]}>
         <Text
@@ -85,14 +85,14 @@ const TextModal = ({
         />
         <group position={[3.6, 1.7, 0]} rotation={[0, 0, Math.PI / 4]}>
           <RoundedBox args={[0.8, 0.2, 0.2]} radius={0.05}>
-            <meshStandardMaterial color="#f25050" />
+            <meshPhongMaterial color="#f25050" />
           </RoundedBox>
           <RoundedBox
             args={[0.8, 0.2, 0.2]}
             radius={0.05}
             rotation={[0, 0, Math.PI / 2]}
           >
-            <meshStandardMaterial color="#f25050" />
+            <meshPhongMaterial color="#f25050" />
           </RoundedBox>
         </group>
       </group>

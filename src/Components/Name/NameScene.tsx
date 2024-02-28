@@ -46,7 +46,7 @@ const NameScene = () => {
           onPointerOver={() => (document.body.style.cursor = "pointer")}
           onPointerOut={() => (document.body.style.cursor = "grab")}
         >
-          <meshStandardMaterial color={"red"} visible={false} />
+          <meshPhongMaterial color={"red"} visible={false} />
         </Box>
         <Cylinder
           args={[0.4, 0.4, 4, 16]}
@@ -54,20 +54,20 @@ const NameScene = () => {
           castShadow
           receiveShadow
         >
-          <meshStandardMaterial color="lightgrey" />
+          <meshPhongMaterial color="lightgrey" />
         </Cylinder>
         <Cylinder
           args={[0.35, 0.35, 0.1, 16]}
           position={[0, 4.05, 0]}
           castShadow
         >
-          <meshStandardMaterial color={"black"} />
+          <meshPhongMaterial color={"black"} />
         </Cylinder>
         <animated.group
           position={positionRedBuzzer.position.to((x, y, z) => [x, y, z])}
         >
           <Sphere args={[0.35, 16, 16]} castShadow>
-            <meshStandardMaterial color="red" />
+            <meshPhongMaterial color="red" />
           </Sphere>
         </animated.group>
       </group>

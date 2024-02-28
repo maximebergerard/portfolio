@@ -28,21 +28,21 @@ const MousePointer = () => {
         rotation={[0, 0, 0]}
         castShadow
       >
-        <meshStandardMaterial color="#d0bdde" />
+        <meshPhongMaterial color="#d0bdde" />
       </Cylinder>
       <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 7, 0]} castShadow>
         <Geometry useGroups>
           <Base name="base">
             <cylinderGeometry args={[1.7, 1.7, 0.4, 32]} />
-            <meshStandardMaterial color="#ffffff" side={THREE.DoubleSide} />
+            <meshPhongMaterial color="#ffffff" side={THREE.DoubleSide} />
           </Base>
           <Subtraction name="hole" position={[0, 0.15, 0]}>
             <cylinderGeometry args={[1.5, 1.5, 0.3, 32]} />
-            <meshStandardMaterial color="#585efc" side={THREE.DoubleSide} />
+            <meshPhongMaterial color="#585efc" side={THREE.DoubleSide} />
           </Subtraction>
           <Subtraction name="hole" position={[0, -0.3, 0]}>
             <cylinderGeometry args={[1.5, 1.5, 0.3, 32]} />
-            <meshStandardMaterial color="#585efc" side={THREE.DoubleSide} />
+            <meshPhongMaterial color="#585efc" side={THREE.DoubleSide} />
           </Subtraction>
         </Geometry>
       </mesh>

@@ -114,7 +114,7 @@ const Banner = ({
         args={[flagWidth, flagHeight, flagWidth * 4, flagHeight * 4]}
         receiveShadow
       >
-        <meshStandardMaterial map={texture} side={THREE.DoubleSide} />
+        <meshPhongMaterial map={texture} side={THREE.DoubleSide} />
       </Plane>
     </group>
   )

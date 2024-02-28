@@ -14,15 +14,15 @@ const Podium = () => {
     <>
       <mesh position={[-3, 0, 0]} castShadow receiveShadow>
         <boxGeometry args={[3, 2.5, 3]} />
-        <meshStandardMaterial color="#ffcffd" />
+        <meshPhongMaterial color="#ffcffd" />
       </mesh>
       <mesh position={[0, 0.5, 0]} castShadow receiveShadow>
         <boxGeometry args={[3, 3, 3]} />
-        <meshStandardMaterial color="#ffcffd" />
+        <meshPhongMaterial color="#ffcffd" />
       </mesh>
       <mesh position={[3, 0, 0]} castShadow receiveShadow>
         <boxGeometry args={[3, 2, 3]} />
-        <meshStandardMaterial color="#ffcffd" />
+        <meshPhongMaterial color="#ffcffd" />
       </mesh>
     </>
   )

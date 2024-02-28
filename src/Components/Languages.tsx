@@ -82,7 +82,7 @@ const LanguageButton = () => {
     <>
       <animated.group position={animation.position.to((x, y, z) => [x, y, z])}>
         <Box args={[2, 1.2, 0.5]}>
-          <meshStandardMaterial color="green" opacity={0.3} transparent />
+          <meshPhongMaterial color="green" opacity={0.3} transparent />
         </Box>
       </animated.group>
       <primitive

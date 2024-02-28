@@ -7,9 +7,9 @@ import { useLanguage } from "../../Utils/useLanguage"
 const AdsPanel = () => {
   const panelHeight = 10
 
-  const texture1 = useLoader(THREE.TextureLoader, "/images/adsImgFr1.png")
-  const texture2 = useLoader(THREE.TextureLoader, "/images/adsImgEn1.png")
-  const texture3 = useLoader(THREE.TextureLoader, "/images/adsImg2.png")
+  const texture1 = useLoader(THREE.TextureLoader, "/images/adsImgFr1.jpg")
+  const texture2 = useLoader(THREE.TextureLoader, "/images/adsImgEn1.jpg")
+  const texture3 = useLoader(THREE.TextureLoader, "/images/adsImg2.jpg")
   const { language } = useLanguage()
 
   return (
@@ -25,7 +25,7 @@ const AdsPanel = () => {
           receiveShadow={true}
           castShadow
         >
-          <meshStandardMaterial color={"#d3d3d3"} />
+          <meshPhongMaterial color={"#d3d3d3"} />
         </Cylinder>
         {/** Front panel */}
         <group
@@ -87,7 +87,7 @@ const Panel = ({ texture }: { texture: THREE.Texture }) => {
         <Geometry useGroups>
           <Base name="base" scale={[panelWidth, panelHeight, 1]}>
             <boxGeometry />
-            <meshStandardMaterial color={"#81B1CC"} />
+            <meshPhongMaterial color={"#81B1CC"} />
           </Base>
           <Subtraction
             name="hole"
@@ -96,7 +96,7 @@ const Panel = ({ texture }: { texture: THREE.Texture }) => {
             rotation={[0, 0, 0]}
           >
             <boxGeometry />
-            <meshStandardMaterial color={"#D3CCCA"} map={texture} />
+            <meshPhongMaterial color={"#D3CCCA"} map={texture} />
           </Subtraction>
         </Geometry>
       </mesh>

@@ -41,6 +41,8 @@ const OCamera = () => {
 
   const three = useThree()
 
+  three.gl.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
   const zoom = three.size.width * 0.023
   if (camera.current) {
     camera.current.zoom = zoom

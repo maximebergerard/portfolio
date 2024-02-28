@@ -69,7 +69,7 @@ function ChainLink({
     <>
       <mesh ref={chainLinkRef as React.Ref<THREE.Mesh>} castShadow>
         <cylinderGeometry args={args} />
-        <meshStandardMaterial color={color} />
+        <meshPhongMaterial color={color} />
       </mesh>
       <parent.Provider value={{ position, ref: chainLinkRef }}>
         {children}
@@ -102,7 +102,7 @@ function Rock() {
     <mesh ref={rockRef} scale={4} castShadow>
       {/* Define the geometry and material for the rock */}
       <sphereGeometry args={[0.5, 16, 16]} />
-      <meshStandardMaterial color="#211f1f" />
+      <meshPhongMaterial color="#211f1f" />
     </mesh>
   )
 }
@@ -238,14 +238,14 @@ const Crane = () => {
           position={[0, 0.3, -craneBaseLength / 2]}
           castShadow
         >
-          <meshStandardMaterial color="#bababa" />
+          <meshPhongMaterial color="#bababa" />
         </RoundedBox>
         <RoundedBox
           args={[6, 1, 6]}
           radius={0.2}
           position={[0, -0.71, -craneBaseLength / 2]}
         >
-          <meshStandardMaterial color="#bababa" />
+          <meshPhongMaterial color="#bababa" />
         </RoundedBox>
         {Array.from({ length: 5 }).map((_, i) => (
           <group key={i} position={[0, craneBaseLength * (i + 0.15) - 0.5, 0]}>

@@ -64,7 +64,7 @@ const Post = ({ position }: PostProps) => {
         rotation={[0, 0, 0]}
         castShadow
       >
-        <meshStandardMaterial color={"#5e5c5c"} />
+        <meshPhongMaterial color={"#5e5c5c"} />
       </RoundedBox>
       <Sphere
         args={[0.3, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2]}
@@ -72,7 +72,7 @@ const Post = ({ position }: PostProps) => {
         rotation={[0, 0, 0]}
         castShadow
       >
-        <meshStandardMaterial color={"#30302f"} />
+        <meshPhongMaterial color={"#30302f"} />
       </Sphere>
     </group>
   )
